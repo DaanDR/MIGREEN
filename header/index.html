@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title><?php echo $title ?></title>
+    <link type="text/css" rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+    <style>
+        
+    #usericonbar {
+    width: 30px;
+    height: 5px;
+    background-color: antiquewhite;
+    margin: 3px;
+    border-radius: 1.5px;
+}
+        
+    h1 {
+            color: crimson;
+             float: left;
+        }
+        ul{
+            list-style-type: none;
+        }
+        
+        li{
+            float: left;
+        }
+        
+        .active{
+            color: crimson;
+        }
+        
+        li a{
+            color: black;
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 13px 8px 8px;
+        }
+        
+.dropdown{
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0px;
+    margin-left: 85%;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+
+.dropdown-content a{
+    float: none;
+    color: black;
+    padding: 8px 10px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover{
+    color: crimson;
+}
+
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+    </style>
+</head>
+<body>
+    <h1>MyInsights</h1>
+    <nav id="navmenu">
+    <ul>
+        <li> <i class="fas fa-home"></i></li>
+    <li><a href="blabla" class="active">Gebruikers</a></li>
+    <li><a href="blabla">Klanten</a></li>
+        <li><a href="blabla">Omgevingen</a></li></ul>
+    </nav>
+
+
+         
+    <div id="usericon" class="dropdown">
+        <div id="usericonbar"></div>
+        <div id="usericonbar"></div>
+        <div id="usericonbar"></div>
+        <div class="dropdown-content">
+        <a href="account.html"> Account </a>
+        <a href="uitloggen.html"> Uitloggen </a>
+        </div>
+
+    </div>
+    
+    
+    </body>
+    
+</html>

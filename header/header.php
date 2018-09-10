@@ -1,5 +1,5 @@
-<?php
-// Voor de title bar
+ <?php
+ Voor de title bar
     session_start();
     if ( isset($_SESSION["title"]) )
     {
@@ -19,6 +19,19 @@
     <title><?php echo $title ?></title>
 </head>
 <body>
-Test de shit
-</body>
+    
+    <div id="usericon" class="dropdown">
+        <div id="usericonbar"></div>
+        <div id="usericonbar"></div>
+        <div id="usericonbar"></div>
+        <div class="dropdown-content">
+        <a href="account.html"> Account </a>
+        <a href="uitloggen.html"> Uitloggen </a>
+        </div>
+
+    </div>
+    
+    
+    </body>
+    
 </html>
