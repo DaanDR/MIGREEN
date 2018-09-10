@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style media="screen">
+    body {
+      background-color: #F2F6FA;
+      font-family: 'Roboto', sans-serif;
+
+    }
+
+    .content {
+      grid-area: main;
+    }
+
+    .header-mid {
+      grid-area: header;
+    }
+
+    .header-left {
+      grid-area: left;
+    }
+
+    .header-right {
+      grid-area: right;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-areas: 'left header header header header right' 'main main main main main main';
+      /* margin-left: 151
+      margin-right: 15%; */
+    }
+
+    .grid-container>div {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 10px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    h1 {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: left;
+      color: grey;
+      font-size: 100%;
+    }
+  </style>
+
+  <meta charset="utf-8">
+  <title>Gebruikersoverzicht</title>
+
+
+</head>
+<div class="grid-container">
+  <div class="header-left">
+    <h2>Home</h2>
+    <p>
+      <h1>Gebruikersoverzicht</h1></p>
+  </div>
+  <div class="header-mid"></div>
+  <div class="header-right"><button type="button" name="button">Nieuwe gebruiker aanmaken!</button></div>
+  <div class="content">
+    <table style="width:100%">
+      <tr>
+        <th>GEBRUIKERSNAAM</th>
+        <th>VOORNAAM</th>
+        <th>ACHTERNAAM</th>
+        <th>ROL</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>MOTIS_20</td>
+        <td>Mitchell</td>
+        <td>Sitohang</td>
+        <td>Sous-chef</td>
+        <td><i class="fas fa-pencil-alt"></i> <i class="fas fa-trash-alt"></i></td>
+      </tr>
+      <tr>
+        <td>ANDY_CAP</td>
+        <td>Anderson</td>
+        <td>Petrus</td>
+        <td>Captain</td>
+        <td><i class="fas fa-pencil-alt"></i> <i class="fas fa-trash-alt"></i></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<body>
+
+</body>
+
+</html>
