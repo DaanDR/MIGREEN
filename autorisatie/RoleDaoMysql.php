@@ -17,10 +17,10 @@ class RoleDaoMysql implements RoleDao
     {
         $dbConn = new mysqlConnector();
 
-        $sql = "INSERT INTO role(role,sessionDuration_hour,dashboard_link) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO role(role,sessionDuration_hour,dashboard_link) VALUES (?, ?, ?)";
   
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('ssss', $role, 'isss', $maxSessionDuration, 'ssss', $dashboardLink);
+        $stmt->bind_param('sis', $role, $maxSessionDuration, $dashboardLink);
         $stmt->execute();
         
         $dbConn->getConnector()->close();
