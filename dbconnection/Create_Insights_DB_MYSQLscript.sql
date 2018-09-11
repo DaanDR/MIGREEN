@@ -7,9 +7,9 @@ dashboard_link varchar(255),
 Constraint pk_role primary key (role)
 );
 insert into insights_db.role values (
-'admin','1');
+'admin','1', 'link');
 insert into insights_db.role values (
-'user','24');
+'user','24', 'link');
 create table insights_db.user (
 userID int not null auto_increment,
 userName varchar(45) not null unique default 'unknownUserName',
