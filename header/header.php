@@ -31,9 +31,9 @@
          
     <div id="usericon" class="dropdown">
         <div id="usericonbar"><i class="fas fa-user"></i></div>
-        <div class="dropdown-content"><a href="header.php?action=account"> Account </a>
+        <div class="dropdown-content"><a href="../header/header.php?action=account"> Account </a>
 <!--        <a href="header.php?action=logout"> Uitloggen </a>-->
-        <a href="header.php?action=logout" onclick="return deleteask();">Logout</a></div>
+        <a href="../header/header.php?action=logout" onclick="return deleteask();">Logout</a></div>
 
     </div>
     
