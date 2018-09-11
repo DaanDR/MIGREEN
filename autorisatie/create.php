@@ -18,8 +18,11 @@
         <div class="user_input">
             <form method="post">
             <ul>
-            Klantnaam:      <input type="text" name="waarde" minlength=2>  <br> <br>
-            Wachtwoord:     <input type="password" name="waarde">  <br>
+            Klantnaam (minimaal: 2 karakters):  <br>
+            <input type="text" name="waarde" minlength=2>  <br> <br>
+                
+            Wachtwoord: <br>
+            <input type="password" name="waarde">  <br>
                 
             <div class = "submit_button">
                 <input type="submit" value="aanmaken nieuwe klant">

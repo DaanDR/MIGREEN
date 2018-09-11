@@ -20,7 +20,7 @@
     }
 
     .user_input {
-        width: 10%;                         /* breedte v/d tekst */
+        width: 60%;                         /* breedte v/d tekst */
         margin-left: 10%;                   /* Plek in menu */
         margin-top: 4%;                     /* Plek in menu */
     }
