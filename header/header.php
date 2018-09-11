@@ -25,7 +25,6 @@
             <li><a href="blabla" class="active">Gebruikers</a></li>
             <li><a href="blabla">Klanten</a></li>
             <li><a href="blabla">Omgevingen</a></li>
-<!--            <li><a href="dropdown"><i class="fas fa-user"> </a></li>-->
         </ul>
     </nav>
          
