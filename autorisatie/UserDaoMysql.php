@@ -34,7 +34,7 @@ class UserDaoMysql implements UserDao
     {
 
     }
-    public function selecUser($id)
+    public function selectUser($id)
     {
 
     }
