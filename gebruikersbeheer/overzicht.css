@@ -27,12 +27,15 @@ th {
   border-top: solid #E2E9F0 1px;
   border-bottom: solid #E2E9F0 1px;
   font-weight: bolder;
+  padding-top: 10px;
   padding-bottom: 10px;
   flex: 1;
 }
 
 td {
   flex:1;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-bottom: solid #E2E9F0 1px;
 }
 
@@ -42,7 +45,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  background-color:rgba(242, 246, 250);   
+  background-color:rgba(242, 246, 250);
 }
 
 tr:hover {
@@ -50,20 +53,25 @@ tr:hover {
   -webkit-box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
   -moz-box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
   box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
-  z-index: 2 !important;    
+  z-index: 2 !important;
 }
 
-i {
+/* i {
   margin: 0 auto;
-}
+} */
 
 .glyph-icon:hover {
   color: rgb(178,34,34);
   cursor: pointer;
 }
 
+.icon-cell {
+  text-align: center;
+}
+
 .glyph-icon {
   font-size: 150%;
+  padding-right: 10%;
 }
 
 .content {
@@ -83,6 +91,8 @@ i {
 }
 
 .grid-container {
+  margin-left: 12.5%;
+  width: 75%;
   display: grid;
   grid-template-areas: 'left header header header header right' 'main main main main main main';
   /* margin-left: 151
@@ -101,6 +111,7 @@ i {
   color: white;
   /* font-weight: bolder; */
   margin-top: 10%;
+  margin-left: 25%;
   border-radius: 2px;
   padding: 10px;
 }
