@@ -13,7 +13,7 @@
 	font-size: 120%;
 }
 
-h1 {
+header {
 	color: var(--myBit-red);
 	float: left;
 	margin-top: -15px;

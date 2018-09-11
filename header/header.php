@@ -16,10 +16,8 @@
 
 
     <title><?php echo $title ?></title>
-</head>
-<body>
 
-   <h1>MyInsights</h1>
+   <header class="header">MyInsights</header>
     <nav id="navmenu">
         <ul>
             <li><a href="http://localhost:8080/MIGreen/header/header.php" ></a><i class="fas fa-home"></i></li>
@@ -78,6 +76,6 @@
         }
 ?>
     
-    </body>
+    </head>
     
 </html>
