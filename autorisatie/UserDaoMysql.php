@@ -1,4 +1,5 @@
 <?php
+
 // Default Connector voor de mysql...
 include_once ("../dbconnection/mysqlConnector.php");
 include_once ("UserDao.php");
@@ -62,14 +63,11 @@ class UserDaoMysql implements UserDao
             $role
         );
         
+        // Vul de rij met maar 1 record uit de database
         while ($stmt->fetch()) 
         {
-            // $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
-            echo $userid . $userName;
+            $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
         }
-        // $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
-        // $newUser = new user($row["userID"], $row["userName"], $row["password"], $row["firstname"], $row["lastname"], $row["role"]);
-        
         return $newUser;
     }
 }
