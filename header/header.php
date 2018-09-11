@@ -1,17 +1,15 @@
  <?php
 //  Voor de title bar
-    if(!isset($_SESSION)) 
+    @session_start();
+    $title = "";
+
+    if ( isset($_SESSION["title"]) )
     {
-        //  Voor de title bar
-        session_start();
-        if ( isset($_SESSION["title"]) )
-        {
-            $title = $_SESSION["title"];
-        }
-        else
-        {
-            $title = "MyBit MyInsight";
-        }
+        $title = $_SESSION["title"];
+    }
+    else
+    {
+        $title = "MyBit MyInsight";
     }
 ?>
 
