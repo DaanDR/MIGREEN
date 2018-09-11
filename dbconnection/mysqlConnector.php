@@ -2,19 +2,34 @@
 
 // Wijzig onderstaande waarden van de variabelen naar die van je eigen mysql database
 // DB credentials
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpassword = "Appel-Peer-Framboos1976";
-$dbname = "insights_db";
+class mysqlConnector
+{
+    private $dbhost = "localhost";
+    private $dbuser = "root";
+    private $dbpassword = "guidoleen";
+    private $dbname = "insights_db";
 
-// Create connection
-$connector = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
+    private $connector;
 
-// Check Connection
-if ($connector->connect_error) {
-    die("DB connection failed: " . $connector->connect_error);
-} else {
-    echo "DB connection established";
+    public function __construct()
+    {
+        
+    }
+
+    // Create connection
+    public function getConnector()
+    {
+        $this->connector = new mysqli($this->dbhost, $this->dbuser, $this->dbpassword, $this->dbname);
+
+        // Check Connection
+        if ($this->connector->connect_error) {
+            die("DB connection failed: " . $this->connector->connect_error);
+        } else {
+            echo "DB connection established";
+        }
+
+        return $this->connector;
+    }
 }
 
 
