@@ -9,7 +9,7 @@
     // Title van de pagina...
     if(!isset($_SESSION)) 
     {
-        $_SESSION["title"] = "Log in hier";
+        $_SESSION["title"] = "Log hier in";
     } 
 
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
@@ -33,7 +33,9 @@
         }
         else
         {
-            echo "<br> <h2>Helaas Niet ingelogged probeer het nog een keer.</h2>";
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog een keer.</h2>";
         }
     }
 
