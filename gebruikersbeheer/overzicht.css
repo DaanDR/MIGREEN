@@ -21,6 +21,7 @@ table  {
   /* border-bottom: solid black 1px; */
   border-spacing: 0px;
   width: 100%;
+  text-align: left;
 }
 
 th {
