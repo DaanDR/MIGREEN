@@ -1,9 +1,7 @@
-$(function(){
-    $('a#logout').click(function(){
-        if(confirm('Are you sure to logout')) {
-            return true;
-        }
-
-        return false;
-    });
-});
+function deleteask(){
+  if (confirm('Wil je zeker weten uitloggen?')){
+    return true;
+  }else{
+    return false;
+  }
+}

@@ -32,7 +32,9 @@
     <div id="usericon" class="dropdown">
         <div id="usericonbar"><i class="fas fa-user"></i></div>
         <div class="dropdown-content"><a href="header.php?action=account"> Account </a>
-        <a href="header.php?action=logout"> Uitloggen </a></div>
+<!--        <a href="header.php?action=logout"> Uitloggen </a>-->
+        <a href="header.php?action=logout" onclick="return deleteask();">Logout</a></div>
+
     </div>
     
      <?php
@@ -64,10 +66,12 @@
             logout();
             break;
     }
-//    function logout(){
-////        print "uitloggen";
-//       alert("Log uit bro");
-//    }
+    function logout(){
+        session_destroy();
+        header("Location: ../autorisatie/login.php");
+        exit();
+//       print "Log uit";
+    }
         
         function account(){
             print "accountje";
