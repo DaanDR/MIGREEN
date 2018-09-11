@@ -1,5 +1,14 @@
 <?php include('header.php'); ?>
 
+<?php
+
+$users = [
+  ["naam"=>"Tim","leeftijd"=>"oud"],
+  ["naam"=>"Huy","leeftijd"=>"jong"],
+  ["naam"=>"Mitchell","leeftijd"=>"mwah"]
+];
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -21,6 +30,27 @@
   <div class="header-mid"></div>
   <div class="header-right"><button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button></div>
   <div class="content">
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Naam</th>
+      <th>Leeftijd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($users as $user):?>
+      <tr><td><?=$user["naam"]?></td><td><?=$user["leeftijd"]?></td></tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
+
+
+
+
+
+
     <table>
       <thead>
         <tr>
@@ -70,3 +100,4 @@
 </body>
 
 </html>
+
