@@ -1,11 +1,12 @@
-<?php include('header.php'); ?>
+<!-- <?php include('header.php'); ?> -->
 
 <?php
 
 $users = [
-  ["naam"=>"Tim","leeftijd"=>"oud"],
-  ["naam"=>"Huy","leeftijd"=>"jong"],
-  ["naam"=>"Mitchell","leeftijd"=>"mwah"]
+  ["GEBRUIKERSNAAM"=>"TimD","VOORNAAM"=>"Tim", "ACHTERNAAM"=>"Dinh", "ROL"=>"Admin"],
+  ["GEBRUIKERSNAAM"=>"MitchellS","VOORNAAM"=>"Mitchell", "ACHTERNAAM"=>"Sitohang", "ROL"=>"Superadmin"],
+  ["GEBRUIKERSNAAM"=>"DaanP","VOORNAAM"=>"Daan", "ACHTERNAAM"=>"Pomp", "ROL"=>"Peasant"],
+  ["GEBRUIKERSNAAM"=>"AndersonP","VOORNAAM"=>"Anderson", "ACHTERNAAM"=>"Petrus", "ROL"=>"Masseuse"],
 ];
 ?>
 
@@ -22,35 +23,42 @@ $users = [
 </head>
 
 <body>
-<div class="grid-container">
-  <div class="header-left">
-    <h1>Home</h1>
-    <h2>Gebruikersoverzicht</h2>
-  </div>
-  <div class="header-mid"></div>
-  <div class="header-right"><button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button></div>
-  <div class="content">
+  <div class="grid-container">
+    <div class="header-left">
+      <h1>Home</h1>
+      <h2>Gebruikersoverzicht</h2>
+    </div>
+    <div class="header-mid"></div>
+    <div class="header-right"><button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button></div>
+    <div class="content">
 
 
-<table>
-  <thead>
-    <tr>
-      <th>Naam</th>
-      <th>Leeftijd</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach($users as $user):?>
-      <tr><td><?=$user["naam"]?></td><td><?=$user["leeftijd"]?></td></tr>
-    <?php endforeach;?>
-  </tbody>
-</table>
+    <table>
+        <thead>
+          <tr>
+           <th>GEBRUIKERSNAAM</th>
+           <th>VOORNAAM</th>
+           <th>ACHTERNAAM</th>
+           <th>ROL</th>
+           <th></th>
+         </tr>
+       </thead>
+       <tbody>
+        <?php foreach($users as $user):?>
+          <tr>
+            <td><?=$user["GEBRUIKERSNAAM"]?></td>
+            <td><?=$user["VOORNAAM"]?></td>
+            <td><?=$user["ACHTERNAAM"]?></td>
+            <td><?=$user["ROL"]?></td>
+            <td class="icon-cell"><i class="fas fa-poo glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
+          </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
 
 
 
-
-
-
+<!-- 
     <table>
       <thead>
         <tr>
@@ -93,7 +101,7 @@ $users = [
         </tr>
       </tbody>
 
-    </table>
+    </table> -->
   </div>
 </div>
 
