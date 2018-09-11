@@ -34,9 +34,23 @@ class UserDaoMysql implements UserDao
     {
 
     }
-    public function selecUser($id)
+    public function selectUser($username, $password)
     {
-
+        $dbConn = new mysqlConnector();
+        
+        $newUser = null;
+        
+        $sql = "SELECT * FROM user WHERE userName='$username' AND password='$password' LIMIT 1";
+        $results = mysqli_query($dbConn, $sql);
+        $dbConn->getConnector()->close();
+        
+        $row = $result->fetch_assoc();
+        
+        // public function __construct($id, $username, $password, $firstname, $lastname, $role)
+        $newUser = new user($row["userID"], $row["userName"], $row["password"], $row["firstname"], $row["lastname"], $row["role"]);
+        
+        return $newUser;
+        
     }
 }
 

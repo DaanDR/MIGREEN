@@ -17,7 +17,8 @@ class User {
     private $lastname;
     private $role;
     
-    public function __construct($username, $password, $firstname, $lastname, $role) {
+    public function __construct($id, $username, $password, $firstname, $lastname, $role) {
+        $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->firstname = $firstname;
@@ -25,16 +26,55 @@ class User {
         $this->role = $role;
     }
     
-    public function setId($id) {
-        $this->id = $id;
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
     
 }
-
-
-
-
-
-
 
 />
