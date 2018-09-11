@@ -12,9 +12,26 @@
       font-family: 'Roboto', sans-serif;
     }
 
+    table  {
+      /* border-top: solid black 1px ; */
+      border-color: #E2E9F0;
+      /* border-bottom: solid black 1px; */
+      border-spacing: 0px;
+    }
+
     th {
+      border-top: solid #E2E9F0 1px;
+      border-bottom: solid #E2E9F0 1px;
       font-weight: bolder;
       padding-bottom: 10px;
+    }
+
+    td {
+      border-bottom: solid #E2E9F0 1px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #F2F6FA;
     }
 
     .new-user-button {
@@ -36,6 +53,10 @@
     .glyph-icon:hover {
       color: rgb(178,34,34);
       cursor: pointer;
+    }
+
+    i {
+      margin: 0 auto;
     }
 
     .glyph-icon {
