@@ -1,8 +1,9 @@
-drop schema insights_db;
+drop schema if exists insights_db;
 create database insights_db;
 create table insights_db.role (
 role varchar(45) not null unique default 'user',
 sessionDuration_hour int not null default '24',
+dashboard_link varchar(255),
 Constraint pk_role primary key (role)
 );
 insert into insights_db.role values (
