@@ -12,24 +12,28 @@
         $_SESSION["title"] = "Log in hier";
     } 
 
-    // Login the page
+    // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
     {
+        // Roep de class UserDaoMysql aan
         $loginUser = new UserDaoMysql();
         $loginUser = $loginUser->selectUser( $_POST['username'], $_POST['password'] );
 
-        // var_dump($loginUser);
-
         if( $loginUser !== null )
         {
-            echo "Ingelogged";
+            echo "<br> <h2>Ingelogged!!!!!!! </h2>";
+
+            // Haal de user info uit de User array/object $loginUser
+            // en maak session vars aan.
+            $_SESSION['id'] =  $loginUser->getId();
+            $_SESSION['username'] =  $loginUser->getUsername();
+            $_SESSION['firstname'] =  $loginUser->getFirstname();
+            $_SESSION['lastname'] =  $loginUser->getLastname();
+            $_SESSION['role'] =  $loginUser->getRole();
         }
         else
         {
-            $_SESSION['name'] = $_POST['username'];
-            // $_SESSION = array();
-
-            // echo "Niet ingelogged" . $_SESSION['name'];
+            echo "<br> <h2>Helaas Niet ingelogged probeer het nog een keer.</h2>";
         }
     }
 
