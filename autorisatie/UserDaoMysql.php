@@ -1,7 +1,8 @@
 <?php
-
+// Default Connector voor de mysql...
 include_once ("../dbconnection/mysqlConnector.php");
 include_once ("UserDao.php");
+include_once ("User.php");
 
 class UserDaoMysql implements UserDao
 {
@@ -37,21 +38,39 @@ class UserDaoMysql implements UserDao
 
     public function selectUser($username, $password)
     {
-        $dbConn = new mysqlConnector();
-        
         $newUser = null;
+        $dbConn = new mysqlConnector();
+
+        $userid;
+        $userName;
+        $password;
+        $firstname;
+        $lastname;
+        $role;
         
-        $sql = "SELECT * FROM user WHERE userName='$username' AND password='$password' LIMIT 1";
-        $results = mysqli_query($dbConn, $sql);
-        $dbConn->getConnector()->close();
+        $sql = "SELECT userID, userName, password, firstname, lastname, role FROM user WHERE userName = ? AND password = ? LIMIT 1"; 
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('ss', $username, $password);
+        $stmt->execute();
+        $stmt->store_result();
+		$stmt->bind_result(
+            $userid,
+            $userName,
+            $password,
+            $firstname,
+            $lastname,
+            $role
+        );
         
-        $row = $result->fetch_assoc();
-        
-        // public function __construct($id, $username, $password, $firstname, $lastname, $role)
-        $newUser = new user($row["userID"], $row["userName"], $row["password"], $row["firstname"], $row["lastname"], $row["role"]);
+        while ($stmt->fetch()) 
+        {
+            // $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
+            echo $userid . $userName;
+        }
+        // $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
+        // $newUser = new user($row["userID"], $row["userName"], $row["password"], $row["firstname"], $row["lastname"], $row["role"]);
         
         return $newUser;
-        
     }
 }
 
