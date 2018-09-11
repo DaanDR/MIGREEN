@@ -1,7 +1,4 @@
 <?php
-
-namespace Autorisatie;
-
 // use placeholder
 
 /** 
