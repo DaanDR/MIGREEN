@@ -27,6 +27,13 @@
 			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
 			<li><a href="blabla" >KLANTEN</a></li>
 			<li><a href="blabla" >OMGEVINGEN</a></li>
+            
+<!--
+            <li><a href="../gebruikersbeheer/overzicht.html" class="btn">GEBRUIKERS</a></li>
+			<li><a href="blabla" class="btn">KLANTEN</a></li>
+			<li><a href="blabla" class="btn">OMGEVINGEN</a></li>
+-->
+            
             <li><i id="dropdown-button" class="fas fa-user"></i>
                 <div id="dropdown-window">
                 <ul class="dropdown-content">
