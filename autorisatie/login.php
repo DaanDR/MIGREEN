@@ -17,19 +17,30 @@
     {
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
-        $loginUser = $loginUser->selectUser( $_POST['username'], $_POST['password'] );
-
-        if( $loginUser !== null )
+        $loginUser = $loginUser->selectUser( $_POST['username'] );
+        
+        // Haal de user info uit de User array/object $loginUser
+        // en maak session vars aan.
+        $_SESSION['id'] =  $loginUser->getId();
+        $_SESSION['username'] =  $loginUser->getUsername();
+        $_SESSION['password'] =  $loginUser->getPassword();
+        $_SESSION['firstname'] =  $loginUser->getFirstname();
+        $_SESSION['lastname'] =  $loginUser->getLastname();
+        $_SESSION['email'] = $loginUser->getEmail();
+        $_SESSION['role'] =  $loginUser->getRole();
+        
+        //Geef melding als de user niet bestaat
+        if( $_POST['username'] !== $_SESSION['username'])
         {
-            echo "<br> <h2>Ingelogged!!!!!!! </h2>";
-
-            // Haal de user info uit de User array/object $loginUser
-            // en maak session vars aan.
-            $_SESSION['id'] =  $loginUser->getId();
-            $_SESSION['username'] =  $loginUser->getUsername();
-            $_SESSION['firstname'] =  $loginUser->getFirstname();
-            $_SESSION['lastname'] =  $loginUser->getLastname();
-            $_SESSION['role'] =  $loginUser->getRole();
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
+        }
+        
+        // Password checken (vergelijkt invoer met het password in de database)
+        if( $_POST['password'] == $_SESSION['password'] )
+        {
+            echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
             
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
@@ -45,7 +56,7 @@
         {
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog een keer.</h2>";
+            echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
             
         }
     }

@@ -15,14 +15,14 @@ class UserDaoMysql implements UserDao
     }
 
     // Insert new User
-    public function insertUser($userName, $password, $firstname, $lastname, $role)
+    public function insertUser($userName, $password, $firstname, $lastname, $email, $role)
     {
         $dbConn = new mysqlConnector();
 
-        $sql = "INSERT INTO user(userName, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO user(userName, password, firstname, lastname, email, role) VALUES (?, ?, ?, ?, ?, ?)";
   
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('sssss', $userName, $password, $firstname, $lastname, $role);
+        $stmt->bind_param('ssssss', $userName, $password, $firstname, $lastname, $email, $role);
         $stmt->execute();
         
         $dbConn->getConnector()->close();
@@ -38,7 +38,7 @@ class UserDaoMysql implements UserDao
 
     }
 
-    public function selectUser($username, $password)
+    public function selectUser($username)
     {
         $newUser = null;
         $dbConn = new mysqlConnector();
@@ -48,12 +48,17 @@ class UserDaoMysql implements UserDao
         $password;
         $firstname;
         $lastname;
+        $email;
         $role;
         
-        $sql = "SELECT userID, userName, password, firstname, lastname, role FROM user WHERE userName = ? AND password = ? LIMIT 1"; 
+        $sql = "SELECT userID, userName, password, firstname, lastname, email, role FROM user WHERE userName = ?"; 
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('ss', $username, $password);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
+        
+        //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
+        if (mysqli_stmt_result_metadata() !== null)
+        {    
         $stmt->store_result();
 		$stmt->bind_result(
             $userid,
@@ -61,14 +66,28 @@ class UserDaoMysql implements UserDao
             $password,
             $firstname,
             $lastname,
+            $email,
             $role
         );
-        
-        // Vul de rij met maar 1 record uit de database
-        while ($stmt->fetch()) 
+            // Vul de rij met maar 1 record uit de database
+            while ($stmt->fetch()) 
+            {
+                $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
+            }
+        }else
         {
-            $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
+            //alles op null zetten bij teruggave lege resultset
+            $userid = null;
+            $userName = null;
+            $password = null;
+            $firstname = null;
+            $lastname = null;
+            $email = null;
+            $role = null;
+            $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
         }
+        
+        
         return $newUser;
     }
     
