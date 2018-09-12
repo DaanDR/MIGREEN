@@ -15,14 +15,14 @@ class UserDaoMysql implements UserDao
     }
 
     // Insert new User
-    public function insertUser($userName, $password, $firstname, $lastname, $role)
+    public function insertUser($userName, $password, $firstname, $lastname, $email, $role)
     {
         $dbConn = new mysqlConnector();
 
-        $sql = "INSERT INTO user(userName, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO user(userName, password, firstname, lastname, email, role) VALUES (?, ?, ?, ?, ?, ?)";
   
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('sssss', $userName, $password, $firstname, $lastname, $role);
+        $stmt->bind_param('ssssss', $userName, $password, $firstname, $lastname, $email, $role);
         $stmt->execute();
         
         $dbConn->getConnector()->close();
@@ -55,6 +55,10 @@ class UserDaoMysql implements UserDao
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $username);
         $stmt->execute();
+        
+        //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
+        if (mysqli_stmt_result_metadata() !== null)
+        {    
         $stmt->store_result();
 		$stmt->bind_result(
             $userid,
@@ -65,12 +69,25 @@ class UserDaoMysql implements UserDao
             $email,
             $role
         );
-        
-        // Vul de rij met maar 1 record uit de database
-        while ($stmt->fetch()) 
+            // Vul de rij met maar 1 record uit de database
+            while ($stmt->fetch()) 
+            {
+                $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
+            }
+        }else
         {
+            //alles op null zetten bij teruggave lege resultset
+            $userid = null;
+            $userName = null;
+            $password = null;
+            $firstname = null;
+            $lastname = null;
+            $email = null;
+            $role = null;
             $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
         }
+        
+        
         return $newUser;
     }
     

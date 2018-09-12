@@ -28,7 +28,16 @@
         $_SESSION['lastname'] =  $loginUser->getLastname();
         $_SESSION['email'] = $loginUser->getEmail();
         $_SESSION['role'] =  $loginUser->getRole();
-
+        
+        //Geef melding als de user niet bestaat
+        if( $_POST['username'] !== $_SESSION['username'])
+        {
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
+        }
+        
+        // Password checken (vergelijkt invoer met het password in de database)
         if( $_POST['password'] == $_SESSION['password'] )
         {
             echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
@@ -47,7 +56,7 @@
         {
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog een keer.</h2>";
+            echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
             
         }
     }
