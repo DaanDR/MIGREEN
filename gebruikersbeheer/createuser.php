@@ -2,7 +2,7 @@
     include ("../header/header.php");
 ?>
 
-    <link type="text/css" rel="stylesheet" href="../css/create.css">
+    <link type="text/css" rel="stylesheet" href="../css/content.css">
 
 <body>
     
