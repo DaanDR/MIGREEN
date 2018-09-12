@@ -1,7 +1,7 @@
 <?php 
   include('../header/header.php'); 
   include('functions.php');       
-?>
+?> 
 
 <!-- <?php
 
