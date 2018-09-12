@@ -1,0 +1,47 @@
+    body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
+
+    .menu {
+        background-color: white;            /* Achtergrondkleur */
+        display: inline-block;
+        font-family: Ariel;	                /* lettertype       */
+        left: 30%;                          /* plek op pagina   */
+        top: 30%;                           /* plek op pagina   */
+        position: fixed;                    /* Vastzetten       */
+        height: 35%;                        /* Hoogte           */
+        width: 30%;                         /* Breedte          */      
+    }
+
+
+    #title {                      
+        color: red;                         /* letterkleur      */
+        font-size: 155%;                    /* lettergrote      */
+        margin-top: 5%;                     /* plek in menu     */
+        margin-left: 37%;                   /* plek in menu     */
+    }
+
+    .user_input {
+        width: 60%;                         /* breedte v/d tekst */
+        margin-left: 10%;                   /* Plek in menu */
+        margin-top: 4%;                     /* Plek in menu */
+    }
+
+    .submit_button {
+        position: absolute;
+        color: red;                         /* letterkleur      */
+        font-size: 25%;                     /* lettergrote      */
+        margin-top: 3%;                     /* plek in menu     */
+        margin-left: 40%;                   /*  plek in menu     */
+    }
+
+    #paragraaf{
+        margin-left: 4%;                    /* plek in menu     */        
+    }
+
+    a{
+        color: white;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: black;
+    }
