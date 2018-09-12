@@ -25,9 +25,9 @@
 		<ul>
 			<li><a href="http://localhost:8080/MIGreen/header/header.php"></a><i
 				class="fas fa-home"></i></li>
-			<li><a href="blabla" class="active">Gebruikers</a></li>
-			<li><a href="blabla">Klanten</a></li>
-			<li><a href="blabla">Omgevingen</a></li>
+			<li><a href="blabla" class="active">GEBRUIKERS</a></li>
+			<li><a href="blabla">KLANTEN</a></li>
+			<li><a href="blabla">OMGEVINGEN</a></li>
 		</ul>
 	</nav>
 
