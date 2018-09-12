@@ -55,11 +55,12 @@ class UserDaoMysql implements UserDao
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $username);
         $stmt->execute();
+        $stmt->store_result();
         
         //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
-        if (mysqli_stmt_result_metadata() !== null)
+        if ($stmt->num_rows > 0)
         {    
-        $stmt->store_result();
+        
 		$stmt->bind_result(
             $userid,
             $userName,
@@ -72,7 +73,7 @@ class UserDaoMysql implements UserDao
             // Vul de rij met maar 1 record uit de database
             while ($stmt->fetch()) 
             {
-                $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
+                $newUser = new User($userid, $userName, $password, $firstname, $lastname, $email, $role);
             }
         }else
         {
@@ -84,7 +85,7 @@ class UserDaoMysql implements UserDao
             $lastname = null;
             $email = null;
             $role = null;
-            $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
+            $newUser = new User($userid, $userName, $password, $firstname, $lastname, $email, $role);
         }
         
         
