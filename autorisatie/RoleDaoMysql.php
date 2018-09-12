@@ -26,17 +26,47 @@ class RoleDaoMysql implements RoleDao
         $dbConn->getConnector()->close();
     }
 
-    public function updateRole($id)
+    public function updateRole($role)
     {
 
     }
-    public function deleteRole($id)
+    
+    public function deleteRole($role)
     {
 
     }
-    public function selectRole($id)
+    
+    public function selectRole($role)
     {
+        $newRole = null;
+        $dbConn = new mysqlConnector();
 
+        $role;
+        $maxSessionDuration;
+        $dashboardLink;
+        
+        $sql = "SELECT role, maxsessionduration, dashboardlink FROM role WHERE role = ? LIMIT 1"; 
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('s', $role);
+        $stmt->execute();
+        $stmt->store_result();
+		$stmt->bind_result(
+            $role,
+            $maxSessionDuration;
+            $dashboardLink;
+        );
+        
+        // Vul de rij met maar 1 record uit de database
+        while ($stmt->fetch()) 
+        {
+            $newRole = new Role($role, $maxSessionDuration, $dashboardLink);
+        }
+        return $newRole;
+    }
+    
+    public function selectAllRoles()
+    {
+        
     }
 }
 

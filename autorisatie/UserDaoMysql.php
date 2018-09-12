@@ -32,6 +32,7 @@ class UserDaoMysql implements UserDao
     {
 
     }
+    
     public function deleteUser($id)
     {
 
@@ -69,6 +70,11 @@ class UserDaoMysql implements UserDao
             $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
         }
         return $newUser;
+    }
+    
+    public function selectAllUsers()
+    {
+        
     }
 }
 

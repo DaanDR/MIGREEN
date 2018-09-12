@@ -6,6 +6,7 @@ interface UserDao
     public function updateUser($id);
     public function deleteUser($id);
     public function selectUser($username, $password);
+    public function selectAllUsers();
 }
 
 ?>

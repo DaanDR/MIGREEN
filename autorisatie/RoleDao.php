@@ -3,9 +3,10 @@
 interface RoleDao 
 { 
     public function insertRole($role, $maxSessionDuration, $dashboardLink);
-    public function updateRole($id);
-    public function deleteRole($id);
-    public function selectRole($id);
+    public function updateRole($role, $maxSessionDuration, $dashboardLink);
+    public function deleteRole($role);
+    public function selectRole($role);
+    public function selectAllRoles();
 }
 
 ?>
