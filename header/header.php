@@ -34,29 +34,21 @@
 </head>
 <body>
 
-	<h1>MyInsights</h1>
+    <div id="logo">MyInsights</div>
 	<nav id="navmenu">
 		<ul>
 			<li><a href="http://localhost:8080/MIGreen/header/header.php"></a><i
 				class="fas fa-home"></i></li>
-			<li><a href="blabla" class="active">Gebruikers</a></li>
-			<li><a href="blabla">Klanten</a></li>
-			<li><a href="blabla">Omgevingen</a></li>
+			<li><a href="blabla" class="active">GEBRUIKERS</a></li>
+			<li><a href="blabla">KLANTEN</a></li>
+			<li><a href="blabla">OMGEVINGEN</a></li>
+            <li><i class="fas fa-user">
+                <ul class="dropdown-content">
+                    <li><a href="../header/header.php?action=account"> Account </a></li>
+                    <li><a href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
+                </ul></i>
 		</ul>
-	</nav>
 
-	<div id="usericon" class="dropdown">
-		<div id="usericonbar">
-			<i class="fas fa-user"></i>
-		</div>
-		<div class="dropdown-content">
-			<a href="../header/header.php?action=account"> Account </a>
-			<!--        <a href="header.php?action=logout"> Uitloggen </a>-->
-			<a href="../header/header.php?action=logout"
-				onclick="return deleteask();">Logout</a>
-		</div>
-
-	</div>
     
      <?php
     // Voor de title bar
