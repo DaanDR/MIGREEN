@@ -3,7 +3,7 @@ body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
 .menu {
     background-color: white;            /* Achtergrondkleur */
     display: inline-block;
-    font-family: Arial sans-serif;	    /* lettertype als custom-font niet aanwezig is      */
+    font-family: Arial sans-serif;	    /* lettertype als custom-font niet aanwezig is */
     left: 30%;                          /* plek op pagina   */
     top: 30%;                           /* plek op pagina   */
     position: fixed;                    /* Vastzetten       */
