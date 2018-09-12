@@ -24,9 +24,9 @@
 		<ul class="mainmenu">
 			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
 				class="fas fa-home"></a></li>
-			<li><a href="blabla" class="active">GEBRUIKERS</a></li>
-			<li><a href="blabla">KLANTEN</a></li>
-			<li><a href="blabla">OMGEVINGEN</a></li>
+			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
+			<li><a href="blabla" >KLANTEN</a></li>
+			<li><a href="blabla" >OMGEVINGEN</a></li>
             <li><i id="dropdown-button" class="fas fa-user"></i>
                 <div id="dropdown-window">
                 <ul class="dropdown-content">
@@ -36,7 +36,6 @@
                 </div>
 		</ul>
     </nav>
-    
     </div>
     
     
