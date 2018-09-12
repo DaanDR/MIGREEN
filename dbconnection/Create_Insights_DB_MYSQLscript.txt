@@ -24,4 +24,3 @@ references role(role)
 on update no action
 on delete no action
 );
-
