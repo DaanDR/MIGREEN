@@ -19,9 +19,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link type="text/css" rel="stylesheet" href="../css/core.css">
 <link type="text/css" rel="stylesheet" href="../css/header.css">
-<link type="text/css" rel="stylesheet" href="../css/formulier.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -32,23 +30,28 @@
 
 <title><?php echo $title ?></title>
 </head>
-<body>
-
+<body id="bottombar">
+    
+<div class="container">
     <div id="logo">MyInsights</div>
 	<nav id="navmenu">
-		<ul>
-			<li><a href="http://localhost:8080/MIGreen/header/header.php"></a><i
-				class="fas fa-home"></i></li>
-			<li><a href="blabla" class="active">GEBRUIKERS</a></li>
-			<li><a href="blabla">KLANTEN</a></li>
-			<li><a href="blabla">OMGEVINGEN</a></li>
-            <li><i class="fas fa-user">
+		<ul class="mainmenu">
+			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
+				class="fas fa-home"></a></li>
+			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
+			<li><a href="blabla" >KLANTEN</a></li>
+			<li><a href="blabla" >OMGEVINGEN</a></li>
+            <li><i id="dropdown-button" class="fas fa-user"></i>
+                <div id="dropdown-window">
                 <ul class="dropdown-content">
-                    <li><a href="../header/header.php?action=account"> Account </a></li>
-                    <li><a href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
-                </ul></i>
+                    <li><a id="link" href="../header/header.php?action=account"> Account </a></li>
+                    <li><a id="link" href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
+                </ul>
+                </div>
 		</ul>
-
+    </nav>
+    </div>
+    
     
      <?php
     // Voor de title bar
