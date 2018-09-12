@@ -19,9 +19,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link type="text/css" rel="stylesheet" href="../css/core.css">
 <link type="text/css" rel="stylesheet" href="../css/header.css">
-<link type="text/css" rel="stylesheet" href="../css/formulier.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -32,31 +30,28 @@
 
 <title><?php echo $title ?></title>
 </head>
-<body>
-
-	<h1>MyInsights</h1>
+<body id="bottombar">
+    
+<div class="container">
+    <div id="logo">MyInsights</div>
 	<nav id="navmenu">
-		<ul>
-			<li><a href="http://localhost:8080/MIGreen/header/header.php"></a><i
-				class="fas fa-home"></i></li>
-			<li><a href="blabla" class="active">Gebruikers</a></li>
-			<li><a href="blabla">Klanten</a></li>
-			<li><a href="blabla">Omgevingen</a></li>
+		<ul class="mainmenu">
+			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
+				class="fas fa-home"></a></li>
+			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
+			<li><a href="blabla" >KLANTEN</a></li>
+			<li><a href="blabla" >OMGEVINGEN</a></li>
+            <li><i id="dropdown-button" class="fas fa-user"></i>
+                <div id="dropdown-window">
+                <ul class="dropdown-content">
+                    <li><a id="link" href="../header/header.php?action=account"> Account </a></li>
+                    <li><a id="link" href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
+                </ul>
+                </div>
 		</ul>
-	</nav>
-
-	<div id="usericon" class="dropdown">
-		<div id="usericonbar">
-			<i class="fas fa-user"></i>
-		</div>
-		<div class="dropdown-content">
-			<a href="../header/header.php?action=account"> Account </a>
-			<!--        <a href="header.php?action=logout"> Uitloggen </a>-->
-			<a href="../header/header.php?action=logout"
-				onclick="return deleteask();">Logout</a>
-		</div>
-
-	</div>
+    </nav>
+    </div>
+    
     
      <?php
     // Voor de title bar
