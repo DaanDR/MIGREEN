@@ -5,9 +5,9 @@ interface CustomerDao
 
     public function insertCustomer($customername);
 
-    public function updateCustomer($customerid);
+    public function updateCustomer($customername);
 
-    public function deleteCustomer($customerid);
+    public function deleteCustomer($customername);
 
     public function selectCustomer($customername);
 

@@ -20,17 +20,37 @@ class CustomerDaoMysql implements CustomerDao
         $sql = "INSERT INTO customer (customerName) values (?)";
         
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('s', $name);
+        $stmt->bind_param('s', $customername);
         $stmt->execute();
         
         $dbConn->getConnector()->close();
     }
 
-    public function updateCustomer($customerid)
-    {}
+    public function updateCustomer($customername, $newname)
+    {
+        $dbConn = new mysqlConnector();
+        
+        $sql = "UPDATE customer SET customerName = ? WHERE customerName = ?";
+        
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('ss', $newname, $customername);
+        $stmt->execute();
+        
+        $dbConn->getConnector()->close();
+    }
 
-    public function deleteCustomer($customerid)
-    {}
+    public function deleteCustomer($customername)
+    {
+        $dbConn = new mysqlConnector();
+        
+        $sql = "DELETE FROM customer WHERE customerName = ?";
+        
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('s', $customername);
+        $stmt->execute();
+        
+        $dbConn->getConnector()->close();
+    }
 
     public function selectCustomer($customername)
     {
@@ -40,11 +60,18 @@ class CustomerDaoMysql implements CustomerDao
         $customername;
         $customerid;
         
-        $sql = "SELECT customerName from customer WHERE customerID = ? LIMIT 1";
+        $sql = "SELECT customerName, users from customer WHERE customerName = ? LIMIT 1";
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('s',$customername);
+        $stmt->bind_param('s', $customername);
         $stmt->execute();
         $stmt->store_result();
+        $stmt->bind_result($customername);
+        
+        // Vul de rij met enkel 1 rij uit database
+        while ($stmt->fetch()) {
+            $newcustomer = new Customer($customername)
+        }
+        return $newCustomer;
     }
 
     public function selectAllCustomers()

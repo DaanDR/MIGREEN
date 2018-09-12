@@ -7,10 +7,8 @@
 
 class Customer{
     private $customername;
-    private $customerid;
     
-    public function _construct($customerid, $customername){
-        $this->customerid = $customerid;
+    public function _construct($customername){
         $this->customername = $customername;
     }
     
@@ -20,14 +18,6 @@ class Customer{
     
     public function getCustomerName(){
         return $this->customername;
-    }
-    
-    /**
-     * @return mixed
-     */
-    
-    public function getCustomerId(){
-        return $this->customerid;
     }
 }
 ?>
