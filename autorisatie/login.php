@@ -34,11 +34,11 @@
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
-            header('Location: http://www.example.com/');
+            header('Location: ../dashboards/admin_dashboard.php');
             } 
             else if($_SESSION['role'] == 'user')
             {
-            header('Location: http://www.example.com/');   
+            header('Location: ../dashboards/user_dashboard.php');   
             }
         }
         else
