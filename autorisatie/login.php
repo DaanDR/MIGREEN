@@ -15,7 +15,7 @@
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
     {
-        // Roep de class UserDaoMysql aan
+        // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
         $loginUser = $loginUser->selectUser( $_POST['username'], $_POST['password'] );
 
@@ -30,12 +30,23 @@
             $_SESSION['firstname'] =  $loginUser->getFirstname();
             $_SESSION['lastname'] =  $loginUser->getLastname();
             $_SESSION['role'] =  $loginUser->getRole();
+            
+            // redirect naar dashboard op basis van role:
+            if($_SESSION['role'] == 'admin' )
+            {
+            header('Location: http://www.example.com/');
+            } 
+            else if($_SESSION['role'] == 'user')
+            {
+            header('Location: http://www.example.com/');   
+            }
         }
         else
         {
             // Session leeg maken!!!!
             $_SESSION = array();
             echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog een keer.</h2>";
+            
         }
     }
 
