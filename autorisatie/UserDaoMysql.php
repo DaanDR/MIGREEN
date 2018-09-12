@@ -38,7 +38,7 @@ class UserDaoMysql implements UserDao
 
     }
 
-    public function selectUser($username, $password)
+    public function selectUser($username)
     {
         $newUser = null;
         $dbConn = new mysqlConnector();
@@ -48,11 +48,12 @@ class UserDaoMysql implements UserDao
         $password;
         $firstname;
         $lastname;
+        $email;
         $role;
         
-        $sql = "SELECT userID, userName, password, firstname, lastname, role FROM user WHERE userName = ? AND password = ? LIMIT 1"; 
+        $sql = "SELECT userID, userName, password, firstname, lastname, email, role FROM user WHERE userName = ?"; 
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('ss', $username, $password);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
 		$stmt->bind_result(
@@ -61,13 +62,14 @@ class UserDaoMysql implements UserDao
             $password,
             $firstname,
             $lastname,
+            $email,
             $role
         );
         
         // Vul de rij met maar 1 record uit de database
         while ($stmt->fetch()) 
         {
-            $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role);
+            $newUser = new User($userid, $userName, $password, $firstname, $lastname, email, $role);
         }
         return $newUser;
     }

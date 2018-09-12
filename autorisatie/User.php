@@ -12,14 +12,16 @@ class User {
     private $password;
     private $firstname;
     private $lastname;
+    private $email;
     private $role;
     
-    public function __construct($id, $username, $password, $firstname, $lastname, $role) {
+    public function __construct($id, $username, $password, $firstname, $lastname, $email, $role) {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
+        $this->email = $email;
         $this->role = $role;
     }
     
@@ -61,6 +63,14 @@ class User {
     public function getLastname()
     {
         return $this->lastname;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
