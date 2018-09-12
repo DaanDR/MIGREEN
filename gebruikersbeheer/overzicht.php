@@ -1,6 +1,9 @@
-<?php include('../header/header.php'); ?>
+<?php 
+  include('../header/header.php'); 
+  include('functions.php');       
+?>
 
-<?php
+<!-- <?php
 
 $users = [
   ["GEBRUIKERSNAAM"=>"TimD","VOORNAAM"=>"Tim", "ACHTERNAAM"=>"Dinh", "ROL"=>"Admin"],
@@ -8,7 +11,7 @@ $users = [
   ["GEBRUIKERSNAAM"=>"DaanP","VOORNAAM"=>"Daan", "ACHTERNAAM"=>"Pomp", "ROL"=>"Peasant"],
   ["GEBRUIKERSNAAM"=>"AndersonP","VOORNAAM"=>"Anderson", "ACHTERNAAM"=>"Petrus", "ROL"=>"Masseuse"],
 ];
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -44,7 +47,9 @@ $users = [
          </tr>
        </thead>
        <tbody>
-        <?php foreach($users as $user):?>
+        <?php getAllUsers(); ?>
+
+        <!-- <?php foreach($users as $user):?>
           <tr>
             <td><?=$user["GEBRUIKERSNAAM"]?></td>
             <td><?=$user["VOORNAAM"]?></td>
@@ -52,56 +57,10 @@ $users = [
             <td><?=$user["ROL"]?></td>
             <td class="icon-cell"><i class="fas fa-poo glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
           </tr>
-        <?php endforeach;?>
-      </tbody>
-    </table>
+        <?php endforeach;?> -->
 
-
-
-<!-- 
-    <table>
-      <thead>
-        <tr>
-          <th>GEBRUIKERSNAAM</th>
-          <th>VOORNAAM</th>
-          <th>ACHTERNAAM</th>
-          <th>ROL</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>gentstudent42.1</td>
-          <td>Student</td>
-          <td>Gent</td>
-          <td>4k</td>
-          <td class="icon-cell"><i class="fab fa-snapchat-square glyph-icon"></i> <i class="fas fa-pills glyph-icon"></i></td>
-        </tr>
-        <tr>
-          <td>M30.OTIS_30</td>
-          <td>Mitchell</td>
-          <td>Sitohang</td>
-          <td>Sous-chef</td>
-          <td class="icon-cell"><i class="fas fa-pencil-alt glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
-        </tr>
-        <tr>
-          <td>ANDY_PIZZA</td>
-          <td>Anderson</td>
-          <td>Petrus</td>
-          <td>Captain</td>
-          <td class="icon-cell"><i class="fas fa-pencil-alt glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
-        </tr>
-        <tr>
-          <td>Daan</td>
-          <td>Poep</td>
-          <td>Test</td>
-          <td>Captain</td>
-          <td class="icon-cell"><i class="fas fa-poo glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
-        </tr>
       </tbody>
 
-    </table> -->
   </div>
 </div>
 
