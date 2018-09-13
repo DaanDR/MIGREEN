@@ -10,6 +10,8 @@
 }
 
 
+
+
 #logo {
 	color: var(--myBit-red);
 	float: left;
@@ -19,75 +21,11 @@
     font-size: 200%;
 }
 
-.mainmenu {
-	list-style-type: none;
-
-}
-
-.mainmenu li {
-	float: left;
-	padding-left: 80px;
-    
-}
-
-.mainmenu .active {
-	color: var(--myBit-red);
-    border-bottom: 3px solid red;
-}
-
-
-#navmenu li:hover ul {
-    display: block;
-    width: 70px;
-    list-style-type: none;
-    text-align: left;
-}
-
 #home-button {
 
     color: black;
+    padding-bottom: 3px;
         
-}
-
-#link{
-    margin-left: -120px;
-    font-size: 60%;
-    text-align: left;
-   
-}
-
-
-.mainmenu a:hover{
-font-weight: bold;
-}
-
-
-
-
-.mainmenu li> a {
-	color: var(--myBit-text);
-	display: inline-block;
-	text-decoration: none;
-	padding: 0px 13px 8px 8px;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: white;
-	min-width: 50px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-#navmenu {
-	list-style-type: none;
-	margin: 50px;
-	text-align: center;
-	margin-top: -2%;
-	margin-left: 150px;
-	font-size: 120%;
-    font-family: ubuntu-regular;
 }
 
 #bottombar{
@@ -96,52 +34,124 @@ font-weight: bold;
 
 }
 
-
-
-#dropdown-window {
-    padding-top: 10px;
-}
-
-#dropdown-button {
-    padding-right: 20px;
-}
-
-.dropdown-content li a {
-	float: none;
-	color: black;
-	padding: 8px 8px;
-	text-decoration: none;
-	display: block;
-	text-align: left;
+.mainmenu {
+	list-style-type: none;
+    margin:0;
+    padding:0;
+    list-style-type: none;
+	margin: 50px;
+	text-align: center;
+	margin-top: -2%;
+	margin-left: 150px;
+	font-size: 120%;
     font-family: ubuntu-regular;
 
 }
 
 
+.mainmenu li {
+    display: inline-block;
+	float: left;
+	padding-left: 80px;
+    
+}
 
-.dropdown-content a:hover {
-	color: var(--myBit-red);
+
+.mainmenu li a {
+	color: var(--myBit-text);
+	display: inline-block;
+	text-decoration: none;
+	padding: 0px 13px 8px 8px;
+}
+
+.mainmenu li:hover ul {
+    display: block;
+    width: 70px;
+    list-style-type: none;
+    text-align: left;
 
 }
 
+
+*
+.mainmenu .active {
+	color: var(--myBit-red);
+    border-bottom: 3px solid red;
+
+}
+
+.hoofdmenu :hover{
+/*font-weight: bold;*/
+      text-shadow:0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC
+
+
+}
+
+#home-button:hover{
+    color: var(--myBit-red);
+}
+
+.dropdown-window {
+    position: relative;
+    display: inline-block;
+    padding-top: 2px;
+}
+
+#dropdown-padding {
+    padding-left: 0px;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    font-size: 70%;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0px 5px;
+    z-index: 1;
+}
+
+
+.dropdown-content li a{
+    color: black;
+    text-align: left;
+    padding-top: 1px;
+}
+
+.dropdown-content li a:hover{
+    color: var(--myBit-red);
+    
+
+}
+
+
+
 /* Style the buttons */
+/*
 .btn {
   border: none;
   outline: none;
   padding: 10px 16px;
   cursor: pointer;
 }
+*/
 
 
 
 /* Style the active class (and buttons on mouse-over) 
 om dit goed te laten werken veranderd je de class van gebruikers, klanten, omgeving naar "btn"*/
+/*
 .active  {
     color: var(--myBit-red);
     border-bottom: 3px solid red;
 }
+*/
 /* Style the hover naar dikgedrukt */
 
+/*
 .btn:hover{
     font-weight: bold;
 }
+*/
