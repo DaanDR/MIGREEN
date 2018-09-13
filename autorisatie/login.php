@@ -1,10 +1,8 @@
 <?php
-// ini_set('display_errors', 1);
-    // Header in de bovenkant
-    include ("../header/header.php");
-
-    // Is logged in class
+session_start();
+    // Is gebruikt in class
     include_once ("UserDaoMysql.php");
+    include ("EncryptDecrypt.php");
 
     // Title van de pagina...
     if(!isset($_SESSION)) 
@@ -17,19 +15,36 @@
     {
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
-        $loginUser = $loginUser->selectUser( $_POST['username'], $_POST['password'] );
-
-        if( $loginUser !== null )
+        $loginUser = $loginUser->selectUser( $_POST['username'] );
+        
+        // Haal de user info uit de User array/object $loginUser
+        // en maak session vars aan.
+        $_SESSION['id'] =  $loginUser->getId();
+        $_SESSION['username'] =  $loginUser->getUsername();
+        $_SESSION['password'] =  $loginUser->getPassword();
+        $_SESSION['firstname'] =  $loginUser->getFirstname();
+        $_SESSION['lastname'] =  $loginUser->getLastname();
+        $_SESSION['email'] = $loginUser->getEmail();
+        $_SESSION['role'] =  $loginUser->getRole();
+        $_SESSION['status_active'] = $loginUser->getStatus();
+        
+        // Decrypt het password
+        $decrypt = new EncryptDecrypt();
+        $decrypt_password = $decrypt->decrypt($_SESSION['password']);
+        
+        //Geef melding als de user niet bestaat of user niet actief is
+        if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
         {
-            echo "<br> <h2>Ingelogged!!!!!!! </h2>";
-
-            // Haal de user info uit de User array/object $loginUser
-            // en maak session vars aan.
-            $_SESSION['id'] =  $loginUser->getId();
-            $_SESSION['username'] =  $loginUser->getUsername();
-            $_SESSION['firstname'] =  $loginUser->getFirstname();
-            $_SESSION['lastname'] =  $loginUser->getLastname();
-            $_SESSION['role'] =  $loginUser->getRole();
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
+        }
+        
+        // Password checken (vergelijkt invoer met het password in de database)
+        if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
+        {
+            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
+            $_SESSION['password'] = "";
             
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
@@ -45,12 +60,17 @@
         {
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog een keer.</h2>";
+            echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
             
         }
     }
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
 
