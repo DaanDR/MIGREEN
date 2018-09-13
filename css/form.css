@@ -18,11 +18,12 @@
 /* grid properties */
 /*----------------------------------------------------------------------------------------------------------------*/
 
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    /* grid-auto-rows: minmax(100px, auto); */
 
+    /* grid-auto-rows: minmax(100px, auto); */
     /* 'header-left header header header'
     'content-left content-right content-right content-right'
     'footer footer footer footer-right'; */
@@ -136,6 +137,41 @@
 
 #triangle-breadcrumb {
     font-size: 75%;
+}
+
+.password-info {
+    position: relative;
+    display: inline-block;
+}
+
+.password-info .password-infotext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #444444;
+    color: #fff;
+    text-align: center;
+    border-radius: 1px;
+    padding: 10px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -17px;
+    left: 150%;
+}
+
+.password-info .password-infotext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #444444 transparent transparent;
+}
+
+.password-info:hover .password-infotext {
+    visibility: visible;
 }
 
 .input-padding {

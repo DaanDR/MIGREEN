@@ -1,9 +1,10 @@
-body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
-
+body {
+    background-color: #F2F5FA;                      /* Kleur achtergrond: grijs */
+    font-family: ubuntu-regular, Arial sans-serif;  /* Font style ubuntu-Regular*/
+}
 .menu {
     background-color: white;            /* Achtergrondkleur */
     display: inline-block;
-    font-family: Arial sans-serif;	    /* lettertype als custom-font niet aanwezig is */
     left: 30%;                          /* plek op pagina   */
     top: 30%;                           /* plek op pagina   */
     position: fixed;                    /* Vastzetten       */
@@ -20,7 +21,6 @@ body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
 
 .userinformation {
     width: 10%;                         /* breedte v/d tekst */
-    font-size: %;                    /* lettergrote      */
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
