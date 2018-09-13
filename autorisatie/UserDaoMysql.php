@@ -86,7 +86,7 @@ class UserDaoMysql implements UserDao
         $email;
         $role;
         
-        $sql = "SELECT userID, userName, password, firstname, lastname, email, role FROM user WHERE userName = ?"; 
+        $sql = "SELECT userID, userName, password, firstname, lastname, email, role, status_active FROM user WHERE userName = ?"; 
         $conn = $dbConn->getConnector();
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $username);
@@ -104,17 +104,18 @@ class UserDaoMysql implements UserDao
             $firstname,
             $lastname,
             $email,
-            $role
+            $role,
+            $status_active
         );
             // Vul de rij met maar 1 record uit de database
             while ($stmt->fetch()) 
             {
-                $newUser = new User($userid, $userName, $password, $firstname, $lastname, $email, $role);
+                $newUser = new User($userid, $userName, $password, $firstname, $lastname, $email, $role, $status_active);
             }
         }else
         {
             //alles op null zetten bij teruggave lege resultset
-            $newUser = new User($userid = null, $userName = null, $password = null, $firstname = null, $lastname = null, $email = null, $role = null);
+            $newUser = new User($userid = null, $userName = null, $password = null, $firstname = null, $lastname = null, $email = null, $role = null, $status_active = FALSE);
         }
         
         
@@ -122,7 +123,10 @@ class UserDaoMysql implements UserDao
     }
     
     
-    
+    public function selectAllUsers()
+    {
+        
+    }
     
     
     
