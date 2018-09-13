@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 // ini_set('display_errors', 1);
     // Header in de bovenkant
     include ("../header/header.php");
@@ -10,8 +12,12 @@
     } 
 
 
+// Check of user is ingelogged en anders terug naar de login pagina
+include_once ("../autorisatie/UserIsLoggedin.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
 
-
+echo $_SERVER['SERVER_NAME'];
 
 
 ?>

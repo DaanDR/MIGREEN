@@ -12,15 +12,19 @@ class User {
     private $password;
     private $firstname;
     private $lastname;
+    private $email;
     private $role;
+    private $status_active;
     
-    public function __construct($id, $username, $password, $firstname, $lastname, $role) {
+    public function __construct($id, $username, $password, $firstname, $lastname, $email, $role, $status_active) {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
+        $this->email = $email;
         $this->role = $role;
+        $this->status_active = $status_active;
     }
     
     /**
@@ -62,6 +66,14 @@ class User {
     {
         return $this->lastname;
     }
+    
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * @return mixed
@@ -71,6 +83,19 @@ class User {
         return $this->role;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status_active;
+    }
+    
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
     
 }
 

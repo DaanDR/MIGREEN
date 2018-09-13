@@ -1,12 +1,12 @@
 <?php
-
+ob_start();
 // Wijzig onderstaande waarden van de variabelen naar die van je eigen mysql database
 // DB credentials
 class mysqlConnector
 {
     private $dbhost = "localhost";
     private $dbuser = "root";
-    private $dbpassword = "s3unsh!Ine1";
+    private $dbpassword = "";
     private $dbname = "insights_db";
 
     private $connector;
@@ -30,6 +30,7 @@ class mysqlConnector
 
         return $this->connector;
     }
+
 }
 
 
