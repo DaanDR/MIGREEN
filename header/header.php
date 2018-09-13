@@ -10,29 +10,46 @@
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
-<script src="../js/header.js"></script>
+<!--<script src="../js/header.js"></script>-->
+
+<!--
+    <?php
+function active($currect_page){
+  $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+  $url = end($url_array);  
+  if($currect_page == $url){
+      echo 'active'; //class name in css 
+  } 
+}
+?>
+-->
+    
 
 
 
 <title><?php echo $title ?></title>
 </head>
 <body id="bottombar">
-    
+    <div id="compleet">
     <div id="logo">MyInsights</div>
 		<ul class="mainmenu">
             <div class="hoofdmenu">
 			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
 				class="fas fa-home"></a></li>
+<!--
 			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
 			<li><a href="blabla" >KLANTEN</a></li>
 			<li><a href="blabla" >OMGEVINGEN</a></li>
-                                            </div>
-
-<!--
-            <li><a href="../gebruikersbeheer/overzicht.html" class="btn">GEBRUIKERS</a></li>
+-->
+			<li><a href="../gebruikersbeheer/overzicht.html" class="btn">GEBRUIKERS</a></li>
 			<li><a href="blabla" class="btn">KLANTEN</a></li>
 			<li><a href="blabla" class="btn">OMGEVINGEN</a></li>
--->
+
+
+                                                            </div>
+            
+
+
             <div id="dropdown-window">
             <li><i class="fas fa-user"></i>
                 <ul class="dropdown-content">
@@ -41,7 +58,8 @@
                 </ul>
                 </div>
 		</ul>
-    
+   
+        </div>
     
      <?php
     // Voor de title bar
@@ -82,8 +100,14 @@
     {
         print "accountje";
     }
+    
+
+    
+    
+
+    
+    
+    
     ?>
     
-    </body>
-
-</html>
+   

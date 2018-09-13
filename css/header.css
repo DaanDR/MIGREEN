@@ -9,6 +9,10 @@
 	src: url("../res/Ubuntu-R.ttf");
 }
 
+#compleet{
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+}
 
 
 
@@ -52,7 +56,7 @@
 .mainmenu li {
     display: inline-block;
 	float: left;
-	padding-left: 80px;
+	padding-left: 40px;
     
 }
 
@@ -73,12 +77,13 @@
 }
 
 
-*
+
 .mainmenu .active {
 	color: var(--myBit-red);
     border-bottom: 3px solid red;
 
 }
+
 
 .hoofdmenu :hover{
 /*font-weight: bold;*/
@@ -129,29 +134,23 @@
 
 
 /* Style the buttons */
-/*
 .btn {
   border: none;
   outline: none;
   padding: 10px 16px;
   cursor: pointer;
 }
-*/
 
 
 
 /* Style the active class (and buttons on mouse-over) 
 om dit goed te laten werken veranderd je de class van gebruikers, klanten, omgeving naar "btn"*/
-/*
-.active  {
+.btn:active  {
     color: var(--myBit-red);
     border-bottom: 3px solid red;
 }
-*/
 /* Style the hover naar dikgedrukt */
 
-/*
 .btn:hover{
-    font-weight: bold;
+      text-shadow:0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC
 }
-*/
