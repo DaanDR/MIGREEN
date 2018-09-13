@@ -1,17 +1,7 @@
 <?php 
   include('../header/header.php'); 
-  include('functions.php');       
+  include('../autorisatie/UserDaoMysql.php');       
 ?> 
-
-<!-- <?php
-
-$users = [
-  ["GEBRUIKERSNAAM"=>"TimD","VOORNAAM"=>"Tim", "ACHTERNAAM"=>"Dinh", "ROL"=>"Admin"],
-  ["GEBRUIKERSNAAM"=>"MitchellS","VOORNAAM"=>"Mitchell", "ACHTERNAAM"=>"Sitohang", "ROL"=>"Superadmin"],
-  ["GEBRUIKERSNAAM"=>"DaanP","VOORNAAM"=>"Daan", "ACHTERNAAM"=>"Pomp", "ROL"=>"Peasant"],
-  ["GEBRUIKERSNAAM"=>"AndersonP","VOORNAAM"=>"Anderson", "ACHTERNAAM"=>"Petrus", "ROL"=>"Masseuse"],
-];
-?> -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -35,11 +25,11 @@ $users = [
     <div class="header-right"><button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button></div>
     <div class="content">
 
-
     <table>
         <thead>
           <tr>
            <th>GEBRUIKERSNAAM</th>
+           <th>WACHTWOORD</th>
            <th>VOORNAAM</th>
            <th>ACHTERNAAM</th>
            <th>ROL</th>
@@ -47,17 +37,21 @@ $users = [
          </tr>
        </thead>
        <tbody>
-        <?php getAllUsers(); ?>
 
-        <!-- <?php foreach($users as $user):?>
+      <?php 
+        $userdaomysql = new UserDaoMysql();
+        $users = $userdaomysql-> selectViewCurrentUsers(); 
+      ?>
+
+        <?php foreach($users as $user):?>
           <tr>
-            <td><?=$user["GEBRUIKERSNAAM"]?></td>
-            <td><?=$user["VOORNAAM"]?></td>
-            <td><?=$user["ACHTERNAAM"]?></td>
-            <td><?=$user["ROL"]?></td>
-            <td class="icon-cell"><i class="fas fa-poo glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
+            <td><?=$user["userName"] ?></td>
+            <td><?=$user["firstname"] ?></td>
+            <td><?=$user["lastname"] ?></td>
+            <td><?=$user["role"] ?></td>
+            <td class="icon-cell"><i class="fas fa-pencil-alt glyph-icon"></i> <i class="fas fa-trash-alt glyph-icon"></i></td>
           </tr>
-        <?php endforeach;?> -->
+        <?php endforeach;?>
 
       </tbody>
 

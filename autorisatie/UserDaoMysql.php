@@ -72,42 +72,39 @@ class UserDaoMysql implements UserDao
         return $newUser;
     }
     
-    public function selectAllUsers()
+    public function selectViewCurrentUsers()
     {
-        $users[] = null;
+        $users = null;
         $dbConn = new mysqlConnector();
 
-        $userid;
         $userName;
-        $password;
         $firstname;
         $lastname;
         $role;
-        $email;
         
-        $sql = "SELECT userID, userName, password, firstname, lastname, role, email FROM user"; 
+        $sql = "SELECT userName, firstname, lastname, role FROM user"; 
         $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('issssss', $userid $userName, $password, $firstname, $lastname, $role, $email);
         $stmt->execute();
         $stmt->store_result();
-		$stmt->bind_result(
-            $userid,
+        $stmt->bind_result(
             $userName,
-            $password,
             $firstname,
             $lastname,
-            $role,
-            $email
+            $role
         );
-        
-        // Vul de rij met maar 1 record uit de database
+
         while ($stmt->fetch()) 
         {
-            $newUser = new User($userid, $userName, $password, $firstname, $lastname, $role, $email);
-            $users[] = $newUser;    
+            $users[] = array(
+                "userName" => $userName,
+                "firstname" => $firstname,
+                "lastname" => $lastname,
+                "role" => $role
+            );
         }
-        
+
         return $users;
+
     }
 }
 
