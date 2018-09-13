@@ -30,6 +30,7 @@ class mysqlConnector
 
         return $this->connector;
     }
+
 }
 
 

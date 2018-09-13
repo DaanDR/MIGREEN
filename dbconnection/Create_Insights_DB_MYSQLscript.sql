@@ -14,7 +14,7 @@ insert into insights_db.role values (
 create table insights_db.user (
 userID int not null auto_increment,
 userName varchar(45) not null unique default 'unknownUserName',
-password varchar(45) not null default '123456',
+password varchar(255) not null default '123456',
 firstname varchar(45) not null,
 lastname varchar(45) not null,
 email varchar(45) not null,
