@@ -27,6 +27,8 @@ class UserDaoMysql implements UserDao
         $stmt->execute();
         
         $dbConn->getConnector()->close();
+        
+        return TRUE;
     }
     
     
@@ -42,6 +44,8 @@ class UserDaoMysql implements UserDao
         $stmt->execute();
         
         $dbConn->getConnector()->close();
+        
+        return TRUE;
     }
     
     
@@ -56,6 +60,8 @@ class UserDaoMysql implements UserDao
         $stmt->execute();
         
         $dbConn->getConnector()->close();
+        
+        return TRUE;
     }
     
     
@@ -70,6 +76,8 @@ class UserDaoMysql implements UserDao
         $stmt->execute();
         
         $dbConn->getConnector()->close();
+        
+        return TRUE;
     
     }
 
