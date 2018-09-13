@@ -1,6 +1,5 @@
  <?php
 //  Voor de title bar
-    @session_start();
     $title = "";
 
     if ( isset($_SESSION["title"]) )
