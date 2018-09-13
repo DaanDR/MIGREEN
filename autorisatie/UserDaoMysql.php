@@ -19,7 +19,7 @@ class UserDaoMysql implements UserDao
     public function insertUser($username, $password, $firstname, $lastname, $email, $role)
     {
         $dbConn = new mysqlConnector();
-
+        
         $sql = "INSERT INTO user(userName, password, firstname, lastname, email, role) VALUES (?, ?, ?, ?, ?, ?)";
   
         $stmt = $dbConn->getConnector()->prepare($sql);

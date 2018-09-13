@@ -16,7 +16,23 @@
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )    
     {
-
+        // Controleren of de user al bestaat 
+        // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
+        $newUser = new UserDaoMysql();
+        $newUser = $newUser->selectUser( $_POST['username'] );
+                
+        // Haal de user info uit de User array/object $loginUser
+        // en maak session vars aan.
+        $_SESSION['username'] =  $newUser->getUsername();
+                
+        //Geef melding als de user al bestaat 
+        if( $_POST['username'] == $_SESSION['username'])
+        {
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Deze username bestaat al in de database.</h2>";
+        }        
+            
         // Controleren op hoofdletters
         if(!preg_match('/[A-Z]/', $_POST['password'] )){
             $_SESSION = array();
