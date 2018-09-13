@@ -63,7 +63,7 @@
 
 ?>
 
-    <link type="text/css" rel="stylesheet" href="../css/login.css">
+    <link type="text/css" rel="stylesheet" href="../css/content.css">
 
 <body>
     
