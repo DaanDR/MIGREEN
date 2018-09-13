@@ -37,8 +37,8 @@
 <div class="grid-container">
 
     <div class="header-left">
-        <p>Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h1>Gebruiker aanmaken</h1>
+        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
+        <h2>Gebruiker aanmaken</h2>
     </div>
 
 
@@ -50,45 +50,48 @@
 
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
-            <div class="user-form input-padding">
+            <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input type="text" name="username" minlength=5>
+                </br><input type="text" name="username" minlength=5 class="input-text-style">
             </div>
 
 
-            <div class="password-form input-padding">
+            <div class="password-form form-field-padding form-field-style">
 
                 <div class="password-form-initial">
                     Wachtwoord <span class="info-symbol"><i class="fas fa-info-circle"></i></span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
+                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required class="input-text-style">
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="passwordconfirm">
+                    Herhaal wachtwoord <br><input type="password" name="passwordconfirm" class="input-text-style">
                 </div>
             </div>
 
-            <div class="input-padding fullname-form">
+            <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2">
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style">
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2">
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style">
                 </div>
             </div>
 
-            <div class="input-padding email-form">
+            <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email"><br>
+                <br><input type="email" name="email" class="input-text-style"><br>
             </div>
 
-            <div class="role-form input-padding">
+            <div class="role-form form-field-padding form-field-style">
                 Rol
                 <br>
                 <select>
+                    <optgroup label="Kies een rol">
+                    <option selected hidden>Kies een rol</option>
                     <option value="user">gebruiker</option>
                     <option value="admin">admin</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -102,7 +105,7 @@
 
     <div class="footer-right">
         <div class="buttons-form">
-            <button id="button-size" type="button">Annuleren</button><input id="button-size" type="submit" value="Gebruiker aanmaken">
+            <button class="button-form-secondary" type="button">Annuleren</button><button class="button-form-primary" type="submit"> Gebruiker aanmaken </button>
             <!-- buttons -->
             <div>
                 </form>
@@ -114,5 +117,4 @@
 
 </html>
 
-<?php include ("../footer/footer.php"); ?>
 </body>

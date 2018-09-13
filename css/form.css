@@ -28,7 +28,7 @@
     'content-left content-right content-right content-right'
     'footer footer footer footer-right'; */
 
-    background-color: #2196F3;
+    background-color: #ffffff;
     padding: 0px;
     grid-gap: 0px;
     width: 75%;
@@ -39,14 +39,14 @@
 .header-left {
     grid-column: 1 / 4;
     grid-row: 1;
-    border-bottom: 1px solid green;
+    border-bottom: 0.5px solid #F2F6FA;
     padding-left: 30px;
 }
 
 .header {
     grid-column: 4 / 7;
     grid-row: 1;
-    border-bottom: 1px solid green;
+    border-bottom: 0.5px solid #F2F6FA;
 }
 
 .content {
@@ -55,7 +55,7 @@
     padding-left: 30px;
     padding-bottom: 30px;
     padding-top: 30px;
-    border-bottom: 1px solid green;
+    border-bottom: 0.5px solid #F2F6FA;
 }
 
 .footer {
@@ -64,11 +64,13 @@
 }
 
 .footer-right {
+    text-align: right;
     grid-column: 4 / 7;
     grid-row: 3;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .user-form {
@@ -123,17 +125,78 @@
 
 .role-form {
     display: block;
-    width: 75%;
+    width: 41%;
+    position: relative;
+
+
 }
 
-.button-form {
-    display: block;
-    padding-right: 20px;
+/*----------------------------------------------------------------------------------------------------------------*/
+/* Buttons properties */
+/*----------------------------------------------------------------------------------------------------------------*/
+
+.buttons-form {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
 }
 
-#button-size {
-    width: 50%;
+
+.button-form-delete {
+    background-color: #EB1313; /* delete button red */
+    border: 1px solid #EB1313; /* outline */
+    color: white;
+    padding: 4% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 2%;
+
 }
+
+.button-form-delete:hover {
+    background-color: #AC0F0F; /* reds */
+
+}
+
+.button-form-primary {
+    background-color: #99AFC6; /* primary button navy light*/
+    border: 1px solid #99AFC6; /* outline */
+    color: white;
+    padding: 4% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 2%;
+
+
+}
+
+
+.button-form-primary:hover {
+    background-color: #638CB5; /* primary button hover color */
+
+}
+
+.button-form-secondary {
+    background-color: #ffffff; /* white */
+    border: 1px solid #99AFC6; /* outline secondary button */
+    color: #99AFC6;
+    padding: 4% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 2%;
+
+
+}
+
+.button-form-secondary:hover {
+    border: 1px solid #638CB5; /* outline secondary button */
+    color: #638CB5;
+
+}
+
 
 #triangle-breadcrumb {
     font-size: 75%;
@@ -174,18 +237,49 @@
     visibility: visible;
 }
 
-.input-padding {
+.form-field-padding {
     padding-bottom: 2%;
 }
 
 
+.form-field-style {
+    font-size: 14px;
+}
+
+.input-text-style {
+    color:#626262;
+    border-width:2px;
+}
+
+
+
 /*----------------------------------------------------------------------------------------------------------------*/
-/* grid properties */
+/* Input and Select properties */
 /*----------------------------------------------------------------------------------------------------------------*/
 
 input {
     width: 100%;
+    height: 20px;
 }
+
+select {
+    color:#626262;
+    border-width:2px;
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    /*padding: 5px 8px;*/
+    /*background-image: none;*/
+    /*-webkit-appearance: none;*/
+
+}
+
+select:focus {
+    outline: none;
+
+}
+
+
 
 /*----------------------------------------------------------------------------------------------------------------*/
 /* Overlay icon */
