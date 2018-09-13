@@ -17,6 +17,7 @@ userName varchar(45) not null unique default 'unknownUserName',
 password varchar(45) not null default '123456',
 firstname varchar(45) not null,
 lastname varchar(45) not null,
+email varchar(45) not null,
 role varchar(45) not null default 'user',
 Constraint pk_userID primary key (userID),
 Constraint fk_user_role foreign key(role)

@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 // Wijzig onderstaande waarden van de variabelen naar die van je eigen mysql database
 // DB credentials
 class mysqlConnector
@@ -30,6 +30,7 @@ class mysqlConnector
 
         return $this->connector;
     }
+
 }
 
 
