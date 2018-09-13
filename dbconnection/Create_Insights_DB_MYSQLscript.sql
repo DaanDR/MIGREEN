@@ -25,17 +25,10 @@ on update no action
 on delete no action
 );
 CREATE TABLE `insights_db`.`customer` (
-`users` INT NULL,
-`customerName` VARCHAR(45) NOT NULL,
-PRIMARY KEY (`customerName`),
-UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC),
-INDEX `fk_customer_1_idx` (`users` ASC),
-CONSTRAINT `fk_customer_1`
-FOREIGN KEY (`users`)
-REFERENCES `insights_db`.`user` (`userID`)
-ON DELETE SET NULL
-ON UPDATE SET NULL);
-INSERT INTO `insights_db`.`customer` (`users`, `customerName`) VALUES ('3', 'De Eerste Klant');
-INSERT INTO `insights_db`.`customer` (`users`, `customerName`) VALUES ('4', 'De Tweede Klant');
+  `customerName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`customerName`),
+  UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
 
 
