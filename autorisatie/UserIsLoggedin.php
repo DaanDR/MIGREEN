@@ -1,6 +1,6 @@
 <?php
 ob_start();
-$myPath = "/guido/mybit/migreen/"; // VERANDER DEZE REGEL OP BASIS VAN EIGEN MACHINE
+$myPath = ":8080/MyBitProject/MIGreen/"; // VERANDER DEZE REGEL OP BASIS VAN EIGEN MACHINE
 define( 'APP_PATH', $_SERVER['SERVER_NAME'] . $myPath );
 
 class UserIsLoggedin
