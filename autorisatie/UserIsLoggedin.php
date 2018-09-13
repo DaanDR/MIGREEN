@@ -1,6 +1,12 @@
 <?php
+ob_start();
+$myPath = "/guido/mybit/migreen/"; // VERANDER DEZE REGEL OP BASIS VAN EIGEN MACHINE
+define( 'APP_PATH', $_SERVER['SERVER_NAME'] . $myPath );
+
 class UserIsLoggedin
 {
+    private $urlLogin;
+
     public function isUserLoggedIn()
     {
         $userLogged = false;
@@ -14,9 +20,12 @@ class UserIsLoggedin
 
     public function backToLoging()
     {
-        if( !isUserLoggedIn() )
+        if( ! $this->isUserLoggedIn() )
         {
-            header('Location: ../dashboards/admin_dashboard.php');
+            if(!headers_sent())
+            {
+                header('Location: http://' . APP_PATH . 'autorisatie/login.php');
+            }
         }
     }
 }
