@@ -1,3 +1,16 @@
+ <?php
+//  Voor de title bar
+    $title = "";
+
+    if ( isset($_SESSION["title"]) )
+    {
+        $title = $_SESSION["title"];
+    }
+    else
+    {
+        $title = "MyBit MyInsight";
+    }
+?>
 
 <!DOCTYPE html>
 <html>
