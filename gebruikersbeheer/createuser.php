@@ -7,13 +7,13 @@
     include_once ("../autorisatie/UserDaoMysql.php");
 
     // Title van de pagina...
-    if(!isset($_SESSION)) 
+    if(!isset($_SESSION))
     {
         $_SESSION["title"] = "Log hier in";
-    } 
+    }
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])      )    
+    if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])      )
     {
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $createUser = new UserDaoMysql();
@@ -59,7 +59,7 @@
             <div class="password-form input-padding">
 
                 <div class="password-form-initial">
-                    Wachtwoord <span class="info-symbol"><i class="fas fa-info-circle"></i></span>
+                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
                     <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
                 </div>
                 <div class="password-form-confirm">
