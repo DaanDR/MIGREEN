@@ -43,15 +43,16 @@
         $users = $userDao-> selectViewCurrentUsers(); 
       ?>
 
-        <?php foreach($users as $user):?>
+        <?php foreach($users as $user):
+           $username = $user["userName"];?>
           <tr>
             <td><?=$user["userName"] ?></td>
             <td><?=$user["firstname"] ?></td>
             <td><?=$user["lastname"] ?></td>
             <td><?=$user["role"] ?></td>
             <td class="icon-cell">
-              <i class="fas fa-pencil-alt glyph-icon" href="../gebruikersbeheer/overzicht.php?action=edit"></i> 
-              <i class="fas fa-trash-alt glyph-icon" href="../gebruikersbeheer/overzicht.php?action=delete" onclick="return confirmDelete();"></i>
+                <a href="../gebruikersbeheer/overzicht.php?action=edit"><i class="fas fa-pencil-alt glyph-icon"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
             </td>
           </tr>
         <?php endforeach;?>
@@ -65,30 +66,32 @@
    if (! isset($_GET["action"])) {
         $action = "Home";
     } else {
-              echo '<script>console.log("Your stuff here")</script>';
+        echo "action wordt gezet naar parameter<br>";
         $action = $_GET["action"];
     }
     
-  // if (! isset($_GET["userName"])) {
-  //       $userName = null;
-  //   } else {
-  //       $userName = $_GET["userName"];
-  //   }
+   if (! isset($_GET["userName"])) {
+         $userName = null;
+     } else {
+         $userName = $_GET["userName"];
+       echo "$userName<br>";
+     }
 
     switch ($action) {
         case "edit":
             edit();
             break;
         case "delete":
-            echo "Delete functie oproepen";
-            delete();
+            echo "Delete functie wordt opgeroepen in switch action<br>";
+            delete($userName);
             break;
     }
 
-    function delete() {
-      echo "Delete funcite opgeroepen";
-      header("Location: ../gebruikersbeheer/overzicht.php");
+    function delete($name) {
+      echo "Hello from the inside of the delete function :)<br> You are about to delete " . $name;
     }
+      
+      
     // function delete()
     // {
     //     if ($_SESSION['username'] == $userName) {
