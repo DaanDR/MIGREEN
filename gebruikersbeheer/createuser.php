@@ -5,7 +5,7 @@
 
     // Is logged in class
     include_once ("../autorisatie/UserDaoMysql.php");
-
+    include ("../autorisatie/EncryptDecrypt.php");
 
     // Title van de pagina...
     if(!isset($_SESSION)) 
@@ -56,9 +56,13 @@
         
         else
         {
-            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren
+            //encrypt het opgegeven password
+            $encrypt = new EncryptDecrypt();
+            $encrypt_password = $encrypt->encrypt($_POST['password']);
+            
+            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $createUser = new UserDaoMysql();
-            $createUser = $createUser->insertUser( $_POST['username'], $_POST['password'], $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $createUser = $createUser->insertUser( $_POST['username'], $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
         }
     }
 ?>
