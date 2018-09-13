@@ -123,7 +123,7 @@ class UserDaoMysql implements UserDao
     }
     
     
-    public function selectAllUsers()
+    public function selectViewCurrentUsers()
     {
         
     }

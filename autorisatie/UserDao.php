@@ -6,7 +6,7 @@ interface UserDao
     public function updateUser($username, $password, $firstname, $lastname, $email, $role);
     public function deactivateUser($username);
     public function selectUser($username);
-    public function selectAllUsers();
+    public function selectViewCurrentUsers();
 }
 
 ?>
