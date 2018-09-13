@@ -25,3 +25,9 @@ references role(role)
 on update no action
 on delete no action
 );
+CREATE TABLE `insights_db`.`customer` (
+`customerName` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`customerName`),
+UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
