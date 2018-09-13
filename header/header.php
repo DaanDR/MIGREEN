@@ -65,7 +65,7 @@
     if (isset($_SESSION["title"])) {
         $title = $_SESSION["title"];
     } else {
-        $title = "MyBit MyInsight";
+        $title = "MyBit MyInsights";
     }
     
     // $action = $_GET["action"];
