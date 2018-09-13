@@ -54,6 +54,7 @@ class CustomerDaoMysql implements CustomerDao
 
     public function selectCustomer($customername)
     {
+<<<<<<< HEAD
 //         $newCustomer = null;
 //         $dbConn = new mysqlConnector();
         
@@ -82,13 +83,36 @@ class CustomerDaoMysql implements CustomerDao
         
         $sql = "SELECT customerName from customer";
         $stmt = $dbConn->getConnector()->prepare($sql);
+=======
+        $newCustomer = null;
+        $dbConn = new mysqlConnector();
+        
+        $customername;
+        $customerid;
+        
+        $sql = "SELECT customerName, users from customer WHERE customerName = ? LIMIT 1";
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('s', $customername);
+>>>>>>> 65b45025b47cd6f5974e41353d05710b7583fbe2
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($customername);
         
+<<<<<<< HEAD
         while ($stmt->fetch()) {
             $customers[] = array("customerName" => $customername);
         }
         return $customers;
     }
+=======
+        // Vul de rij met enkel 1 rij uit database
+        while ($stmt->fetch()) {
+            $newcustomer = new Customer($customername)
+        }
+        return $newCustomer;
+    }
+
+    public function selectAllCustomers()
+    {}
+>>>>>>> 65b45025b47cd6f5974e41353d05710b7583fbe2
 }
