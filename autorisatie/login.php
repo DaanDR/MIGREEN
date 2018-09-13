@@ -28,9 +28,10 @@
         $_SESSION['lastname'] =  $loginUser->getLastname();
         $_SESSION['email'] = $loginUser->getEmail();
         $_SESSION['role'] =  $loginUser->getRole();
+        $_SESSION['status_active'] = $loginUser->getStatus();
         
-        //Geef melding als de user niet bestaat
-        if( $_POST['username'] !== $_SESSION['username'])
+        //Geef melding als de user niet bestaat of user niet actief is
+        if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
         {
             // Session leeg maken!!!!
             $_SESSION = array();
@@ -38,7 +39,7 @@
         }
         
         // Password checken (vergelijkt invoer met het password in de database)
-        if( $_POST['password'] == $_SESSION['password'] )
+        if( $_POST['password'] == $_SESSION['password'] AND $_SESSION['status_active'] == TRUE)
         {
             echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
             
