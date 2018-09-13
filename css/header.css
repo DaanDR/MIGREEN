@@ -9,12 +9,14 @@
 	src: url("../res/Ubuntu-R.ttf");
 }
 
+#headerbody{
+    border-bottom: 1px solid var(--myBit-text);
+}
+
 #compleet{
     margin-left: 12.5%;
     margin-right: 12.5%;
-    padding-bottom: 20px;
     padding-top: 20px;
-        border-bottom: 1px solid var(--myBit-text);
 
 }
 
@@ -35,13 +37,6 @@
     padding-bottom: 3px;
         
 }
-/*
-
-#bottombar{
-    border-bottom: 1px solid var(--myBit-text);
-
-}
-*/
 
 .mainmenu {
 	list-style-type: none;
@@ -54,6 +49,7 @@
 	margin-left: 150px;
 	font-size: 120%;
     font-family: ubuntu-regular;
+    padding-bottom: 10px;
 
 }
 
@@ -62,7 +58,7 @@
     display: inline-block;
 	float: left;
 	padding-left: 40px;
-    
+
 }
 
 
@@ -70,7 +66,13 @@
 	color: var(--myBit-text);
 	display: inline-block;
 	text-decoration: none;
-	padding: 0px 13px 8px 8px;
+	padding: 0px 13px 25px 8px;
+
+}
+
+#hover:hover {
+        border-bottom:1px solid #DCDCDC;
+
 }
 
 .mainmenu li:hover ul {
@@ -78,6 +80,7 @@
     width: 70px;
     list-style-type: none;
     text-align: left;
+
 
 }
 
@@ -91,8 +94,8 @@
 
 
 .hoofdmenu :hover{
-/*font-weight: bold;*/
-      text-shadow:0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC
+      text-shadow:0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC;
+/*        border-bottom: 3px solid red;*/
 
 
 }
@@ -139,23 +142,29 @@
 
 
 /* Style the buttons */
+/*
 .btn {
   border: none;
   outline: none;
   padding: 10px 16px;
   cursor: pointer;
 }
+*/
 
 
 
 /* Style the active class (and buttons on mouse-over) 
 om dit goed te laten werken veranderd je de class van gebruikers, klanten, omgeving naar "btn"*/
+/*
 .btn:active  {
     color: var(--myBit-red);
     border-bottom: 3px solid red;
 }
+*/
 /* Style the hover naar dikgedrukt */
+/*
 
 .btn:hover{
       text-shadow:0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC, 0 0 0.1px #DCDCDC
 }
+*/

@@ -10,7 +10,7 @@
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
-<!--<script src="../js/header.js"></script>-->
+<script src="../js/header.js"></script>
 
     <?php
 function active($currect_page){
@@ -28,6 +28,7 @@ function active($currect_page){
 <title><?php echo $title ?></title>
 </head>
 <body >
+    <div id="headerbody">
     <div id="compleet">
     <div id="logo">MyInsights</div>
 		<ul class="mainmenu">
@@ -39,9 +40,9 @@ function active($currect_page){
 			<li><a href="blabla" >KLANTEN</a></li>
 			<li><a href="blabla" >OMGEVINGEN</a></li>
 -->
-			<li><a class="<?php active('login.php');?>" href="../autorisatie/login.php">GEBRUIKERS</a></li>
-			<li><a class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overicht.php">KLANTEN</a></li>
-			<li><a class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
+			<li><a id="hover" class="<?php active('login.php');?>" href="../autorisatie/login.php">GEBRUIKERS</a></li>
+			<li><a id="hover" class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overicht.php">KLANTEN</a></li>
+			<li><a id="hover" class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
 
 
                                                             </div>
@@ -58,7 +59,7 @@ function active($currect_page){
 		</ul>
    
         </div>
-    
+    </div>
      <?php
     // Voor de title bar
     session_start();
