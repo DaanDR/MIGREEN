@@ -44,7 +44,7 @@
         if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
         {
             echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
-            
+            $_SESSION['password'] = "";
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
