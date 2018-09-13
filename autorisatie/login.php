@@ -1,5 +1,5 @@
 <?php
-
+session_start();
     // Is gebruikt in class
     include_once ("UserDaoMysql.php");
     include ("EncryptDecrypt.php");
@@ -43,8 +43,9 @@
         // Password checken (vergelijkt invoer met het password in de database)
         if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
         {
-            echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
+            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
             $_SESSION['password'] = "";
+            
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
