@@ -4,7 +4,7 @@
     include ("../header/header.php");
 
     // Is logged in class
-    include_once ("UserDaoMysql.php");
+    include_once ("../autorisatie/UserDaoMysql.php");
 
 
     // Title van de pagina...

@@ -19,6 +19,7 @@ firstname varchar(45) not null,
 lastname varchar(45) not null,
 email varchar(45) not null,
 role varchar(45) not null default 'user',
+status_active boolean not null default TRUE,
 Constraint pk_userID primary key (userID),
 Constraint fk_user_role foreign key(role)
 references role(role)
