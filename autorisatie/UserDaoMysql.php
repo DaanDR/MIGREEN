@@ -18,81 +18,113 @@ class UserDaoMysql implements UserDao
     // Insert new User
     public function insertUser($username, $password, $firstname, $lastname, $email, $role)
     {
-        $dbConn = new mysqlConnector();
+        try {
+            $dbConn = new mysqlConnector();
         
-        $sql = "INSERT INTO user(userName, password, firstname, lastname, email, role) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO user(userName, password, firstname, lastname, email, role) VALUES (?, ?, ?, ?, ?, ?)";
   
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('ssssss', $username, $password, $firstname, $lastname, $email, $role);
-        $stmt->execute();
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->bind_param('ssssss', $username, $password, $firstname, $lastname, $email, $role);
+            $stmt->execute();
         
-        $dbConn->getConnector()->close();
+            $dbConn->getConnector()->close();
+        }        
+        catch(Exception $e) {
+        return FALSE;
+        }
+        
+        return TRUE;
     }
     
     
     // In front end: make sure you have complete record in your fields of the form, use the selectUser function for this
     public function updateUser($username, $password, $firstname, $lastname, $email, $role)
     {
-        $dbConn = new mysqlConnector();
+        try {
+            $dbConn = new mysqlConnector();
         
-        $sql = "UPDATE user SET password = ?, firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
+            $sql = "UPDATE user SET password = ?, firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
         
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('ssssss', $password, $firstname, $lastname, $email, $role, $username);
-        $stmt->execute();
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->bind_param('ssssss', $password, $firstname, $lastname, $email, $role, $username);
+            $stmt->execute();
         
-        $dbConn->getConnector()->close();
+            $dbConn->getConnector()->close();
+        }
+        catch(Exception $e) {
+        return FALSE;
+        }
+        return TRUE;
     }
     
     
     // implementation of the delete functionality (a soft delete)
     public function deactivateUser($username)
     {
-        $dbConn = new mysqlConnector();
+        try {
+            $dbConn = new mysqlConnector();
         
-        $sql = "UPDATE user SET status_active = 0 WHERE userName = ?";
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
+            $sql = "UPDATE user SET status_active = 0 WHERE userName = ?";
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
         
-        $dbConn->getConnector()->close();
+            $dbConn->getConnector()->close();
+        }
+        catch(Exception $e) {
+        return FALSE;
+        }
+        
+        return TRUE;
     }
     
     
     // undo the soft delete for later implementation in the front end
     public function reactivateUser($username)
     {  
-        $dbConn = new mysqlConnector();
+        try {   
+            $dbConn = new mysqlConnector();
         
-        $sql = "UPDATE user SET status_active = 1 WHERE userName = ?";
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
+            $sql = "UPDATE user SET status_active = 1 WHERE userName = ?";
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
         
-        $dbConn->getConnector()->close();
+            $dbConn->getConnector()->close();
+        }
+        catch(Exception $e) {
+        return FALSE;
+        }
     
+        return TRUE;    
     }
 
+    
     public function selectUser($username)
     {
-        $newUser = null;
-        $dbConn = new mysqlConnector();
+        try {
+            $newUser = null;
+            $dbConn = new mysqlConnector();
 
-        $userid;
-        $userName;
-        $password;
-        $firstname;
-        $lastname;
-        $email;
-        $role;
+            $userid;
+            $userName;
+            $password;
+            $firstname;
+            $lastname;
+            $email;
+            $role;
         
-        $sql = "SELECT userID, userName, password, firstname, lastname, email, role, status_active FROM user WHERE userName = ?"; 
-        $conn = $dbConn->getConnector();
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $stmt->store_result();    
-    
+            $sql = "SELECT userID, userName, password, firstname, lastname, email, role, status_active FROM user WHERE userName = ?"; 
+            $conn = $dbConn->getConnector();
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            $stmt->store_result();    
+        }
+        catch(Exception $e) {
+        return FALSE;
+        }
+        
         //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
         if ($stmt->num_rows > 0)
         {    
