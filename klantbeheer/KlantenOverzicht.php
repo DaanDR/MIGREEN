@@ -3,10 +3,19 @@ include ('../header/header.php');
 ?>
 <?php
 $clients = [
-    ["KLANTNAAM"=>"De Eerste Klant"],
-    ["KLANTNAAM"=>"De Tweede Klant"],
-    ["KLANTNAAM"=>"De Derde Klant"],
-    ["KLANTNAAM"=>"De Vierde Klant"]];
+    [
+        "KLANTNAAM" => "De Eerste Klant"
+    ],
+    [
+        "KLANTNAAM" => "De Tweede Klant"
+    ],
+    [
+        "KLANTNAAM" => "De Derde Klant"
+    ],
+    [
+        "KLANTNAAM" => "De Vierde Klant"
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,27 +24,32 @@ $clients = [
 	href="../css/KlantenOverzicht.css">
 </head>
 <body>
-	<div id="resulttable">
+	<div id="pagestyling">
 		<table>
 			<thead>
 				<tr>
-					<th>Klantnaam</th>
+					<th id="tabletitle">Klantoverzicht</th>
 					<th></th>
-					<th></th>
+					<th><button class="new-customer-button" type="button" name="button">Nieuwe klant aanmaken</button></th>
 				</tr>
 			</thead>
+
+
 			<tbody>
+				<tr>
+					<td>Klantnaam</td>
+					<td></td>
+					<td></td>
+				</tr>
 				<!--   <?php getAllClients(); ?> -->
 
-         <?php foreach($clients as $client):?>
+       <!--    <?php foreach($clients as $client):?>
           <tr>
 					<td><?=$client["KLANTNAAM"]?></td>
 					<td><img src="../res/edit.svg"></td>
 					<td><img src="../res/delete.svg"></td>
-					<td class="icon-cell"><i class="fas fa-poo glyph-icon"></i> <i
-						class="fas fa-trash-alt glyph-icon"></i></td>
 				</tr>
-        <?php endforeach;?>
+        <?php endforeach;?> -->
 
 		</tbody>
 		</table>
