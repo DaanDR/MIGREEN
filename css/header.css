@@ -12,8 +12,11 @@
 #compleet{
     margin-left: 12.5%;
     margin-right: 12.5%;
-}
+    padding-bottom: 20px;
+    padding-top: 20px;
+        border-bottom: 1px solid var(--myBit-text);
 
+}
 
 
 #logo {
@@ -23,6 +26,7 @@
 	margin-left: 20px;
 	font-family: ubuntu-regular;
     font-size: 200%;
+    font-weight: bold;
 }
 
 #home-button {
@@ -31,12 +35,13 @@
     padding-bottom: 3px;
         
 }
+/*
 
 #bottombar{
     border-bottom: 1px solid var(--myBit-text);
-    padding-bottom: 33px;
 
 }
+*/
 
 .mainmenu {
 	list-style-type: none;

@@ -1,5 +1,7 @@
 <?php
     include ("../header/header.php");
+    $activePage = "../autorisatie/login.php";
+
 ?>
 
 <body>
@@ -16,31 +18,6 @@
         </div>
     </div>
     
-
-<?php include ("../footer/footer.php"); ?>
 </body>
 
-
-
-
-    body {background-color: #F2F5FA;}
-
-    .linkermenu_color{
-        color: red;
-    }
-    .linkermenu {
-        background-color: white; /* kleur */
-        display: inline-block;
-        font-size: 16px;        /* lettergrote */
-        font-family: Ariel;	    /* lettertype - Tekst kleur is gekoppeld aan de hyperlinks, zie a*/
-        left: 30%;
-        top: 30%;
-        position: fixed;       /* Vastzetten */
-        height: 30%;          /* de hoogte */
-        width: 30%;           /* breedte*/      
-    }
-    .linkermenu_in {
-        width: 50%;             /* breedte v/d tekst */
-        margin-left: 10px;
-        margin-top: 18px;       /* hoogte v/d tekst */
-    }
+<?php include ("../footer/footer.php"); ?>

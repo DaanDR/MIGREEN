@@ -12,7 +12,6 @@
 	crossorigin="anonymous">
 <!--<script src="../js/header.js"></script>-->
 
-<!--
     <?php
 function active($currect_page){
   $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
@@ -22,14 +21,13 @@ function active($currect_page){
   } 
 }
 ?>
--->
     
 
 
 
 <title><?php echo $title ?></title>
 </head>
-<body id="bottombar">
+<body >
     <div id="compleet">
     <div id="logo">MyInsights</div>
 		<ul class="mainmenu">
@@ -41,9 +39,9 @@ function active($currect_page){
 			<li><a href="blabla" >KLANTEN</a></li>
 			<li><a href="blabla" >OMGEVINGEN</a></li>
 -->
-			<li><a href="../gebruikersbeheer/overzicht.html" class="btn">GEBRUIKERS</a></li>
-			<li><a href="blabla" class="btn">KLANTEN</a></li>
-			<li><a href="blabla" class="btn">OMGEVINGEN</a></li>
+			<li><a class="<?php active('login.php');?>" href="../autorisatie/login.php">GEBRUIKERS</a></li>
+			<li><a class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overicht.php">KLANTEN</a></li>
+			<li><a class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
 
 
                                                             </div>
