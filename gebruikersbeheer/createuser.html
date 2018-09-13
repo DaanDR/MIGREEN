@@ -4,7 +4,8 @@
 <head>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/form.css">
-
+  <link rel="stylesheet" href="../css/content.css">
+  <link rel="stylesheet" href="../css/header.css">
 
   <meta charset="utf-8">
   <title>Gebruiker Aanmaken</title>
@@ -24,11 +25,11 @@
 
   <div class="content">
 
-    <form action="ahgebruikeranmakken.php">
+    <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
       <div class="user-form input-padding">
       Gebruikersnaam
-      <br><input type="text" name="username">
+      <br><input type="text" name="username" minlength=5>
     </div>
 
 
@@ -36,7 +37,7 @@
 
       <div class="password-form-initial">
       Wachtwoord <span class="info-symbol"><i class="fas fa-info-circle"></i></span>
-      <br><input type="password" name="password">
+      <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
     </div>
       <div class="password-form-confirm">
       Herhaal wachtwoord <br><input type="password" name="passwordconfirm">
@@ -46,11 +47,11 @@
     <div class="input-padding fullname-form">
       <div class="fullname-form-fn">
       Voornaam
-      <br><input type="text" name="fname">
+      <br><input type="text" name="firstname" minlength="2">
     </div>
       <div class="fullname-form-ln">
         Achternaam
-        <br><input type="text" name="fname">
+        <br><input type="text" name="lastname" minlength="2">
       </div>
 </div>
 
@@ -65,7 +66,6 @@
       <select>
             <option value="user">gebruiker</option>
             <option value="admin">admin</option>
-            <option value="superadmin">gentstudent42.1</option>
         </select>
       </div>
 
