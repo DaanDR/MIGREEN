@@ -1,6 +1,6 @@
 <?php
   include('../header/header.php'); 
-  include('../autorisatie/UserDaoMysql.php');       
+  include('../autorisatie/UserDaoMysql.php');      
 ?> 
 
 <!DOCTYPE html>
@@ -79,32 +79,36 @@
 
     switch ($action) {
         case "edit":
-            edit();
+            echo "hier komt edit()";
             break;
         case "delete":
             echo "Delete functie wordt opgeroepen in switch action<br>";
-            delete($userName);
+            delete($userName, $userDao);
             break;
     }
 
-    function delete($name) {
-      echo "Hello from the inside of the delete function :)<br> You are about to delete " . $name;
+    function delete($name, $dao) {
+     echo "Hello from the inside of the delete function :)<br> You are now deleting " . $name;
+        $succes = $dao->deactivateUser($name);
+//        var_dump $succes;
+        header("Location: ../gebruikersbeheer/overzicht.php");
+        
     }
       
       
-    // function delete()
-    // {
-    //     if ($_SESSION['username'] == $userName) {
-    //       echo "Je kunt niet jezelf verwijderen dummy!";
-    //     } else {
-    //       if ($userDao-> deleteUser($userName)) {
-    //         echo "Gebruiker verwijderd";
-    //       } else {
-    //         echo "Gebruiker kan niet verwijderd worden";
-    //       }
-    //     }
-    //     header("Location: ../gebruikersbeheer/overzicht.php");
-    // }
+//     function delete()
+//     {
+//         if ($_SESSION['username'] == $userName) {
+//           echo "Je kunt niet jezelf verwijderen dummy!";
+//         } else {
+//           if ($userDao-> deleteUser($userName)) {
+//             echo "Gebruiker verwijderd";
+//           } else {
+//             echo "Gebruiker kan niet verwijderd worden";
+//           }
+//         }
+//         
+//     }
 
 ?>
 
