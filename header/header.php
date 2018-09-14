@@ -54,7 +54,7 @@ function active($currect_page){
 			<li><a href="blabla" >OMGEVINGEN</a></li>
 -->
 			<li><a id="hover" class="<?php active('login.php');?>" href="../autorisatie/login.php">GEBRUIKERS</a></li>
-			<li><a id="hover" class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overicht.php">KLANTEN</a></li>
+			<li><a id="hover" class="<?php active('klantenoverzicht.php');?>" href="../klantbeheer/klantenoverzicht.php">KLANTEN</a></li>
 			<li><a id="hover" class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
 
 
