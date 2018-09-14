@@ -5,3 +5,8 @@ function confirmDelete(naam) {
     return false;
   }
 }
+
+function notDeleteSelf() {
+  window.location.replace(overzicht.php);    
+  alert("Je kunt niet jezelf verwijderen, dummy ;)");
+}
