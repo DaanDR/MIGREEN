@@ -36,19 +36,15 @@ a:hover {
 }
 
 
-.userinformation {
-    width: 10%;                         /* breedte v/d tekst */
-    margin-left: 10%;                   /* Plek in menu */
-    margin-top: 4%;                     /* Plek in menu */
-}
 /** van create.css */
 .user_input {
     width: 60%;                         /* breedte v/d tekst */
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
-.menu_login{
-    background-color: #B4C0CC;          /* Achtergrondkleur     */
+
+.menu_login {
+          /* Achtergrondkleur     */
     display: inline-block;
     left: 49%;                          /* plek in menu         */
     top: 60%;                           /* plek in menu         */
@@ -57,10 +53,58 @@ a:hover {
     width: 10%;                         /* Breedte              */
 }
 
-.userinformation ul li{
-        list-style-type: none;            
-
+.inlog-container {
+  /* border-style: solid; */
+  margin-left: 35%;
+  margin-top: 15%;
+  width: 30%;
+  display: block;
+  background-color: white;
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: #f0f0f0;
 }
+
+.inlog-container-logo {
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 50%; */
+  /* margin-left: 20%; */
+}
+
+.inlog-container-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  width: 65%;
+}
+
+.inlog-container-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userinformation > div{
+  padding: 5%;
+}
+
+
+.login-input-field {
+    width: 200%;
+    height: 30px;
+}
+
+.inlog-container-button {
+  display: block;
+  margin-left: 75%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 
 
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -96,6 +140,32 @@ a:hover {
     font-size: 90%;                    /* lettergrote      */
     margin-top: 5%;                     /* plek in menu     */
     margin-left: 4%;                    /* plek in menu     */
+    background-color: #99AFC6; /* primary button navy light*/
+    border: 1px solid #99AFC6; /* outline */
+    color: white;
+    padding: 10% 10%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /*margin-left: 2%;*/
+    font-family: ubuntu-regular;
+    font-weight: bold;
+    border-radius: 2px;
 }
 
+#login_button:hover {
+  background-color: #638cb5;
+  cursor: pointer;
+}
 
+#login_button:active {
+  background-color: #99afc6;
+}
+
+#inlog-logo {
+	color: var(--myBit-red);
+	/* margin-top: -0.6%; */
+	font-family: ubuntu-regular;
+  font-size: 200%;
+  font-weight: bold;
+}
