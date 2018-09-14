@@ -164,7 +164,7 @@ class UserDaoMysql implements UserDao
         $lastname;
         $role;
         
-        $sql = "SELECT userName, firstname, lastname, role FROM user WHERE status_active = 1"; 
+        $sql = "SELECT userName, firstname, lastname, role FROM user WHERE status_active = 1 ORDER BY userName"; 
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->execute();
         $stmt->store_result();
