@@ -79,28 +79,25 @@ session_start();
 <body>
   <div class="inlog-container">
     <div class="menu-login">
-      <div class="inlog-container-logo">
-        <div id = "logo">
-            MyInsight
+        <div class="inlog-container-logo">
+          <div id = "inlog-logo">MyInsight</div>
         </div>
-          </div>
 
-  <div class="inlog-container-input">
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <div class="inlog-container-input">
+          <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
                 <div class="userinformation">
-                    <ul>
-                    <li>Gebruikersnaam:  <input type="text" name="username"></li>
-                    <li>Wachtwoord:     <input type="password" name="password"></li>
-                    </ul>
+                  <div>Gebruikersnaam</div><div><input class="login-input-field" type="text" name="username"></div>
+
+                  <div>Wachtwoord</div><div><input class="login-input-field" type="password" name="password"></div>
                 </div>
-                  </div>
+        </div>
                   <div class="inlog-container-button">
                 <div>
                         <input id="login_button"type="submit" value="Inloggen">
                 </div>
         </form>
                     </div>
-                  </div>
+        </div>
                 </div>
 
 
