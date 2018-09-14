@@ -13,7 +13,7 @@
     {
         $_SESSION["title"] = "Log hier in";
     }
-
+/**
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )
     {
@@ -68,7 +68,9 @@
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
     }
+    */
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -79,14 +81,14 @@
     <link rel="stylesheet" href="../css/content.css">
 
     <meta charset="utf-8">
-    <title>Gebruiker Aanmaken</title>
+    <title>Gebruiker Bewerken</title>
 </head>
 
 <div class="grid-container">
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h2>Gebruiker aanmaken</h2>
+        <h2>Gebruiker bewerken - PLACEHOLDER</h2>
     </div>
 
 
@@ -148,8 +150,9 @@
     <!-- end form elements -->
 
     <div class="footer"></div>
+    
 
-    <!-- buttons   -->
+    <!-- buttons  
 
     <div class="footer-right">
         <div class="buttons-form">
@@ -157,13 +160,14 @@
             <button class="button-form-secondary" type="button">Annuleren</button></a>
             <button class="button-form-primary" type="submit" value="Inloggen"> Gebruiker aanmaken </button>
             <!-- buttons -->
+     
             <div>
                 </form>
             </div>
 
             <body>
 
-            </body>
+            </body> 
 
 </html>
 
