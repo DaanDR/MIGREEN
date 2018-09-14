@@ -1,9 +1,31 @@
-body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
+/*----------------------------------------------------------------------------------------------------------------*/
+/* Body properties */
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
+body {
+    background-color: #F2F6FA;                      /* Kleur achtergrond: grijs */
+    font-family: ubuntu-regular, Arial sans-serif;  /* Font style ubuntu-Regular*/
+    font-size: 12px;
+}
+
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+.breadcrumb {
+    color: #9b9b9b ;                    /* Kruimelpad tekst kleur*/
+}
 
 .menu {
     background-color: white;            /* Achtergrondkleur */
     display: inline-block;
-    font-family: Arial sans-serif;	    /* lettertype als custom-font niet aanwezig is */
     left: 30%;                          /* plek op pagina   */
     top: 30%;                           /* plek op pagina   */
     position: fixed;                    /* Vastzetten       */
@@ -11,16 +33,9 @@ body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
     width: 30%;                         /* Breedte          */
 }
 
-#title {
-    color: red;                         /* letterkleur      */
-    font-size: 155%;                    /* lettergrote      */
-    margin-top: 5%;                     /* plek in menu     */
-    margin-left: 37%;                   /* plek in menu     */
-}
 
 .userinformation {
     width: 10%;                         /* breedte v/d tekst */
-    font-size: %;                    /* lettergrote      */
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
@@ -40,11 +55,11 @@ body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
     width: 10%;                         /* Breedte              */
 }
 
-#login_button {
-    font-size: 90%;                    /* lettergrote      */
-    margin-top: 5%;                     /* plek in menu     */
-    margin-left: 4%;                    /* plek in menu     */
-}
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+/* Button properties */
+/*----------------------------------------------------------------------------------------------------------------*/
 
 
 .submit_button {
@@ -55,15 +70,26 @@ body {background-color: #F2F5FA;}       /* Kleur achtergrond: grijs */
     margin-left: 40%;                   /*  plek in menu     */
 }
 
+/*----------------------------------------------------------------------------------------------------------------*/
+/* id properties */
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
 #paragraaf{
     margin-left: 4%;                    /* plek in menu     */
 }
 
-a{
-    color: white;
-    text-decoration: none;
+#title {
+    color: red;                         /* letterkleur      */
+    font-size: 155%;                    /* lettergrote      */
+    margin-top: 5%;                     /* plek in menu     */
+    margin-left: 37%;                   /* plek in menu     */
 }
 
-a:hover {
-    color: black;
+#login_button {
+    font-size: 90%;                    /* lettergrote      */
+    margin-top: 5%;                     /* plek in menu     */
+    margin-left: 4%;                    /* plek in menu     */
 }
+
+
