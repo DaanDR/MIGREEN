@@ -23,7 +23,7 @@ a:hover {
     color: #9b9b9b ;                    /* Kruimelpad tekst kleur*/
 }
 
-.menu {
+.menu-login {
     background-color: white;            /* Achtergrondkleur */
     display: inline-block;
     left: 30%;                          /* plek op pagina   */
@@ -39,7 +39,16 @@ a:hover {
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
+
+.userinformation ul li{
+            list-style-type: none;
+    /*font-weight: bold;*/
+
+
+}
+
 /** van create.css */
+
 .user_input {
     width: 60%;                         /* breedte v/d tekst */
     margin-left: 10%;                   /* Plek in menu */
@@ -70,6 +79,7 @@ a:hover {
     margin-left: 40%;                   /*  plek in menu     */
 }
 
+
 /*----------------------------------------------------------------------------------------------------------------*/
 /* id properties */
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -90,6 +100,20 @@ a:hover {
     font-size: 90%;                    /* lettergrote      */
     margin-top: 5%;                     /* plek in menu     */
     margin-left: 4%;                    /* plek in menu     */
+    background-color: #99AFC6; /* primary button navy light*/
+    border: 1px solid #99AFC6; /* outline */
+    color: white;
+    padding: 2% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 2%;
+    font-family: ubuntu-regular;
+    font-weight: bold;
+
 }
+
+
+
 
 
