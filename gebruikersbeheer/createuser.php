@@ -65,7 +65,7 @@
             $createUser = new UserDaoMysql();
             $createUser = $createUser->insertUser( $_POST['username'], $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             echo "<p>Aanmaken gebruiker gelukt</p>";
-            header('Location: ../dashboards/admin_dashboard.php');
+            header('Location: ../gebruikersbeheer/overzicht.php');
         }
     }
 ?>
