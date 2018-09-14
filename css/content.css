@@ -30,7 +30,9 @@ a:hover {
     top: 30%;                           /* plek op pagina   */
     position: fixed;                    /* Vastzetten       */
     height: 35%;                        /* Hoogte           */
-    width: 30%;                         /* Breedte          */
+    width: 25%;                         /* Breedte          */
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 
@@ -45,7 +47,7 @@ a:hover {
           /* Achtergrondkleur     */
     display: inline-block;
     left: 49%;                          /* plek in menu         */
-    top: 55%;                           /* plek in menu         */
+    top: 60%;                           /* plek in menu         */
     position: fixed;                    /* Vastzetten           */
     height: 6%;                         /* Hoogte               */
     width: 10%;                         /* Breedte              */

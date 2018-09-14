@@ -1,18 +1,18 @@
 <?php
 session_start();
 
-  // Check of user is ingelogged en anders terug naar de login pagina
-  include_once ("../autorisatie/UserIsLoggedin.php");
-  $userLoggedin = new UserIsLoggedin();
-  $userLoggedin->backToLoging();
+// Check of user is ingelogged en anders terug naar de login pagina
+include_once ("../autorisatie/UserIsLoggedin.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
 
-  // Check of de admin is ingelogged....
-  $adminLoggedin = "";
-  if( ! $userLoggedin->isAdmin() )
-  {
-      $adminLoggedin = "style='display: none;'";
-      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
-  }
+// Check of de admin is ingelogged....
+$adminLoggedin = "";
+if( ! $userLoggedin->isAdmin() )
+{
+    $adminLoggedin = "style='display: none;'";
+    echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+}
 
 // ini_set('display_errors', 1);
     // Header in de bovenkant
@@ -27,7 +27,7 @@ session_start();
     {
         $_SESSION["title"] = "Log hier in";
     }
-
+/**
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )
     {
@@ -82,7 +82,9 @@ session_start();
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
     }
+    */
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -93,14 +95,14 @@ session_start();
     <link rel="stylesheet" href="../css/content.css">
 
     <meta charset="utf-8">
-    <title>Gebruiker Aanmaken</title>
+    <title>Gebruiker Bewerken</title>
 </head>
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h2>Gebruiker aanmaken</h2>
+        <h2>Gebruiker bewerken - PLACEHOLDER</h2>
     </div>
 
 
@@ -162,8 +164,9 @@ session_start();
     <!-- end form elements -->
 
     <div class="footer"></div>
+    
 
-    <!-- buttons   -->
+    <!-- buttons  
 
     <div class="footer-right">
         <div class="buttons-form">
@@ -171,13 +174,14 @@ session_start();
             <button class="button-form-secondary" type="button">Annuleren</button></a>
             <button class="button-form-primary" type="submit" value="Inloggen"> Gebruiker aanmaken </button>
             <!-- buttons -->
+     
             <div>
                 </form>
             </div>
 
             <body>
 
-            </body>
+            </body> 
 
 </html>
 

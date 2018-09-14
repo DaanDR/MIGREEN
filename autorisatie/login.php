@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once ("../config/configure.php");
+
     // Is gebruikt in class
     include_once ("UserDaoMysql.php");
     include ("EncryptDecrypt.php");
@@ -49,11 +51,11 @@ session_start();
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
-            header('Location: ../dashboards/admin_dashboard.php');
-            }
+                header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            } 
             else if($_SESSION['role'] == 'user')
             {
-            header('Location: ../dashboards/user_dashboard.php');
+                header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
             }
         }
         else
@@ -71,6 +73,7 @@ session_start();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="../css/header.css">
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
     <link type="text/css" rel="stylesheet" href="../css/header.css">
