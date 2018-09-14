@@ -73,6 +73,7 @@ include_once ("../config/configure.php");
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="../css/header.css">
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
 
@@ -86,21 +87,19 @@ include_once ("../config/configure.php");
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
                 <div class="userinformation">
                     <ul>
-                    Gebruikersnaam:  <input type="text" name="username">  <br> <br>
-                    Wachtwoord:     <input type="password" name="password">  <br>
+                    <li>Gebruikersnaam:  <input type="text" name="username"></li>
+                    <li>Wachtwoord:     <input type="password" name="password"></li>
                     </ul> 
                 </div>
-            </div>        
             
-            <div class="menu_login">
                 <div id = "login_button">
                     <ul>
                         <input type="submit" value="Inloggen">
                     </ul> 
-                </div>
             </div>
         </form>
+            </div>
 
-<?php include ("../footer/footer.php"); ?>
+
 </body>
 
