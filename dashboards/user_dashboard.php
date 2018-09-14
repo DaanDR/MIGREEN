@@ -1,19 +1,17 @@
 <?php
+ob_start();
+include('../header/header.php'); 
 
-    // Header in de bovenkant
-    // nog toevoegen
+// Check of user is ingelogged en anders terug naar de login pagina
+include_once ("../autorisatie/UserIsLoggedin.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
 
 // Title van de pagina...
     if(!isset($_SESSION)) 
     {
         $_SESSION["title"] = "User Dashboard";
     } 
-
-
-
-
-
-
 ?>
 
 
@@ -22,6 +20,10 @@
 <body>
 <p>  
 Hier moet het dashboard voor een user komen
+<?php 
+    echo $_SESSION['role'];
+    echo $_SESSION['username'];
+?>
 </p>   
     
     
