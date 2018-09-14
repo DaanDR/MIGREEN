@@ -55,6 +55,28 @@ a:hover {
     width: 10%;                         /* Breedte              */
 }
 
+.inlog-container {
+  /* border-style: solid; */
+  margin-left: 35%;
+  margin-top: 20%;
+  width: 30%;
+  display: block;
+}
+
+.inlog-container-logo {
+
+  border-style: solid;
+
+}
+
+.inlog-container-input {
+  border-style: solid;
+}
+
+.inlog-container-button {
+  border-style: solid;
+}
+
 
 
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -91,5 +113,3 @@ a:hover {
     margin-top: 5%;                     /* plek in menu     */
     margin-left: 4%;                    /* plek in menu     */
 }
-
-
