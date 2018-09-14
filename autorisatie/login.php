@@ -5,10 +5,10 @@ session_start();
     include ("EncryptDecrypt.php");
 
     // Title van de pagina...
-    if(!isset($_SESSION)) 
+    if(!isset($_SESSION))
     {
         $_SESSION["title"] = "Log hier in";
-    } 
+    }
 
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
@@ -16,7 +16,7 @@ session_start();
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
         $loginUser = $loginUser->selectUser( $_POST['username'] );
-        
+
         // Haal de user info uit de User array/object $loginUser
         // en maak session vars aan.
         $_SESSION['id'] =  $loginUser->getId();
@@ -27,11 +27,11 @@ session_start();
         $_SESSION['email'] = $loginUser->getEmail();
         $_SESSION['role'] =  $loginUser->getRole();
         $_SESSION['status_active'] = $loginUser->getStatus();
-        
+
         // Decrypt het password
         $decrypt = new EncryptDecrypt();
         $decrypt_password = $decrypt->decrypt($_SESSION['password']);
-        
+
         //Geef melding als de user niet bestaat of user niet actief is
         if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
         {
@@ -39,21 +39,21 @@ session_start();
             $_SESSION = array();
             echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
         }
-        
+
         // Password checken (vergelijkt invoer met het password in de database)
         if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
         {
-            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
+            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";
             $_SESSION['password'] = "";
-            
+
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
             header('Location: ../dashboards/admin_dashboard.php');
-            } 
+            }
             else if($_SESSION['role'] == 'user')
             {
-            header('Location: ../dashboards/user_dashboard.php');   
+            header('Location: ../dashboards/user_dashboard.php');
             }
         }
         else
@@ -61,7 +61,7 @@ session_start();
             // Session leeg maken!!!!
             $_SESSION = array();
             echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
-            
+
         }
     }
 
@@ -77,26 +77,31 @@ session_start();
 
 
 <body>
-    
+  <div class="inlog-container">
     <div class="menu-login">
+      <div class="inlog-container-logo">
         <div id = "logo">
-            MyInsight <br>
+            MyInsight
         </div>
+          </div>
 
+  <div class="inlog-container-input">
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
                 <div class="userinformation">
                     <ul>
                     <li>Gebruikersnaam:  <input type="text" name="username"></li>
                     <li>Wachtwoord:     <input type="password" name="password"></li>
-                    </ul> 
+                    </ul>
                 </div>
-            
+                  </div>
+                  <div class="inlog-container-button">
                 <div>
                         <input id="login_button"type="submit" value="Inloggen">
                 </div>
         </form>
-                    </div>        
+                    </div>
+                  </div>
+                </div>
 
 
 </body>
-
