@@ -23,7 +23,12 @@
       <h2>Gebruikersoverzicht</h2>
     </div>
     <div class="header-mid"></div>
-    <div class="header-right"><button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button></div>
+    <div class="header-right">
+        
+        <a href="createuser.php" target="_self">
+        <button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button>
+        </a>
+      </div>
     <div class="content">
 
     <table>
@@ -51,7 +56,7 @@
             <td><?=$user["lastname"] ?></td>
             <td><?=$user["role"] ?></td>
             <td class="icon-cell">
-                <a href="../gebruikersbeheer/overzicht.php?action=edit"><i class="fas fa-pencil-alt glyph-icon"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
                 <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
             </td>
           </tr>
@@ -79,6 +84,7 @@
         case "Home":
             break;
         case "edit":
+            header("Location: edituser.php");
             break;
         case "delete":
             delete($userName, $userDao);
