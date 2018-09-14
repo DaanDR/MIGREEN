@@ -132,7 +132,7 @@
             <div class="role-form form-field-padding form-field-style">
                 Rol
                 <br>
-                <select required>
+                <select name="role" required>
                     <optgroup label="Kies een rol">
                     <option selected hidden>Kies een rol</option>
                     <option value="user">gebruiker</option>
@@ -151,7 +151,7 @@
 
     <div class="footer-right">
         <div class="buttons-form">
-            <button class="button-form-secondary" type="button">Annuleren</button><button class="button-form-primary" type="submit"> Gebruiker aanmaken </button>
+            <button class="button-form-secondary" type="button">Annuleren</button><button class="button-form-primary" type="submit" value="Inloggen"> Gebruiker aanmaken </button>
             <!-- buttons -->
             <div>
                 </form>
