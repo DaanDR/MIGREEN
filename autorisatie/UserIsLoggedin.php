@@ -1,12 +1,12 @@
 <?php
 ob_start();
-$myPath = ":8080/MyBitProject/MIGreen/"; // VERANDER DEZE REGEL OP BASIS VAN EIGEN MACHINE
-define( 'APP_PATH', $_SERVER['SERVER_NAME'] . $myPath );
+include_once ("../config/configure.php");
 
 class UserIsLoggedin
 {
     private $urlLogin;
 
+    // Is de gebruiker ingelogged???
     public function isUserLoggedIn()
     {
         $userLogged = false;
@@ -18,6 +18,22 @@ class UserIsLoggedin
         return $userLogged;
     }
 
+    // Is de gebruiker een admin????
+    public function isAdmin()
+    {
+        $userLogged = false;
+        if( $this->isUserLoggedIn() )
+        {
+            if( $_SESSION['role'] == 'admin')
+            {
+                $userLogged = true;
+            }
+        }
+
+        return $userLogged;
+    }
+
+    // Redirect naar Loggin pagina
     public function backToLoging()
     {
         if( ! $this->isUserLoggedIn() )
