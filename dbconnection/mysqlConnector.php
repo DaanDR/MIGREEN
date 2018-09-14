@@ -25,7 +25,7 @@ class mysqlConnector
         if ($this->connector->connect_error) {
             die("DB connection failed: " . $this->connector->connect_error);
         } else {
-            echo "DB connection established";
+            //echo "DB connection established";
         }
 
         return $this->connector;
