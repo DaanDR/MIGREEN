@@ -23,7 +23,7 @@ a:hover {
     color: #9b9b9b ;                    /* Kruimelpad tekst kleur*/
 }
 
-.menu-login {
+.menu {
     background-color: white;            /* Achtergrondkleur */
     display: inline-block;
     left: 30%;                          /* plek op pagina   */
@@ -39,23 +39,15 @@ a:hover {
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
-
-.userinformation ul li{
-            list-style-type: none;
-    /*font-weight: bold;*/
-
-
-}
-
 /** van create.css */
-
 .user_input {
     width: 60%;                         /* breedte v/d tekst */
     margin-left: 10%;                   /* Plek in menu */
     margin-top: 4%;                     /* Plek in menu */
 }
-.menu_login{
-    background-color: #B4C0CC;          /* Achtergrondkleur     */
+
+.menu_login {
+          /* Achtergrondkleur     */
     display: inline-block;
     left: 49%;                          /* plek in menu         */
     top: 55%;                           /* plek in menu         */
@@ -70,20 +62,21 @@ a:hover {
   margin-top: 20%;
   width: 30%;
   display: block;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .inlog-container-logo {
 
-  border-style: solid;
-
 }
 
 .inlog-container-input {
-  border-style: solid;
+
 }
 
 .inlog-container-button {
-  border-style: solid;
+
 }
 
 
@@ -100,7 +93,6 @@ a:hover {
     margin-top: 3%;                     /* plek in menu     */
     margin-left: 40%;                   /*  plek in menu     */
 }
-
 
 /*----------------------------------------------------------------------------------------------------------------*/
 /* id properties */
@@ -134,8 +126,3 @@ a:hover {
     font-weight: bold;
 
 }
-
-
-
-
-
