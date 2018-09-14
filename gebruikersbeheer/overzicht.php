@@ -51,8 +51,8 @@
             <td><?=$user["lastname"] ?></td>
             <td><?=$user["role"] ?></td>
             <td class="icon-cell">
-                <a href="../gebruikersbeheer/overzicht.php?action=edit"><i class="fas fa-pencil-alt glyph-icon"></i></a>
-                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=edit"><i class="crud-icon fas fa-pencil-alt glyph-icon"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="crud-icon fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
             </td>
           </tr>
         <?php endforeach;?>
@@ -101,7 +101,7 @@
       
     function delete($name, $dao) {
         if ($_SESSION['username'] == $name) {
-            echo 'Je kunt niet jezelf verwijderen dummy!';
+          echo '<script type="text/javascript"> notDeleteSelf(); </script>';
         } else {
             $succes = $dao->deactivateUser($name);
             header("Location: overzicht.php");

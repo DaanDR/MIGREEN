@@ -7,6 +7,6 @@ function confirmDelete(naam) {
 }
 
 function notDeleteSelf() {
-  window.location.replace(overzicht.php);    
-  alert("Je kunt niet jezelf verwijderen, dummy ;)");
+  alert("Je kunt niet jezelf verwijderen, dummy. Je gaat nu weer terug naar Gebruikersoverzicht.");
+  window.location.replace('overzicht.php');    
 }

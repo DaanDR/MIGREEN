@@ -6,7 +6,7 @@ class mysqlConnector
 {
     private $dbhost = "localhost";
     private $dbuser = "root";
-    private $dbpassword = "s3unsh!Ine1";
+    private $dbpassword = "";
     private $dbname = "insights_db";
 
     private $connector;
