@@ -84,7 +84,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php");
+            header("Location: edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
