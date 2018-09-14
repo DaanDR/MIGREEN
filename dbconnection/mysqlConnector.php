@@ -6,7 +6,7 @@ class mysqlConnector
 {
     private $dbhost = "localhost";
     private $dbuser = "root";
-    private $dbpassword = "s3unsh!Ine1";
+    private $dbpassword = "Appel-Peer-Framboos1976";
     private $dbname = "insights_db";
 
     private $connector;
@@ -25,7 +25,7 @@ class mysqlConnector
         if ($this->connector->connect_error) {
             die("DB connection failed: " . $this->connector->connect_error);
         } else {
-            echo "DB connection established";
+            //echo "DB connection established";
         }
 
         return $this->connector;
