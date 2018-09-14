@@ -1,10 +1,8 @@
 <?php
-// ini_set('display_errors', 1);
-    // Header in de bovenkant
-    include ("../header/header.php");
-
-    // Is logged in class
+session_start();
+    // Is gebruikt in class
     include_once ("UserDaoMysql.php");
+    include ("EncryptDecrypt.php");
 
     // Title van de pagina...
     if(!isset($_SESSION)) 
@@ -28,9 +26,14 @@
         $_SESSION['lastname'] =  $loginUser->getLastname();
         $_SESSION['email'] = $loginUser->getEmail();
         $_SESSION['role'] =  $loginUser->getRole();
+        $_SESSION['status_active'] = $loginUser->getStatus();
         
-        //Geef melding als de user niet bestaat
-        if( $_POST['username'] !== $_SESSION['username'])
+        // Decrypt het password
+        $decrypt = new EncryptDecrypt();
+        $decrypt_password = $decrypt->decrypt($_SESSION['password']);
+        
+        //Geef melding als de user niet bestaat of user niet actief is
+        if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
         {
             // Session leeg maken!!!!
             $_SESSION = array();
@@ -38,9 +41,10 @@
         }
         
         // Password checken (vergelijkt invoer met het password in de database)
-        if( $_POST['password'] == $_SESSION['password'] )
+        if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
         {
-            echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
+            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
+            $_SESSION['password'] = "";
             
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
@@ -62,6 +66,11 @@
     }
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
 

@@ -3,10 +3,10 @@
 interface UserDao 
 { 
     public function insertUser($userName, $password, $firstname, $lastname, $email, $role);
-    public function updateUser($id);
-    public function deleteUser($id);
+    public function updateUser($username, $password, $firstname, $lastname, $email, $role);
+    public function deactivateUser($username);
     public function selectUser($username);
-    public function selectAllUsers();
+    public function selectViewCurrentUsers();
 }
 
 ?>

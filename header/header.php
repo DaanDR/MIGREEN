@@ -1,6 +1,5 @@
  <?php
 //  Voor de title bar
-    @session_start();
     $title = "";
 
     if ( isset($_SESSION["title"]) )
@@ -26,40 +25,54 @@
 	crossorigin="anonymous">
 <script src="../js/header.js"></script>
 
+    <?php
+function active($currect_page){
+  $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+  $url = end($url_array);  
+  if($currect_page == $url){
+      echo 'active'; //class name in css 
+  } 
+}
+?>
+    
+
 
 
 <title><?php echo $title ?></title>
 </head>
-<body id="bottombar">
-    
-<div class="container">
+<body >
+    <div id="headerbody">
+    <div id="compleet">
     <div id="logo">MyInsights</div>
-	<nav id="navmenu">
 		<ul class="mainmenu">
+            <div class="hoofdmenu">
 			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
 				class="fas fa-home"></a></li>
+<!--
 			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
 			<li><a href="blabla" >KLANTEN</a></li>
 			<li><a href="blabla" >OMGEVINGEN</a></li>
-            
-<!--
-            <li><a href="../gebruikersbeheer/overzicht.html" class="btn">GEBRUIKERS</a></li>
-			<li><a href="blabla" class="btn">KLANTEN</a></li>
-			<li><a href="blabla" class="btn">OMGEVINGEN</a></li>
 -->
+			<li><a id="hover" class="<?php active('login.php');?>" href="../autorisatie/login.php">GEBRUIKERS</a></li>
+			<li><a id="hover" class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overicht.php">KLANTEN</a></li>
+			<li><a id="hover" class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
+
+
+                                                            </div>
             
-            <li><i id="dropdown-button" class="fas fa-user"></i>
-                <div id="dropdown-window">
+
+
+            <div id="dropdown-window">
+            <li><i class="fas fa-user"></i>
                 <ul class="dropdown-content">
-                    <li><a id="link" href="../header/header.php?action=account"> Account </a></li>
-                    <li><a id="link" href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
+                    <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
+                    <li id="dropdown-padding"><a  href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
                 </ul>
                 </div>
 		</ul>
-    </nav>
+   
+        </div>
     </div>
-    
-    
      <?php
     // Voor de title bar
     session_start();
@@ -99,8 +112,14 @@
     {
         print "accountje";
     }
+    
+
+    
+    
+
+    
+    
+    
     ?>
     
-    </body>
-
-</html>
+   
