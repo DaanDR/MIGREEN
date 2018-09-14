@@ -1,8 +1,8 @@
 :root { 
 	--myBit-red: #EB1313; 
 	--myBit-background: #F2F6FA; 
-	--myBit-text: #CBCBCB;
-	--myBit-evenrows: #E2E9F0;
+	--myBit-text: #CBCBCB; 
+	--myBit-evenrows: #E2E9F0; 
 	--myBit-breadcrumbs: #9B9B9B;
 }
 
@@ -18,7 +18,7 @@
 }
 
 #pagestyling {
-	padding-top: 3%;
+	padding-top: 3%; 
 	padding-left -3%;
 	background-color: var(--myBit-background);
 	height: 75.5%;
@@ -45,67 +45,174 @@
 	text-align: right;
 }
 
-table  {
-  table-layout: auto;
-  background-color: white;
-  border-color: #E2E9F0;
-  border-spacing: 0px;
-  width: 75%;
-  text-align: left;
-  margin-left: 12.5%;
-  margin-right: 12.5%; 
+#formname {
+	line-height: 0.5;
 }
 
-th {
-  border-top: solid #E2E9F0 1px;
-  border-bottom: solid #E2E9F0 1px;
-  font-weight: bolder;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  vertical-align: bottom;
+#crudbuttons{
+	display: inline;
+	float: right;
 }
 
-td {
-  padding-top: 5px;
-  border-bottom: solid #E2E9F0 1px;
-  font-family: ubuntu-regular;
-  font-size: 14px;
-  color: #444444;
+#cancelButton {
+	float: left;
 }
 
-tr {
-  position: relative;
-  display: flex;
+#removeButton {
+	float: left;
 }
 
-tr:nth-child(even) {
-  background-color:var(--myBit-evenrows);
+#createButton {
+	float: right;
 }
 
-tr:hover {
-  background-color: #fbfbfb; 
-  box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.5);
-  -webkit-box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
-  box-shadow: 0px 0px 27px -4px rgba(0,0,0,0.25);
-  font-weight: bold;
-  z-index: 2 !important;
+#cancelButton input[type=submit]{
+	background-color: var(--myBit-background);
+	color: #99AFC6;
+	border-radius: 2px;
+	padding: 10px;
+}
+
+#removeButton input[type=submit]{
+	background-color: var(--myBit-red);
+	color: white;
+	border-radius: 2px;
+	padding: 10px;
+}
+
+#createButton input[type=submit]{
+	background-color: #99AFC6;
+	color: white;
+	border-radius: 2px;
+	padding: 10px;
+}
+
+#cancelButton input[type=submit]:hover{
+	background-color: var(--myBit-background);
+	color: #638CB5;
+	border-color: 638CB5;
+	border-radius: 2px;
+	padding: 10px;
+	float: left;
+}
+
+#removeButton input[type=submit]:hover{
+	background-color: #AC0F0F;
+	color: white;
+	border-radius: 2px;
+	padding: 10px;
+	float: left;
+}
+
+#createButton input[type=submit]:hover{
+	background-color: #638CB5;
+	color: white;
+	border-radius: 2px;
+	padding: 10px;
+}
+
+#customerTable {
+	display: block;
+}
+
+#createCustomer {
+	display: none;
+}
+
+#customerTable table {
+	table-layout: auto;
+	background-color: white;
+	border-color: #E2E9F0;
+	border-spacing: 0px;
+	width: 75%;
+	text-align: left;
+	margin-left: 12.5%;
+	margin-right: 12.5%;
+}
+
+#customerTable th {
+	border-top: solid #E2E9F0 1px;
+	border-bottom: solid #E2E9F0 1px;
+	font-weight: bolder;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	vertical-align: bottom;
+}
+
+#customerTable td {
+	padding-top: 5px;
+	border-bottom: solid #E2E9F0 1px;
+	font-family: ubuntu-regular;
+	font-size: 14px;
+	color: #444444;
+}
+
+#customerTable tr {
+	position: relative;
+	display: flex;
+}
+
+#customerTable tr:nth-child(even) {
+	background-color: var(--myBit-evenrows);
+}
+
+#customerTable .withhover:hover {
+	background-color: #fbfbfb;
+	box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.25);
+	font-weight: bold;
+	z-index: 2 !important;
+}
+
+#createCustomer table {
+	table-layout: auto;
+	background-color: white;
+	border-color: #E2E9F0;
+	border-spacing: 0px;
+	width: 75%;
+	text-align: left;
+	margin-left: 12.5%;
+	margin-right: 12.5%;
+}
+
+#createCustomer th {
+	border-bottom: solid #E2E9F0 1px;
+	font-weight: bolder;
+	padding-top: 10x;
+	padding-bottom: 5px;
+	vertical-align: bottom;
+	border-bottom: solid var(--myBit-background) 1px;
+}
+
+#createCustomer td {
+	padding-top: 5px;
+	font-family: ubuntu-regular;
+	font-size: 14px;
+	color: #444444;
+}
+
+#createCustomer tr {
+	position: relative;
+	display: flex;
 }
 
 #tablehead {
-font-family: ubuntu-medium;
-font-size: 12px;	
+	font-family: ubuntu-medium;
+	font-size: 12px;
 }
 
 .klantnaam {
 	width: 100%;
 }
+
 .editbutton {
 	text-align: right;
 	padding-right: 3px;
 }
 
-.editbutton img:last-child{
+.editbutton img:last-child {
 	display: none;
 }
 
@@ -118,12 +225,12 @@ font-size: 12px;
 	display: none;
 }
 
-.deletebutton{
+.deletebutton {
 	text-align: right;
 	padding-right: 3px;
 }
 
-.deletebutton img:last-child{
+.deletebutton img:last-child {
 	display: none;
 }
 
@@ -137,18 +244,18 @@ font-size: 12px;
 }
 
 .new-customer-button {
-  background-color: #99AFC6;
-  color: white;
-  margin-top: 10%;
-  margin-left: 25%;
-  border-radius: 2px;
-  padding: 10px;
+	background-color: #99AFC6;
+	color: white;
+	margin-top: 10%;
+	margin-left: 25%;
+	border-radius: 2px;
+	padding: 10px;
+	
 }
 
 .new-customer-button:hover {
-  border-color: #98AEC5;
-  background-color: #638CB5;
-  color: white;
-  cursor: pointer;
+	border-color: #98AEC5;
+	background-color: #638CB5;
+	color: white;
+	cursor: pointer;
 }
-
