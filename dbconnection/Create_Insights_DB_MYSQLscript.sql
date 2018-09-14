@@ -32,4 +32,8 @@ CREATE TABLE `insights_db`.`customer` (
   UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 65b45025b47cd6f5974e41353d05710b7583fbe2
 
