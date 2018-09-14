@@ -48,11 +48,8 @@ function active($currect_page){
             <div class="hoofdmenu">
 			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
 				class="fas fa-home"></a></li>
-<!--
-			<li><a href="../gebruikersbeheer/overzicht.html" class="active">GEBRUIKERS</a></li>
-			<li><a href="blabla" >KLANTEN</a></li>
-			<li><a href="blabla" >OMGEVINGEN</a></li>
--->
+
+<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
 			<li><a id="hover" class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
 			<li><a id="hover" class="<?php active('klantenoverzicht.php');?>" href="../klantbeheer/klantenoverzicht.php">KLANTEN</a></li>
 			<li><a id="hover" class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
