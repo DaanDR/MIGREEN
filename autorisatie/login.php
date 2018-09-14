@@ -49,7 +49,7 @@ session_start();
             // redirect naar dashboard op basis van role:
             if($_SESSION['role'] == 'admin' )
             {
-            header('Location: ../dashboards/admin_dashboard.php');
+            header('Location: ../gebruikersbeheer/overzicht.php');
             } 
             else if($_SESSION['role'] == 'user')
             {

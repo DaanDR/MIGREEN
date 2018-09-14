@@ -1,7 +1,7 @@
 <?php
-// ini_set('display_errors', 1);
+
     // Header in de bovenkant
-    include ("../header/header.php");
+    // nog toevoegen
 
 // Title van de pagina...
     if(!isset($_SESSION)) 
