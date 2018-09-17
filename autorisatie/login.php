@@ -1,10 +1,11 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
 include_once ("../config/configure.php");
 
     // Is gebruikt in class
     include_once ("UserDaoMysql.php");
-    include ("EncryptDecrypt.php");
+    include ("HashPassword.php"); // PWD hash...
 
     // Title van de pagina...
     if(!isset($_SESSION))
@@ -30,9 +31,9 @@ include_once ("../config/configure.php");
         $_SESSION['role'] =  $loginUser->getRole();
         $_SESSION['status_active'] = $loginUser->getStatus();
 
-        // Decrypt het password
-        $decrypt = new EncryptDecrypt();
-        $decrypt_password = $decrypt->decrypt($_SESSION['password']);
+        // Hash het password
+        $hash = new HashPassword();
+        $hash_password = $hash->hashPwd($_SESSION['password']);
 
         //Geef melding als de user niet bestaat of user niet actief is
         if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
@@ -43,7 +44,7 @@ include_once ("../config/configure.php");
         }
 
         // Password checken (vergelijkt invoer met het password in de database)
-        if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
+        if( $hash->verifyPwd( $_POST['password'], $loginUser->getPassword() ) AND $_SESSION['status_active'] == TRUE)
         {
             //echo "<br> <h2>Ingelogged!!!!!!! </h2>";
             $_SESSION['password'] = "";
@@ -63,11 +64,10 @@ include_once ("../config/configure.php");
             // Session leeg maken!!!!
             $_SESSION = array();
             echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
-
         }
     }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +77,7 @@ include_once ("../config/configure.php");
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
     <link type="text/css" rel="stylesheet" href="../css/header.css">
-
+</head>
 
 <body>
   <div class="inlog-container">
@@ -98,10 +98,13 @@ include_once ("../config/configure.php");
                 <div>
                         <input id="login_button"type="submit" value="Inloggen">
                 </div>
-        </form>
-                    </div>
+            </form>
         </div>
-                </div>
+    </div>
+</div>
 
-
+    <div class="error-message">
+        <div id="close" class="close"></div>
+    </div>
 </body>
+</html>
