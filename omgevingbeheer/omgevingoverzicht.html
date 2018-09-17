@@ -40,10 +40,10 @@
 
 
           <tr>
+            // vervangen met de omgevingsnaam
             <td><?=$user["userName"] ?></td>
+            // vervangen met de gekoppelde klant
             <td><?=$user["firstname"] ?></td>
-            <td><?=$user["lastname"] ?></td>
-            <td><?=$user["role"] ?></td>
             <td class="icon-cell">
                 <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
                 <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>

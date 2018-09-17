@@ -1,19 +1,19 @@
 <?php
-  // include('../header/header.php');
-  // include('../autorisatie/UserDaoMysql.php');
+  include('../header/header.php');
+  include('../autorisatie/UserDaoMysql.php');
 
   // Check of user is ingelogged en anders terug naar de login pagina
-  // include_once ("../autorisatie/UserIsLoggedin.php");
-  // $userLoggedin = new UserIsLoggedin();
-  // $userLoggedin->backToLoging();
+  include_once ("../autorisatie/UserIsLoggedin.php");
+  $userLoggedin = new UserIsLoggedin();
+  $userLoggedin->backToLoging();
 
   // Check of de admin is ingelogged....
-  // $adminLoggedin = "";
-  // if( ! $userLoggedin->isAdmin() )
-  // {
-  //     $adminLoggedin = "style='display: none;'";
-  //     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
-  // }
+  $adminLoggedin = "";
+  if( ! $userLoggedin->isAdmin() )
+  {
+      $adminLoggedin = "style='display: none;'";
+      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+  }
 ?>
 
 <!DOCTYPE html>
