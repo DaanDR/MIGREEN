@@ -3,7 +3,14 @@
 include ('../klantbeheer/CustomerDaoMysql.php');
 
 $customerdaomysql = new CustomerDaoMysql();
-$clients = $customerdaomysql->selectAllCustomers();
+$customers = $customerdaomysql->selectAllCustomers();
+
+if(isset($_POST['customerName']))
+{
+$createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
+header('Location: ../klantbeheer/klantenoverzicht.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,7 +41,7 @@ include ('../header/header.php');
 					</tr>
 				</thead>
 				<tbody>
-    <?php foreach($clients as $client):?>
+    <?php foreach($customers as $client):?>
     <tr class="withhover">
 						<td class='klantnaam'><?=$client["customerName"]?></td>
 						<td class='editbutton'><img src='../res/edit.svg'><img
@@ -68,12 +75,8 @@ include ('../header/header.php');
 									<div id="cancelButton">
 										<input type="submit" value="Annuleren" name="cancelButton">
 									</div>
-									<div id="removeButton">
-										<input type="submit" value="Klant verwijderen"
-											name="removeButton">
-									</div>
 									<div id="createButton">
-										<input type="submit" value="Klant aanmaken"
+										<input type="submit" value="Opslaan"
 											name="createButton">
 									</div>
 								</div>

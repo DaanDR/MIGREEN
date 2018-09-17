@@ -73,13 +73,6 @@
 	padding: 10px;
 }
 
-#removeButton input[type=submit]{
-	background-color: var(--myBit-red);
-	color: white;
-	border-radius: 2px;
-	padding: 10px;
-}
-
 #createButton input[type=submit]{
 	background-color: #99AFC6;
 	color: white;
@@ -91,14 +84,6 @@
 	background-color: var(--myBit-background);
 	color: #638CB5;
 	border-color: 638CB5;
-	border-radius: 2px;
-	padding: 10px;
-	float: left;
-}
-
-#removeButton input[type=submit]:hover{
-	background-color: #AC0F0F;
-	color: white;
 	border-radius: 2px;
 	padding: 10px;
 	float: left;
