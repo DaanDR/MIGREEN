@@ -7,12 +7,12 @@ include_once ("Customer.php");
 
 class CustomerDaoMysql implements CustomerDao
 {
-
+    
     private $dbConn;
-
+    
     public function _construct()
     {}
-
+    
     public function insertCustomer($customername)
     {
         $dbConn = new mysqlConnector();
@@ -25,7 +25,7 @@ class CustomerDaoMysql implements CustomerDao
         
         $dbConn->getConnector()->close();
     }
-
+    
     public function updateCustomer($customername, $newname)
     {
         $dbConn = new mysqlConnector();
@@ -38,7 +38,7 @@ class CustomerDaoMysql implements CustomerDao
         
         $dbConn->getConnector()->close();
     }
-
+    
     public function deleteCustomer($customername)
     {
         $dbConn = new mysqlConnector();
@@ -51,28 +51,28 @@ class CustomerDaoMysql implements CustomerDao
         
         $dbConn->getConnector()->close();
     }
-
+    
     public function selectCustomer($customername)
     {
-//         $newCustomer = null;
-//         $dbConn = new mysqlConnector();
+                $newCustomer = null;
+                $dbConn = new mysqlConnector();
         
-//         $customername;
+                $customername;
         
-//         $sql = "SELECT * from customer WHERE customerName = ? LIMIT 1";
-//         $stmt = $dbConn->getConnector()->prepare($sql);
-//         $stmt->bind_param('s', $customername);
-//         $stmt->execute();
-//         $stmt->store_result();
-//         $stmt->bind_result($customername);
+                $sql = "SELECT * from customer WHERE customerName = ? LIMIT 1";
+                $stmt = $dbConn->getConnector()->prepare($sql);
+                $stmt->bind_param('s', $customername);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($customername);
         
-//         // Vul de rij met enkel 1 rij uit database
-//         while ($stmt->fetch()) {
-//             $newcustomer = new Customer($customername)
-//         }
-//         return $newCustomer;
+                // Vul de rij met enkel 1 rij uit database
+                while ($stmt->fetch()) {
+                    $newCustomer = new Customer($customername);
+                }
+                return $newCustomer;
     }
-
+    
     public function selectAllCustomers()
     {
         $customers = null;

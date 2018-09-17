@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+// Check of user is ingelogged en anders terug naar de login pagina
+include_once ("../autorisatie/UserIsLoggedin.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
+
+// Check of de admin is ingelogged....
+$adminLoggedin = "";
+if( ! $userLoggedin->isAdmin() )
+{
+    $adminLoggedin = "style='display: none;'";
+    echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+}
 
     // ini_set('display_errors', 1);
     // Header in de bovenkant
@@ -75,9 +89,8 @@
     <title>Gebruiker Bewerken</title>
 </head>
 
+<div class="grid-container" <?php echo $adminLoggedin ?> >
     
-    
-<div class="grid-container">
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>

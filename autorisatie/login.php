@@ -1,24 +1,29 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
 include_once ("../config/configure.php");
+include_once ("../error/ErrorMessage.php");
 
     // Is gebruikt in class
     include_once ("UserDaoMysql.php");
-    include ("EncryptDecrypt.php");
+    include ("HashPassword.php"); // PWD hash...
 
     // Title van de pagina...
-    if(!isset($_SESSION)) 
+    if(!isset($_SESSION))
     {
         $_SESSION["title"] = "Log hier in";
-    } 
+    }
 
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
     {
+        // Create Error class
+        $errMessage = new ErrorMessage();
+
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
         $loginUser = $loginUser->selectUser( $_POST['username'] );
-        
+
         // Haal de user info uit de User array/object $loginUser
         // en maak session vars aan.
         $_SESSION['id'] =  $loginUser->getId();
@@ -29,78 +34,84 @@ include_once ("../config/configure.php");
         $_SESSION['email'] = $loginUser->getEmail();
         $_SESSION['role'] =  $loginUser->getRole();
         $_SESSION['status_active'] = $loginUser->getStatus();
-        
-        // Decrypt het password
-        $decrypt = new EncryptDecrypt();
-        $decrypt_password = $decrypt->decrypt($_SESSION['password']);
-        
+
+        // Hash het password
+        $hash = new HashPassword();
+        $hash_password = $hash->hashPwd($_SESSION['password']);
+
         //Geef melding als de user niet bestaat of user niet actief is
         if( $_POST['username'] !== $_SESSION['username'] OR $_SESSION['status_active'] == FALSE)
         {
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
-        }
-        
-        // Password checken (vergelijkt invoer met het password in de database)
-        if( $_POST['password'] == $decrypt_password AND $_SESSION['status_active'] == TRUE)
-        {
-            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";           
-            $_SESSION['password'] = "";
-            
-            // redirect naar dashboard op basis van role:
-            if($_SESSION['role'] == 'admin' )
-            {
-                header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
-            } 
-            else if($_SESSION['role'] == 'user')
-            {
-                header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
-            }
+
+            echo $errMessage->createErrorMessage('Helaas... niet ingelogged. Probeer het nog eens.');
         }
         else
         {
-            // Session leeg maken!!!!
-            $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
-            
+            // Password checken (vergelijkt invoer met het password in de database)
+            if( $hash->verifyPwd( $_POST['password'], $loginUser->getPassword() ) AND $_SESSION['status_active'] == TRUE)
+            {
+                //echo "<br> <h2>Ingelogged!!!!!!! </h2>";
+                $_SESSION['password'] = "";
+
+                // redirect naar dashboard op basis van role:
+                if($_SESSION['role'] == 'admin' )
+                {
+                    header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+                } 
+                else if($_SESSION['role'] == 'user')
+                {
+                    header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
+                }
+            }
+            else
+            {
+                // Session leeg maken!!!!
+                $_SESSION = array();
+                echo "";
+                echo $errMessage->createErrorMessage('Uw passwoord is niet juist. Probeer het nog eens.');
+            }
         }
     }
-
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="../css/header.css">
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
+    <link type="text/css" rel="stylesheet" href="../css/header.css">
+    <link type="text/css" rel="stylesheet" href="../css/error.css">
+</head>
 
 <body>
-    
-    <div class="menu">
-        <div id = "title">
-            MyInsight <br>
+  <div class="inlog-container">
+    <div class="menu-login">
+        <div class="inlog-container-logo">
+          <div id = "inlog-logo">MyInsights</div>
         </div>
 
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <div class="inlog-container-input">
+          <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
                 <div class="userinformation">
-                    <ul>
-                    Gebruikersnaam:  <input type="text" name="username">  <br> <br>
-                    Wachtwoord:     <input type="password" name="password">  <br>
-                    </ul> 
-                </div>
-            </div>        
-            
-            <div class="menu_login">
-                <div id = "login_button">
-                    <ul>
-                        <input type="submit" value="Inloggen">
-                    </ul> 
-                </div>
-            </div>
-        </form>
+                  <div>Gebruikersnaam</div><div><input class="login-input-field" type="text" name="username"></div>
 
-<?php include ("../footer/footer.php"); ?>
+                  <div>Wachtwoord</div><div><input class="login-input-field" type="password" name="password"></div>
+                </div>
+        </div>
+                  <div class="inlog-container-button">
+                <div>
+                        <input id="login_button"type="submit" value="Inloggen">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../js/error.js"></script>
 </body>
-
+</html>

@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+  // Check of user is ingelogged en anders terug naar de login pagina
+  include_once ("../autorisatie/UserIsLoggedin.php");
+  $userLoggedin = new UserIsLoggedin();
+  $userLoggedin->backToLoging();
+
+  // Check of de admin is ingelogged....
+  $adminLoggedin = "";
+  if( ! $userLoggedin->isAdmin() )
+  {
+      $adminLoggedin = "style='display: none;'";
+      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+  }
 
 // ini_set('display_errors', 1);
     // Header in de bovenkant
@@ -6,7 +20,7 @@
 
     // Is logged in class
     include_once ("../autorisatie/UserDaoMysql.php");
-    include ("../autorisatie/EncryptDecrypt.php");
+    include ("../autorisatie/HashPassword.php"); // Hash PWD
 
 //    // Title van de pagina...
 //    if(!isset($_SESSION))
@@ -57,13 +71,13 @@
 
         else
         {
-            //encrypt het opgegeven password
-            $encrypt = new EncryptDecrypt();
-            $encrypt_password = $encrypt->encrypt($_POST['password']);
+            //Hash het opgegeven password
+            $hash = new HashPassword();
+            $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $createUser = new UserDaoMysql();
-            $createUser = $createUser->insertUser( $_POST['username'], $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             header('Location: ../gebruikersbeheer/overzicht.php');
             echo "<p>Aanmaken gebruiker gelukt</p>";
         }
@@ -86,8 +100,8 @@
     <meta charset="utf-8">
     <title>Nieuwe gebruiker Aanmaken</title>
 </head>
-
-<div class="grid-container">
+<body>
+<div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
@@ -105,7 +119,7 @@
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                </br><input type="text" name="username" minlength=5 class="input-text-style" required>
+                <br><input type="text" name="username" minlength=5 class="input-text-style" required>
             </div>
 
 
@@ -165,11 +179,5 @@
             <div>
                 </form>
             </div>
-
-            <body>
-
-            </body>
-
+     </body>
 </html>
-
-</body>

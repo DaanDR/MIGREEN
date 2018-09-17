@@ -12,7 +12,7 @@ h2 {
 
 body {
   background-color: #F2F6FA;
-  font-family: 'Roboto', sans-serif;
+  font-family: ubuntu-regular;
 }
 
 table  {
@@ -62,18 +62,39 @@ tr:hover {
   margin: 0 auto;
 } */
 
-.glyph-icon:hover {
-  color: rgb(178,34,34);
+.editbutton img:last-child{
+  display: none;
+}
+
+.editbutton:hover img:last-child {
+  display: inline;
   cursor: pointer;
+}
+
+.editbutton:hover img:first-child {
+  display: none;
+}
+
+.deletebutton{
+  text-align: right;
+  padding-right: 3px;
+}
+
+.deletebutton img:last-child{
+  display: none;
+}
+
+.deletebutton:hover img:last-child {
+  display: inline;
+  cursor: pointer;
+}
+
+.deletebutton:hover img:first-child {
+  display: none;
 }
 
 .icon-cell {
   text-align: center;
-}
-
-.glyph-icon {
-  font-size: 150%;
-  padding-right: 10%;
 }
 
 .content {
