@@ -43,7 +43,7 @@ class CustomerDaoMysql implements CustomerDao
     {
         $dbConn = new mysqlConnector();
         
-        $sql = "DELETE FROM customer WHERE customerName = ?";
+        $sql = "Update customer SET status_active = 0 WHERE customerName = ?";
         
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $customername);
@@ -80,7 +80,7 @@ class CustomerDaoMysql implements CustomerDao
         
         $customername;
         
-        $sql = "SELECT customerName from customer";
+        $sql = "SELECT customerName from customer Where status_active = 1";
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->execute();
         $stmt->store_result();

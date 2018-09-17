@@ -3,9 +3,6 @@ const editButtons = document.getElementsByClassName("editbutton");
 const deleteButtons = document.getElementsByClassName("deletebutton");
 const createButton = document.getElementById("createButton");
 
-createButton.onclick = function(){
-	alert ('Nieuwe Klant Aanmaken');
-}
 
 newCustomerButton.onclick = function() {
 	var customertable = document.getElementById("customerTable");
@@ -33,4 +30,16 @@ for (var i = 0; i < deleteButtons.length; i++){
 		customertable.style.display = "none";
 		createcustomer.style.display = "block";
 	}
+}
+
+function stringTooShort(){
+	alert("Een klantnaam moet minimaal 2 karakters bevatten!");
+	hideCustomers();
+}
+
+function hideCustomers(){
+	var customertable = document.getElementById("customerTable");
+	var createcustomer = document.getElementById("createCustomer");
+	customertable.style.display = "none";
+	createcustomer.style.display = "block";
 }

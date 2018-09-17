@@ -1,23 +1,18 @@
 
-<?php
-include ('../klantbeheer/CustomerDaoMysql.php');
-
-$customerdaomysql = new CustomerDaoMysql();
-$customers = $customerdaomysql->selectAllCustomers();
-
-if(isset($_POST['customerName']))
-{
-$createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
-header('Location: ../klantbeheer/klantenoverzicht.php');
-}
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
 	href="../css/klantenoverzicht.css">
 </head>
+
+<?php
+include ('../klantbeheer/CustomerDaoMysql.php');
+
+$customerdaomysql = new CustomerDaoMysql();
+$customers = $customerdaomysql->selectAllCustomers();
+
+?>
 <body>
 	<div id="pageheader"><?php
 include ('../header/header.php');
@@ -76,8 +71,7 @@ include ('../header/header.php');
 										<input type="submit" value="Annuleren" name="cancelButton">
 									</div>
 									<div id="createButton">
-										<input type="submit" value="Opslaan"
-											name="createButton">
+										<input type="submit" value="Opslaan" name="createButton">
 									</div>
 								</div>
 							</form>
@@ -88,5 +82,15 @@ include ('../header/header.php');
 		</div>
 	</div>
 	<script src="../js/klantenoverzicht.js"></script>
+	<?php
+if (isset($_POST['customerName'])) {
+    if (strlen($_POST['customerName']) < 2) {
+        echo "<script type='text/javascript'>stringTooShort();</script>";
+    } else {
+        $createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
+        header('Location: ../klantbeheer/klantenoverzicht.php');
+    }
+}
+?>
 </body>
 </html>
