@@ -31,6 +31,7 @@
 }
 
 .grid-content-left {
+
   grid-column: 1 / 2;
   grid-row: 2;
 }
@@ -83,4 +84,62 @@ li > input, select  {
   /* padding-top: 20%; */
   padding-left: 20%;
   display: block;
+}
+
+
+/*progressbar*/
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+
+}
+#progressbar li {
+  list-style-type: none;
+  color: black;
+  font-size: 9px;
+  width: 33.33%;
+  /*float: left;*/
+  position: relative;
+  z-index:1;
+}
+#progressbar li:before {
+  /*list-style-image: url('https://cdn4.iconfinder.com/data/icons/proglyphs-computers-and-development/512/Time_Backup-512.png');*/
+  content: url('../res/database.svg');
+  counter-increment: step;
+  width: 40px;
+  line-height: 40px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: #E2E9F0;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+  text-align: center;
+  z-index:3;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+  content:'';
+  width: 2px;
+  height: 19px;
+  background: #E2E9F0;
+  position: absolute;
+  left:50%;
+  bottom:0;
+  top: -19px;
+  z-index: 0; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+  background: green;
+  color: white;
+  /*z-index: 0;*/
 }
