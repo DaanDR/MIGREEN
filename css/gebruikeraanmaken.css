@@ -1,3 +1,5 @@
+/* grid structure */
+
 .container {
   font-family: ubuntu-regular;
   width: 75%;
@@ -50,6 +52,31 @@
   grid-column: 4 / 5;
   grid-row: 3;
 }
+
+/* grid structure fieldsets */
+
+.systeem-input-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.systeem-input-wrapper > div {
+    padding: 1em;
+}
+
+.systeem-input-naam {
+  grid-column: 1;
+}
+
+.systeem-input-hernoemsysteem {
+  grid-column: 2;
+}
+
+.systeem-input-type {
+  grid-column: 3;
+}
+
+/* page specific styling */
 
 .grid-header-right > ul > li {
   margin-bottom: 10px;

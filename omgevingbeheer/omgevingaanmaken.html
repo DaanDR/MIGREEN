@@ -38,7 +38,12 @@
     </div>
 
     <div class="grid-content-right">
+      <form action="welcome.php" method="post">
 
+        <!-- start fieldsets -->
+        <!-- fieldset one -->
+
+        <fieldset>
       <div class="form-title">
       <h3>Basisgegevens</h3>
       <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
@@ -59,6 +64,37 @@
           <li>VM URL<br><input type="text" name="vmurl" required="required"></li>
 
         </ul>
+      </fieldset>
+
+      <!-- fieldset two -->
+
+      <fieldset>
+      <div class="form-title">
+      <h3>Systemen</h3>
+      <p>In deze stap is het mogelijk om systemen te hernoemen en overige informatie aan te passen.</p>
+      </div>
+
+      <div class="systeem-input-wrapper">
+
+        <div class="systeem-input-naam">
+          Systeem naam<br>
+          <input type="text" name="systeemnaam" required="required">
+        </div>
+
+        <div class="systeem-input-hernoemsysteem">
+          Hernoem systeem<br>
+          <input type="text" name="hernoemsyteem" required="required">
+        </div>
+
+        <div class="system-input-type">
+        Type<br>
+        <select id="systeem-select" type="select" name="systeem-type" required="required">
+          <option value="VM">Virtual Machine</option>
+          <option value="testserver">Nasa PC</option>
+          <option value="testserver">NVIDIA Geforce 2080Ti</option>
+        </select>
+      </div>
+    </fieldset>
 
     </div>
 
