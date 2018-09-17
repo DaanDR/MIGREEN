@@ -62,6 +62,10 @@ tr:hover {
   margin: 0 auto;
 } */
 
+.crud-icon {
+  color: black;
+}
+
 .glyph-icon:hover {
   color: rgb(178,34,34);
   cursor: pointer;
