@@ -33,8 +33,8 @@ for (var i = 0; i < deleteButtons.length; i++){
 }
 
 function stringTooShort(){
-	alert("Een klantnaam moet minimaal 2 karakters bevatten!");
 	hideCustomers();
+	alert("Een klantnaam moet minimaal 2 karakters bevatten!");
 }
 
 function hideCustomers(){
