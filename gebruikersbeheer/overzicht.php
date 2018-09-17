@@ -20,7 +20,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="overzicht.css">
+  <link rel="stylesheet" type="text/css" href="../css/overzicht.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script type="text/javascript" src="../js/overzichtFunctions.js"></script>
@@ -69,8 +69,13 @@
             <td><?=$user["lastname"] ?></td>
             <td><?=$user["role"] ?></td>
             <td class="icon-cell">
-                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="crud-icon fas fa-pencil-alt glyph-icon"></i></a>
-                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="crud-icon fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>">
+                  <i class="editbutton"><img src='../res/edit.svg'><img
+                  src='../res/edit-hover.svg'></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>">
+                  <i class="deletebutton" onclick="return confirmDelete('<?php echo $username ?>');"><img src='../res/delete.svg'><img
+                  src='../res/delete-hover.svg'></i></a>
+
             </td>
           </tr>
         <?php endforeach;?>
