@@ -115,7 +115,7 @@ session_start();
 
     <div class="content">
 
-        <form method="post" enctype="multipart/form-data" action="edituser.php">
+        <form method="post" enctype="multipart/form-data" action="createuser.php">
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam

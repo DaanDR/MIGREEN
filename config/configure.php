@@ -8,7 +8,7 @@ define( 'APP_PATH', $_SERVER['SERVER_NAME'] . $SERVER_PATH );
 // DB Basis > naar eigen machine instellen
 define( 'DBHOST', "localhost");
 define( 'DBUSER' ,"root");
-define( 'DBPWD', "guidoleen");
+define( 'DBPWD', "s3unsh!Ine1");
 define( 'DBNAME', "insights_db");
 
 ?>

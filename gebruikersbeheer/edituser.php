@@ -67,8 +67,8 @@ if( ! $userLoggedin->isAdmin() )
             $encrypt_password = $encrypt->encrypt($_POST['password']);
                 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $editUser = new UserDaoMysql();
-            $editUser = $editUser->updateUser( $userName, $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $userDao = new UserDaoMysql();
+            $userDao->updateUser( $userName, $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
                    
