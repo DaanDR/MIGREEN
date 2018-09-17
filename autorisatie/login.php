@@ -2,6 +2,7 @@
 session_start();
 ini_set('display_errors', 1);
 include_once ("../config/configure.php");
+include_once ("../error/ErrorMessage.php");
 
     // Is gebruikt in class
     include_once ("UserDaoMysql.php");
@@ -16,6 +17,9 @@ include_once ("../config/configure.php");
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
     {
+        // Create Error class
+        $errMessage = new ErrorMessage();
+
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $loginUser = new UserDaoMysql();
         $loginUser = $loginUser->selectUser( $_POST['username'] );
@@ -40,30 +44,34 @@ include_once ("../config/configure.php");
         {
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Probeer het nog eens.</h2>";
-        }
 
-        // Password checken (vergelijkt invoer met het password in de database)
-        if( $hash->verifyPwd( $_POST['password'], $loginUser->getPassword() ) AND $_SESSION['status_active'] == TRUE)
-        {
-            //echo "<br> <h2>Ingelogged!!!!!!! </h2>";
-            $_SESSION['password'] = "";
-
-            // redirect naar dashboard op basis van role:
-            if($_SESSION['role'] == 'admin' )
-            {
-                header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
-            } 
-            else if($_SESSION['role'] == 'user')
-            {
-                header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
-            }
+            echo $errMessage->createErrorMessage('Helaas... niet ingelogged. Probeer het nog eens.');
         }
         else
         {
-            // Session leeg maken!!!!
-            $_SESSION = array();
-            echo "<br> <h2>Helaas... niet ingelogged. Password onjuist.</h2>";
+            // Password checken (vergelijkt invoer met het password in de database)
+            if( $hash->verifyPwd( $_POST['password'], $loginUser->getPassword() ) AND $_SESSION['status_active'] == TRUE)
+            {
+                //echo "<br> <h2>Ingelogged!!!!!!! </h2>";
+                $_SESSION['password'] = "";
+
+                // redirect naar dashboard op basis van role:
+                if($_SESSION['role'] == 'admin' )
+                {
+                    header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+                } 
+                else if($_SESSION['role'] == 'user')
+                {
+                    header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
+                }
+            }
+            else
+            {
+                // Session leeg maken!!!!
+                $_SESSION = array();
+                echo "";
+                echo $errMessage->createErrorMessage('Uw passwoord is niet juist. Probeer het nog eens.');
+            }
         }
     }
 ?>
@@ -77,13 +85,14 @@ include_once ("../config/configure.php");
 
     <link type="text/css" rel="stylesheet" href="../css/content.css">
     <link type="text/css" rel="stylesheet" href="../css/header.css">
+    <link type="text/css" rel="stylesheet" href="../css/error.css">
 </head>
 
 <body>
   <div class="inlog-container">
     <div class="menu-login">
         <div class="inlog-container-logo">
-          <div id = "inlog-logo">MyInsight</div>
+          <div id = "inlog-logo">MyInsights</div>
         </div>
 
         <div class="inlog-container-input">
@@ -103,8 +112,6 @@ include_once ("../config/configure.php");
     </div>
 </div>
 
-    <div class="error-message">
-        <div id="close" class="close"></div>
-    </div>
+<script src="../js/error.js"></script>
 </body>
 </html>
