@@ -20,7 +20,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="omgevingoverzicht.css">
+  <link rel="stylesheet" type="text/css" href="../css/gebruikersoverzicht.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script type="text/javascript" src="../js/overzichtFunctions.js"></script>
@@ -33,7 +33,7 @@
 <div class="grid-container" <?php echo $adminLoggedin ?> >
     <div class="header-left">
       <h1>Home</h1>
-      <h2>Gebruikersoverzicht</h2>
+      <h2>Omgeving overzicht</h2>
     </div>
     <div class="header-mid"></div>
     <div class="header-right">
