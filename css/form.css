@@ -168,14 +168,11 @@
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-
-
 }
 
 
 .button-form-primary:hover {
     background-color: #638CB5; /* primary button hover color */
-
 }
 
 .button-form-secondary {
@@ -187,8 +184,6 @@
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-
-
 }
 
 .button-form-secondary:hover {

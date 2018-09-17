@@ -1,35 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-  <head>
-    <link rel="stylesheet" type="text/css" href="../css/content.css">
-    <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/gebruikeraanmaken.css">
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/content.css">
+  <link rel="stylesheet" type="text/css" href="../css/header.css">
+  <link rel="stylesheet" type="text/css" href="../css/gebruikeraanmaken.css">
+    <link rel="stylesheet" type="text/css" href="../css/form.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
-    <meta charset="utf-8">
-    <title>Omgeving aanmaken</title>
-  </head>
+
+  <meta charset="utf-8">
+  <title>Omgeving aanmaken</title>
+</head>
 
 <div class="container">
 
   <div class="grid-wrapper">
 
-    <div class="grid-header-left"> -- Breadcrumb -- </div>
+    <div class="grid-header-left">
+
+      <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgevingenoverzicht</p>
+      <h2>Omgeving aanmaken</h2>
+
+    </div>
 
     <div class="grid-header-right"> -- Empty Space -- </div>
 
     <div class="grid-content-left"> -- Progressbar -- </div>
 
-    <div class="grid-content-right"> -- Form -- </div>
+    <div class="grid-content-right">
 
-    <div class="grid-footer-left"> -- Empty Space -- </div>
+      <div class="form-title">
+      <h3>Basisgegevens</h3>
+      <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
+      </div>
 
-    <div class="grid-footer-right"> -- Buttons -- </div>
+      <form action="welcome.php" method="post">
+
+        <ul>
+          <li>Omgeving naam<br><input type="text" name="name" required="required"></li>
+
+          <li>Gekoppelde klant<br>
+            <select id="omgevingaanmaken-select" type="select" name="email" required="required">
+              <option value="klant1">klant1</option>
+              <option value="klant2">klant2</option>
+            </select>
+          </li>
+
+          <li>VM URL<br><input type="text" name="vmurl" required="required"></li>
+
+        </ul>
+
+    </div>
+
+        <div class="grid-footer-left"> -- Empty Space -- </div>
+
+        <div class="grid-footer-right">
+          <div class="gebruikeraanmaken-buttons">
+          <button class="button-form-secondary" type="button" name="button">Annuleren</button>
+          <button class="button-form-primary" type="submit">Volgende stap</button>
+        </div>
+    </form>
+
+        </div>
+
+
+    </div>
 
   </div>
-
-</div>
 
   <body>
 
