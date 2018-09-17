@@ -1,32 +1,32 @@
 <?php
-  // include('../header/header.php');
-  // include('../autorisatie/UserDaoMysql.php');
+  include('../header/header.php');
+  include('../autorisatie/UserDaoMysql.php');
 
   // Check of user is ingelogged en anders terug naar de login pagina
-  // include_once ("../autorisatie/UserIsLoggedin.php");
-  // $userLoggedin = new UserIsLoggedin();
-  // $userLoggedin->backToLoging();
+  include_once ("../autorisatie/UserIsLoggedin.php");
+  $userLoggedin = new UserIsLoggedin();
+  $userLoggedin->backToLoging();
 
   // Check of de admin is ingelogged....
-  // $adminLoggedin = "";
-  // if( ! $userLoggedin->isAdmin() )
-  // {
-  //     $adminLoggedin = "style='display: none;'";
-  //     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
-  // }
+  $adminLoggedin = "";
+  if( ! $userLoggedin->isAdmin() )
+  {
+      $adminLoggedin = "style='display: none;'";
+      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+  }
 ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="omgevingoverzicht.css">
+  <link rel="stylesheet" type="text/css" href="overzicht.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script type="text/javascript" src="../js/overzichtFunctions.js"></script>
 
   <meta charset="utf-8">
-  <title>Omgeving overzicht</title>
+  <title>Gebruikersoverzicht</title>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
     <div class="header-right">
 
         <a href="createuser.php" target="_self">
-        <button class="new-user-button" type="button" name="button">Nieuw overzicht aanmaken</button>
+        <button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button>
         </a>
       </div>
     <div class="content">
@@ -47,8 +47,10 @@
     <table>
         <thead>
           <tr>
-           <th>OMGEVINGNAAM</th>
-           <th>GEKOPPELDE KLANT</th>
+           <th>GEBRUIKERSNAAM</th>
+           <th>VOORNAAM</th>
+           <th>ACHTERNAAM</th>
+           <th>ROL</th>
            <th></th>
          </tr>
        </thead>
@@ -61,16 +63,16 @@
 
         <?php foreach($users as $user):
            $username = $user["userName"];?>
-           <tr>
-             // vervangen met de omgevingsnaam
-             <td><?=$user["userName"] ?></td>
-             // vervangen met de gekoppelde klant
-             <td><?=$user["firstname"] ?></td>
-             <td class="icon-cell">
-                 <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
-                 <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
-             </td>
-           </tr>
+          <tr>
+            <td><?=$user["userName"] ?></td>
+            <td><?=$user["firstname"] ?></td>
+            <td><?=$user["lastname"] ?></td>
+            <td><?=$user["role"] ?></td>
+            <td class="icon-cell">
+                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
+            </td>
+          </tr>
         <?php endforeach;?>
 
       </tbody>

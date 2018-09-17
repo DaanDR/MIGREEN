@@ -27,7 +27,7 @@ table  {
 th {
   border-top: solid #E2E9F0 1px;
   border-bottom: solid #E2E9F0 1px;
-  font-weight: bold;
+  font-weight: bolder;
   padding-top: 10px;
   padding-bottom: 10px;
   flex: 1;
