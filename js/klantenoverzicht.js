@@ -25,10 +25,12 @@ for (var i = 0; i < editButtons.length; i++){
 for (var i = 0; i < deleteButtons.length; i++){
 	var deleteButton = deleteButtons[i];
 	deleteButton.onclick = function() {
-		var customertable = document.getElementById("customerTable");
-		var createcustomer = document.getElementById("createCustomer");
-		customertable.style.display = "none";
-		createcustomer.style.display = "block";
+		var check = confirm("Wil je deze klant verwijderen?");
+		if (check == true) {
+			
+		} else {
+			alert("Klant niet verwijderd");
+		}
 	}
 }
 

@@ -68,7 +68,7 @@ include ('../header/header.php');
 								</div>
 								<div id="crudbuttons">
 									<div id="cancelButton">
-										<input type="submit" value="Annuleren" name="cancelButton">
+										<input type="button" value="Annuleren" onclick="location.href = 'klantenoverzicht.php'">
 									</div>
 									<div id="createButton">
 										<input type="submit" value="Opslaan" name="createButton">
