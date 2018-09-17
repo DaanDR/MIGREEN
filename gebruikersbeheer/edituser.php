@@ -1,42 +1,33 @@
 <?php
 
-// ini_set('display_errors', 1);
+    // ini_set('display_errors', 1);
     // Header in de bovenkant
     include ("../header/header.php");
     
-
     // Is logged in class
     include_once ("../autorisatie/UserDaoMysql.php");
     include ("../autorisatie/EncryptDecrypt.php");
 
-    // Title van de pagina...
-    if(!isset($_SESSION))
-    {
-        $_SESSION["title"] = "Log hier in";
+    // Vang de meegegeven username op
+    if (! isset($_GET["username"])) {
+        $userName = null;
+    } else {
+        $userName = $_GET["username"];
     }
 
-    // Vang de meegegeven username op
-       if (! isset($_GET["username"])) {
-         $userName = null;
-     } else {
-         $userName = $_GET["username"];
-     }
-
-    // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-        $selectUser = new UserDaoMysql();
-        $currentUser = $selectUser->selectUser( $userName );
-        $currentUserFirstname = $currentUser->getFirstname();
-        $currentUserLastname = $currentUser->getLastname();
-        $currentUserPassword = $currentUser->getPassword();
-        $currentUserEmail = $currentUser->getEmail();
-    
-
-
+    // Haal de user uit de database met de opgegeven username
+    $userDao = new UserDaoMysql();
+    $currentUser = $userDao->selectUser($userName);
+    // Sla de relevante gegevens op in eigen variabelen
+    $currentUserFirstname = $currentUser->getFirstname();
+    $currentUserLastname = $currentUser->getLastname();
+    $currentUserEmail = $currentUser->getEmail();
+    $currentUserRole = $currentUser->getRole();
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )
-    {
-       //Password Checks
+    if( isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+        // Password Checks
+        
         // Controleren op hoofdletters
         if(!preg_match('/[A-Z]/', $_POST['password'] )){
             $_SESSION = array();
@@ -50,26 +41,23 @@
         }
 
         // Controleren of wachtwoorden gelijk zijn
-        if( $_POST['password'] != $_POST['password2'] )
-        {
-               // Session leeg maken!!!!
+        if( $_POST['password'] != $_POST['password2'] ){
+            // Session leeg maken!!!!
             $_SESSION = array();
             echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-        }
-
-
-        else
-        {
+        } 
+        
+        else {
             //encrypt het opgegeven password
             $encrypt = new EncryptDecrypt();
             $encrypt_password = $encrypt->encrypt($_POST['password']);
-
+                
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $editUser = new UserDaoMysql();
             $editUser = $editUser->updateUser( $userName, $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            echo "<p>Bewerken gebruiker " . $userName . " gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
+                   
     }
     
 ?>
@@ -93,7 +81,7 @@
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h2>Gebruiker bewerken: <?php echo $currentUserLastname ?></h2>
+        <h2>Gebruiker bewerken: <?php echo $userName ?></h2>
     </div>
 
 
@@ -103,33 +91,33 @@
 
     <div class="content">
 
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
 
             <div class="password-form form-field-padding form-field-style">
 
                 <div class="password-form-initial">
                     Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required  value="<?php echo $currentUserPassword ?>">
+                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style" value="<?php echo $currentUserPassword ?>">
+                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style">
                 </div>
             </div>
 
             <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?php echo $currentUserFirstname ?>">
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?php echo $currentUserFirstname ?>" required>
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style"  value="<?php echo $currentUserLastname ?>">
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style"  value="<?php echo $currentUserLastname ?>" required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email" class="input-text-style" value="<?php echo $currentUserEmail ?>"><br>
+                <br><input type="email" name="email" class="input-text-style" value="<?php echo $currentUserEmail ?>" required><br>
             </div>
 
             <div class="role-form form-field-padding form-field-style">
@@ -137,9 +125,8 @@
                 <br>
                 <select name="role" required>
                     <optgroup label="Kies een rol">
-                    <option selected hidden>Kies een rol</option>
-                    <option value="user">gebruiker</option>
-                    <option value="admin">admin</option>
+                    <option value="user" <?php if($currentUserRole=="user") echo "selected" ?>>gebruiker</option>
+                    <option value="admin" <?php if($currentUserRole=="admin") echo "selected" ?>>admin</option>
                     </optgroup>
                 </select>
             </div>
@@ -157,17 +144,15 @@
         <div class="buttons-form">
             <a href="overzicht.php" target="_self">
             <button class="button-form-secondary" type="button">Annuleren</button></a>
-            <button class="button-form-primary" type="submit" value="Inloggen"> Bewerking opslaan </button>
+            <button class="button-form-primary" type="submit"> Opslaan </button>
             <!-- buttons -->
      
-            <div>
-                </form>
-            </div>
-
-            <body>
-
-            </body> 
+        </div> 
+    
+    </div>
+        
+    </form>
 
 </html>
 
-</body>
+

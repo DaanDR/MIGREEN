@@ -1,6 +1,6 @@
 <?php
 // VERANDER DEZE REGEL OP BASIS VAN EIGEN MACHINE
-$SERVER_PATH = "/guido/mybit/migreen/";
+$SERVER_PATH = "/MyBitProject/MIGreen/";
 
 // APP_PATH Gebruiken als basis pad
 define( 'APP_PATH', $_SERVER['SERVER_NAME'] . $SERVER_PATH );
