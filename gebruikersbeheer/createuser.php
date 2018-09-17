@@ -169,7 +169,7 @@ include_once ("../autorisatie/UserDaoMysql.php");
                             <optgroup label="Kies een klant">
                                 <option selected hidden>Kies een klant</option>
                                 <?php foreach($customers as $customer):?>
-                                    <option value="customer"><?=$customer["customerName"]?></option>
+                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
                                     <?php endforeach;?>
                             </optgroup>
                         </select>
