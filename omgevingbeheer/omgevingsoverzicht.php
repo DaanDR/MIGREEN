@@ -38,7 +38,7 @@
     <div class="header-mid"></div>
     <div class="header-right">
         
-        <a href="createomgeving.php" target="_self">
+        <a href="createenvironment.php" target="_self">
         <button class="new-user-button" type="button" name="button">Nieuwe omgeving aanmaken</button>
         </a>
       </div>
