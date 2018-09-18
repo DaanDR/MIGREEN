@@ -207,13 +207,14 @@ li > input, select  {
   margin-left: 5px;
 }
 
-.progressbar-line-one  {
+.progressbar-line.active  {
     border-left: 2px solid grey;
     height: 50px;
     margin-left: 25px;
+    opacity: 1;
 }
 
-.progressbar-line-two  {
+.progressbar-line  {
     border-left: 2px solid grey;
     height: 50px;
     margin-left: 25px;
