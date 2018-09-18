@@ -62,13 +62,13 @@ if( ! $userLoggedin->isAdmin() )
         } 
         
         else {
-            //encrypt het opgegeven password
-            $encrypt = new EncryptDecrypt();
-            $encrypt_password = $encrypt->encrypt($_POST['password']);
-                
+            //Hash het opgegeven password
+            $hash = new HashPassword();
+            $hash_password = $hash->hashPwd($_POST['password']);
+
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao = new UserDaoMysql();
-            $userDao->updateUser( $userName, $encrypt_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
                    
