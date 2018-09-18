@@ -20,6 +20,8 @@ include ("../header/header.php");
 
     // Is logged in class
 include_once ("../autorisatie/UserDaoMysql.php");
+// include user_customer class 
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
     include ("../autorisatie/HashPassword.php"); // Hash PWD
 
     // Title van de pagina...
@@ -76,8 +78,12 @@ include_once ("../autorisatie/UserDaoMysql.php");
             $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $createUser = new UserDaoMysql();
-            $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $userDao = new UserDaoMysql();
+            $createUser = $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
+            $userCustomerDao-> insertUserCustomer($_POST['username'], $_POST['customerName']);  
+            echo $_POST['username'].$_POST['customerName'];
             echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
@@ -165,7 +171,7 @@ include_once ("../autorisatie/UserDaoMysql.php");
                     <div class="customer-form form-field-padding form-field-style">
                         Gekoppelde klant(en)
                         <br>
-                        <select name="customers" required>
+                        <select name="customerName" required>
                             <optgroup label="Kies een klant">
                                 <option selected hidden>Kies een klant</option>
                                 <?php foreach($customers as $customer):?>
