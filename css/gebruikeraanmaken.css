@@ -204,7 +204,7 @@ li > input, select  {
 }
 
 .progressbar-proto {
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .progressbar-line.active  {
@@ -223,7 +223,7 @@ li > input, select  {
 
 .progressbar-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .progressbar-col-icons {
@@ -231,5 +231,19 @@ li > input, select  {
 }
 
 .progressbar-col-titles {
-  grid-column: 2;
+  grid-column: 2/4;
+  margin-top: 58px;
+  margin-left: 5px;
+  font-weight: bolder;
+  font-size: 110%;
+  color: #cbcbcb;
+}
+
+.progressbar-col-titles > div.active {
+  opacity: 1;
+  color: black;
+}
+
+.progressbar-col-titles > div {
+  padding-bottom: 87px;
 }
