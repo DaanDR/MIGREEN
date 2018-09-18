@@ -28,12 +28,13 @@ on delete no action
 );
 CREATE TABLE `insights_db`.`customer` (
   `customerName` VARCHAR(45) NOT NULL,
+  `status_active` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`customerName`),
   UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
-<<<<<<< HEAD
-=======
 
->>>>>>> 65b45025b47cd6f5974e41353d05710b7583fbe2
+
+ALTER TABLE `insights_db`.`customer` 
+ADD COLUMN `status_active` INT NOT NULL DEFAULT 1 AFTER `customerName`;
 

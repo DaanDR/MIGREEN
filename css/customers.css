@@ -66,7 +66,7 @@
 	float: right;
 }
 
-#cancelButton input[type=submit]{
+#cancelButton input[type=button]{
 	background-color: var(--myBit-background);
 	color: #99AFC6;
 	border-radius: 2px;
@@ -87,7 +87,7 @@
 	padding: 10px;
 }
 
-#cancelButton input[type=submit]:hover{
+#cancelButton input[type=button]:hover{
 	background-color: var(--myBit-background);
 	color: #638CB5;
 	border-color: 638CB5;
