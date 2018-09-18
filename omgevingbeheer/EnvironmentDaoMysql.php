@@ -48,15 +48,15 @@ class EnvironmentDaoMysql implements EnvironmentDao
     
     
     // Functionality: add a customer to an environment, or change the customer allready coupled with an environment
-    public function updateEnvironment($systemName, $customerName)
+    public function updateEnvironment($systemNameOld, $systemNameNew, $customerName)
     {
         try {
             $dbConn = new mysqlConnector();
         
-            $sql = "UPDATE environment SET customerName = ? WHERE systemName = ?";
+            $sql = "UPDATE environment SET systemName = ?, customerName = ? WHERE systemName = ?";
         
             $stmt = $dbConn->getConnector()->prepare($sql);
-            $stmt->bind_param('ss', $customerName, $systemName);
+            $stmt->bind_param('sss', $systemNameNew, $customerName, $systemNameOld);
             $stmt->execute();
         
             $dbConn->getConnector()->close();

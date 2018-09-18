@@ -102,7 +102,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php");
+            header("Location: http://" . APP_PATH . "gebruikersbeheer/edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
@@ -128,7 +128,7 @@
             echo '<script type="text/javascript"> notDeleteSelf(); </script>';
         } else {
             $succes = $dao->deactivateUser($name);
-            header("Location: overzicht.php");
+            header("Location: http://" . APP_PATH . "gebruikersbeheer/overzicht.php");
             if (!$succes) {
                 echo "Gebruiker kon niet worden verwijderd.";
             }

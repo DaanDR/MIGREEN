@@ -79,7 +79,7 @@ session_start();
             $createUser = new UserDaoMysql();
             $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             echo "<p>Aanmaken gebruiker gelukt</p>";
-            header('Location: ../gebruikersbeheer/overzicht.php');
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
     }
 ?>

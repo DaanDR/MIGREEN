@@ -3,14 +3,13 @@ session_start();
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
-include ("../autorisatie/HashPassword.php");
-
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
 
 // Check of de admin is ingelogged....
 $adminLoggedin = "";
-if( ! $userLoggedin->isAdmin() ) {
+if( ! $userLoggedin->isAdmin() )
+{
     $adminLoggedin = "style='display: none;'";
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
@@ -20,70 +19,62 @@ if( ! $userLoggedin->isAdmin() ) {
     include ("../header/header.php");
     
     // Is logged in class
-    include_once ("../autorisatie/UserDaoMysql.php");
+    include_once ("EnvironmentDaoMysql.php");
+    
 
-    // Vang de meegegeven username op
-    if (! isset($_GET["username"])) {
-        $userName = null;
+    // Vang de meegegeven omgevingsnaam op
+    if (! isset($_GET["systemName"])) {
+        $systemName = null;
     } else {
-        $userName = $_GET["username"];
+        $systemName = $_GET["systemName"];
     }
 
-    // Haal de user uit de database met de opgegeven username
-    $userDao = new UserDaoMysql();
-    $currentUser = $userDao->selectUser($userName);
+    // Haal de omgeving uit de database met de opgegeven systemName
+    $environmentDao = new EnvironmentDaoMysql();
+    $currentEnvironment = $environmentDao->selectEnvironment($systemName);
 
-    // Sla de relevante gegevens op in eigen variabelen
-    $currentUserFirstname = $currentUser->getFirstname();
-    $currentUserLastname = $currentUser->getLastname();
-    $currentUserEmail = $currentUser->getEmail();
-    $currentUserRole = $currentUser->getRole();
+    // Sla de relevante gegevens op in eigen variabele
+    $currentEnvironmentSystemName = $currentEnvironment->getSystemName();
+    $currentEnvironmentCustomername = $currentEnvironment->getCustomerName();
+
+    // customerDao voor selecteren van alle klanten
+    include ('../klantbeheer/CustomerDaoMysql.php');
+
+    $customerdaomysql = new CustomerDaoMysql();
+    $customers = $customerdaomysql-> selectAllCustomers();
+    
+    
+    
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+    if( isset($_POST['systemName']) ) {
         
-        if ( isset($_POST['password']) ){
-            // Password Checks
-        
-            // Controleren op hoofdletters
-            if(!preg_match('/[A-Z]/', $_POST['password'] )){
-                $_SESSION = array();
-                echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
-            }
+        // Controleren of de omgeving al bestaat
+        // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving te checken
+        $newEnvironment = new EnvironmentDaoMysql();
+        $newEnvironment = $newEnvironment->selectEnvironment( $_POST['systemName'] );
 
-            // Controleren op cijfers
-            if (!preg_match('([0-9])', $_POST['password'] )){
-                $_SESSION = array();
-                echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
-            }
+        // Haal de environment info uit de Environment array/object 
+        // en maak session vars aan.
+        $_SESSION['systemName'] =  $newEnvironment->getSystemName();
 
-            // Controleren of wachtwoorden gelijk zijn
-            if( $_POST['password'] != $_POST['password2'] ){
-                // Session leeg maken!!!!
-                $_SESSION = array();
-                echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-            }
-            
-            //Hash het opgegeven password
-            $hash = new HashPassword();
-            $hash_password = $hash->hashPwd($_POST['password']);
-             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $userDao = new UserDaoMysql();
-            $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            
+        //Geef melding als de omgeving al bestaat
+        if( $_POST['systemName'] == $_SESSION['systemName'])
+        {
+            // Session leeg maken!!!!
+            $_SESSION = array();
+            echo "<br> <h2>Deze omgeving bestaat al in de database.</h2>";
         }
-        
-        else {
-            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $userDao2 = new UserDaoMysql();
-            $passwordleeg = "0000";
-            $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            echo "hij doet het!";
-            //header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+
+        else
+        {
+            // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
+            $updateEnvironment = new EnvironmentDaoMysql();
+            $updateEnvironment = $updateEnvironment->updateEnvironment($currentEnvironmentSystemName, $_POST['systemName'], $_POST['customerName'] );
+            echo "<p>Wijzigen Omgeving gelukt</p>";
+            header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
-        
-        header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
-                   
+                           
     }
     
 ?>
@@ -98,7 +89,7 @@ if( ! $userLoggedin->isAdmin() ) {
     <link rel="stylesheet" href="../css/content.css">
 
     <meta charset="utf-8">
-    <title>Gebruiker Bewerken</title>
+    <title>Omgeving Bewerken</title>
 </head>
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
@@ -106,14 +97,41 @@ if( ! $userLoggedin->isAdmin() ) {
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h2>Gebruiker bewerken: <?php echo $userName ?></h2>
+        <h2>Omgeving bewerken: <?php echo $currentEnvironmentSystemName ?></h2>
     </div>
 
 
     <div class="header"></div>
 
     <!-- form elements -->
+    <div class="content">
 
+        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+
+            <div class="user-form form-field-padding form-field-style">
+                Systeemnaam 
+                <br><input type="text" name="systemName" minlength=5 class="input-text-style" value="<?php echo $currentEnvironmentSystemName ?>"required>
+            </div>
+            
+            <div class="customer-form form-field-padding form-field-style">
+                        Beschikbare klanten
+                        <br>
+                        <select name="customers">
+                            <optgroup label="Kies een klant">
+                                <option selected hidden><? if($currentEnvironmentCustomername == null){ = "Kies een klant (optioneel)"}else{ =$currentEnvironmentCustomername} ?> </option>
+                                <?php foreach($customers as $customer):?>
+                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
+                                    <?php endforeach;?>
+                            </optgroup>
+                        </select>
+            </div>
+            
+           
+            
+
+    </div>
+
+<!--
     <div class="content">
 
         <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
@@ -157,6 +175,7 @@ if( ! $userLoggedin->isAdmin() ) {
             </div>
 
     </div>
+-->
 
     <!-- end form elements -->
 

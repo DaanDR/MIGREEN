@@ -103,7 +103,7 @@
       
     function delete($systemName, $dao) {
             $succes = $dao->deactivateEnvironment($systemName);
-            header("Location: omgevingsoverzicht.php");
+            //header("Location: omgevingsoverzicht.php");
             if (!$succes) {
                 echo "Omgeving kon niet worden verwijderd.";
             }

@@ -42,13 +42,24 @@ class UserDaoMysql implements UserDao
     {
         try {
             $dbConn = new mysqlConnector();
+            
+            if ($password == "0000"){
+                $sql = "UPDATE user SET firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
         
-            $sql = "UPDATE user SET password = ?, firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
+                $stmt = $dbConn->getConnector()->prepare($sql);
+                $stmt->bind_param('sssss', $firstname, $lastname, $email, $role, $username);
+                $stmt->execute(); 
+                //header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+                
+            } else {
+                $sql = "UPDATE user SET password = ?, firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
         
-            $stmt = $dbConn->getConnector()->prepare($sql);
-            $stmt->bind_param('ssssss', $password, $firstname, $lastname, $email, $role, $username);
-            $stmt->execute();
-        
+                $stmt = $dbConn->getConnector()->prepare($sql);
+                $stmt->bind_param('ssssss', $password, $firstname, $lastname, $email, $role, $username);
+                $stmt->execute();
+                
+            }
+            
             $dbConn->getConnector()->close();
         }
         catch(Exception $e) {

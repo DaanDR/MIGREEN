@@ -61,7 +61,7 @@ session_start();
             $createEnvironment = new EnvironmentDaoMysql();
             $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'] );
             echo "<p>Aanmaken nieuwe Omgeving gelukt</p>";
-            header('Location: omgevingsoverzicht.php');
+            header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
     }
 ?>
