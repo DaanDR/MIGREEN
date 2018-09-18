@@ -18,5 +18,9 @@ function noSpaces(){
 }
 
 function customerDeleted(name){
-	alert("Klant " + name + " is verwijderd")
+	alert("Klant " + name + " is verwijderd");
+}
+
+function existingCustomer(name){
+	alert("Klant " + name + " bestaat al in de database!");
 }
