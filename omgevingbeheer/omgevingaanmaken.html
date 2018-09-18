@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="../css/gebruikeraanmaken.css">
     <link rel="stylesheet" type="text/css" href="../css/form.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+  <script src="omgevingaanmaken.js"></script>
 
 
   <meta charset="utf-8">
@@ -69,13 +69,12 @@
         <!-- start fieldsets -->
         <!-- fieldset one -->
 
-        <fieldset>
-      <div class="form-title">
+        <!--<fieldset>-->
+      <div class="tab">       <!--<div class="form-title">-->
       <h3>Basisgegevens</h3>
       <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
-      </div>
 
-      <form action="welcome.php" method="post">
+      <!--<form action="welcome.php" method="post"> extra??-->
 
         <ul>
           <li>Omgeving naam<br><input type="text" name="name" required="required"></li>
@@ -90,16 +89,15 @@
           <li>VM URL<br><input type="text" name="vmurl" required="required"></li>
 
         </ul>
-      </fieldset>
+      <!--</fieldset>-->
 
       <!-- fieldset two -->
 
-      <fieldset>
-      <div class="form-title">
+      <!--<fieldset>-->
+      </div>
+      <div class="tab">       <!--<div class="form-title">-->
       <h3>Systemen</h3>
       <p>In deze stap is het mogelijk om systemen te hernoemen en overige informatie aan te passen.</p>
-      </div>
-
       <div class="systeem-input-wrapper">
 
         <div class="systeem-input-naam">
@@ -120,7 +118,9 @@
           <option value="testserver">NVIDIA Geforce 2080Ti</option>
         </select>
       </div>
-    </fieldset>
+      </div>
+
+        <!--</fieldset>-->
 
     </div>
 
@@ -128,12 +128,12 @@
 
         <div class="grid-footer-right">
           <div class="gebruikeraanmaken-buttons">
-          <button class="button-form-secondary" type="button" name="button">Annuleren</button>
-          <button class="button-form-primary" type="submit">Volgende stap</button>
+          <button class="button-form-secondary" type="button" name="button" id="prevBtn">Annuleren</button>
+          <button class="button-form-primary" type="submit" id="nextBtn">Volgende stap</button>
         </div>
-    </form>
 
         </div>
+      </form>
 
     </div>
 
