@@ -14,7 +14,7 @@ $adminLoggedin = "";
 if( ! $userLoggedin->isAdmin() )
 {
   $adminLoggedin = "style='display: none;'";
-  echo "<h1 style='margin-top:50px;'>Geen gerbuikersrecht als admin.....</h1>";
+  echo "<h1 style='margin-top:50px;'>Geen gebruikersrecht als admin.....</h1>";
 }
 
 ini_set('display_errors', 1);
