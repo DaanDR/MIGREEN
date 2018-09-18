@@ -1,7 +1,11 @@
 <?php
   include('../header/header.php'); 
   include('../autorisatie/UserDaoMysql.php');
-  
+  include_once ("../error/ErrorMessage.php");
+
+  // Instantiate Error class
+  $errMessage = new ErrorMessage();
+    
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
   $userLoggedin = new UserIsLoggedin();
@@ -12,7 +16,7 @@
   if( ! $userLoggedin->isAdmin() )
   {
       $adminLoggedin = "style='display: none;'";
-      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+      echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Geen gerbuikersrecht als admin.....');
   }
 ?> 
 
@@ -20,7 +24,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="overzicht.css">
+  <link rel="stylesheet" type="text/css" href="../css/overzicht.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script type="text/javascript" src="../js/overzichtFunctions.js"></script>
@@ -69,8 +73,13 @@
             <td><?=$user["lastname"] ?></td>
             <td><?=$user["role"] ?></td>
             <td class="icon-cell">
-                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
-                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $username ?>');"></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>">
+                  <i class="editbutton"><img src='../res/edit.svg'><img
+                  src='../res/edit-hover.svg'></i></a>
+                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>">
+                  <i class="deletebutton" onclick="return confirmDelete('<?php echo $username ?>');"><img src='../res/delete.svg'><img
+                  src='../res/delete-hover.svg'></i></a>
+
             </td>
           </tr>
         <?php endforeach;?>
@@ -97,7 +106,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php");
+            header("Location: edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
@@ -120,7 +129,8 @@
       
     function delete($name, $dao) {
         if ($_SESSION['username'] == $name) {
-            echo 'Je kunt niet jezelf verwijderen dummy!';
+//            echo '<script type="text/javascript"> notDeleteSelf(); </script>';
+            echo "Je kunt niet jezelf verwijderen dummy!";
         } else {
             $succes = $dao->deactivateUser($name);
             header("Location: overzicht.php");
@@ -133,7 +143,7 @@
 
 ?>
 
+<script src="../js/error.js"></script>
 </body>
-
 </html>
 
