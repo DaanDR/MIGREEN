@@ -1,25 +1,30 @@
 <?php
 session_start();
 
+//init_set('display_errors', 1);
+
+
   // Check of user is ingelogged en anders terug naar de login pagina
-  include_once ("../autorisatie/UserIsLoggedin.php");
-  $userLoggedin = new UserIsLoggedin();
-  $userLoggedin->backToLoging();
-
+include_once ("../autorisatie/UserIsLoggedin.php");
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
   // Check of de admin is ingelogged....
-  $adminLoggedin = "";
-  if( ! $userLoggedin->isAdmin() )
-  {
-      $adminLoggedin = "style='display: none;'";
-      echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
-  }
+$adminLoggedin = "";
+if( ! $userLoggedin->isAdmin() )
+{
+  $adminLoggedin = "style='display: none;'";
+  echo "<h1 style='margin-top:50px;'>Geen gerbuikersrecht als admin.....</h1>";
+}
 
-// ini_set('display_errors', 1);
+ ini_set('display_errors', 1);
     // Header in de bovenkant
-    include ("../header/header.php");
+include ("../header/header.php");
 
     // Is logged in class
-    include_once ("../autorisatie/UserDaoMysql.php");
+include_once ("../autorisatie/UserDaoMysql.php");
+// include user_customer class 
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
     include ("../autorisatie/HashPassword.php"); // Hash PWD
 
 //    // Title van de pagina...
@@ -76,8 +81,18 @@ session_start();
             $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $createUser = new UserDaoMysql();
-            $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $userDao = new UserDaoMysql();
+            $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
+            //clear all userCustomers
+            $userCustomerDao->clearUserCustomer($_POST['username']);
+            foreach($_POST['clients'] as $customerName) {
+                 $userCustomerDao-> UserCustomerDaoMysql($_POST['username'], $customerName);  
+            }
+           
+
+            echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
             echo "<p>Aanmaken gebruiker gelukt</p>";
         }
@@ -87,15 +102,9 @@ session_start();
         
         
     }
-?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="../css/content.css">
+    // customerDao voor selecteren van alle klanten
+    include ('../klantbeheer/CustomerDaoMysql.php');
 
     <meta charset="utf-8">
     <title>Nieuwe gebruiker Aanmaken</title>
@@ -108,8 +117,16 @@ session_start();
         <h2>Nieuwe gebruiker aanmaken</h2>
     </div>
 
+    <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/form.css">
+        <link rel="stylesheet" href="../css/content.css">
 
-    <div class="header"></div>
+        <meta charset="utf-8">
+        <title>Gebruiker Aanmaken</title>
+    </head>
+    <body>
+        <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <!-- form elements -->
 
@@ -162,11 +179,11 @@ session_start();
                 </select>
             </div>
 
-    </div>
+                <!-- end form elements -->
 
-    <!-- end form elements -->
+                <div class="footer"></div>
 
-    <div class="footer"></div>
+                <!-- buttons   -->
 
     <!-- buttons   -->
 
