@@ -74,7 +74,7 @@ class CustomerDaoMysql implements CustomerDao
     {
         $customers = null;
         
-        //$this->dbConn = new mysqlConnector();
+        $dbConn = new mysqlConnector();
         $customername;
         
         $sql = "SELECT customerName FROM customer WHERE status_active = 1 ORDER BY customerName";
