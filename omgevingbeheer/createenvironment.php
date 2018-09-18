@@ -28,8 +28,15 @@ session_start();
         $_SESSION["title"] = "Nieuwe Omgeving Aanmaken";
     }
 
+     // customerDao voor selecteren van alle klanten
+    include ('../klantbeheer/CustomerDaoMysql.php');
+
+    $customerdaomysql = new CustomerDaoMysql();
+    $customers = $customerdaomysql-> selectAllCustomers();
+    
+
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['systemName']) && isset($_POST['customerName']) )
+    if( isset($_POST['systemName']) )
     {
         // Controleren of de omgeving al bestaat
         // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving te checken
@@ -41,7 +48,7 @@ session_start();
         $_SESSION['systemName'] =  $newEnvironment->getSystemName();
 
         //Geef melding als de omgeving al bestaat
-        if( $_POST['username'] == $_SESSION['systemName'])
+        if( $_POST['systemName'] == $_SESSION['systemName'])
         {
             // Session leeg maken!!!!
             $_SESSION = array();
@@ -54,7 +61,7 @@ session_start();
             $createEnvironment = new EnvironmentDaoMysql();
             $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'] );
             echo "<p>Aanmaken nieuwe Omgeving gelukt</p>";
-            header('Location: omgevingbeheer/omgevingsoverzicht.php');
+            header('Location: omgevingsoverzicht.php');
         }
     }
 ?>
@@ -88,14 +95,24 @@ session_start();
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
             <div class="user-form form-field-padding form-field-style">
-                Systeemnaam
+                Systeemnaam 
                 <br><input type="text" name="systemName" minlength=5 class="input-text-style" required>
             </div>
-
-            <div class="user-form form-field-padding form-field-style">
-                Klant
-                <br><input type="text" name="customerName" minlength=5 class="input-text-style" >
+            
+            <div class="customer-form form-field-padding form-field-style">
+                        Beschikbare klanten
+                        <br>
+                        <select name="customers">
+                            <optgroup label="Kies een klant">
+                                <option selected hidden>Kies een klant (optioneel)</option>
+                                <?php foreach($customers as $customer):?>
+                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
+                                    <?php endforeach;?>
+                            </optgroup>
+                        </select>
             </div>
+            
+            
             
 
     </div>
