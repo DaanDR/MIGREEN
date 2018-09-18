@@ -11,7 +11,7 @@
 {
     position: absolute;
     width: 100%;
-    top: 0px;
+    top: -20px;
     padding-top: 30%;
     z-index: 5;
 }
@@ -25,19 +25,21 @@
     z-index: 5;
     padding: 10px;
     padding-bottom: 30px;
+    border-radius: 5px;
 }
 #close
 {
-    position: fixed;
+    position: relative;
     right: 0;
     top: 0;
-    width: 2rem;
-    height: 2rem;
-    background: #000;
+    width: 1.4rem;
+    height: 1.4rem;
+    background: rgb(77, 77, 77);
     color: #fff;
     text-align: center;
     z-index: 4;
     cursor: pointer;
+    float: right;
 }
 #close:hover
 {
@@ -46,12 +48,12 @@
 }
 
 .close {
-    position: absolute;
+    /* position: absolute; */
     color: #fff;
-    right: 20px;
-    top: 20px;
-    width: 20px;
-    height: 20px;
+    right: 17px;
+    top: 17px;
+    width: 17px;
+    height: 17px;
     opacity: 1;
   }
   .close:hover {
@@ -60,10 +62,10 @@
   }
   .close:before, .close:after {
     position: absolute;
-    left: 15px;
-    top: 5px;
+    left: 11px;
+    top: 4px;
     content: ' ';
-    height: 20px;
+    height: 15px;
     width: 2px;
     background-color: #fff;
   }
