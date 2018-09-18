@@ -43,12 +43,13 @@ function nextPrev(n) {
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
+    var PreviousTab = currentTab;
     currentTab = currentTab + n;
-    // if (n == -1) {
-    //         a[currentTab].className = a[currentTab].className.replace(" active", "");
-    //         b[currentTab].className = b[currentTab].className.replace(" active", "");
-    //         c[currentTab].className = c[currentTab].className.replace(" active", "");
-    // }
+    if (n == -1) {
+            a[PreviousTab].className = a[currentTab+1].className.replace(" active", "");
+            b[PreviousTab].className = b[currentTab+1].className.replace(" active", "");
+            c[PreviousTab].className = c[currentTab+1].className.replace(" active", "");
+    }
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
         // ... the form gets submitted:
@@ -94,11 +95,16 @@ function fixStepIndicator(n) {
     //
     // }
     //... and adds the "active" class on the current step:
-    x[currentTab].className += " active";
-    y[currentTab].className += " active";
+    x[n].className += " active";
+    y[n].className += " active";
     // x[i].className = x[i].className.replace(" active", "");
     // y[i].className = y[i].className.replace(" active", "");
-    z[currentTab-1].className += " active";
+    if (n==0) {
+    z[n].className += " active";
+
+    }else {
+    z[n-1].className += " active";
+    }
     // z[i-1].className = z[i-1].className.replace(" active", "");
 
     //..remove inactivity when stepping back
