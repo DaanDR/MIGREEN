@@ -32,6 +32,34 @@ function showTab(n) {
     fixStepIndicator(n)
 }
 
+function showTabWithoutFix(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+
+    document.getElementById("prevBtn").onclick = function(){nextPrev(-1)};
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Opslaan";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Volgende stap";
+        document.getElementById("prevBtn").innerHTML = "Vorige stap";
+    }
+
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").innerHTML = "Annuleren";
+        document.getElementById("prevBtn").onclick = function (){
+            if(confirm('Weet u het zeker')){
+                window.location.href = 'overzicht.html';
+            }
+        };
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+    //... and run a function that will display the correct step indicator:
+}
+
 function nextPrev(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
@@ -49,7 +77,13 @@ function nextPrev(n) {
     if (n == -1) {
             a[PreviousTab].className = a[currentTab].className.replace(" active finish", "");
             b[PreviousTab].className = b[currentTab].className.replace(" active finish", "");
-            // c[PreviousTab].className = c[currentTab].className.replace(" active", "");
+            if (PreviousTab <= 0) {
+                c[0].className = c[currentTab].className.replace(" active", "");
+            } else if (PreviousTab >0) {
+            c[PreviousTab].className = c[currentTab].className.replace(" active", "");
+            }
+
+        showTabWithoutFix(currentTab);
     }
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
@@ -98,8 +132,8 @@ function fixStepIndicator(n) {
     x[n].className += " active";
     y[n].className += " active";
     if (n==0) {
-    z[n].className += " active";
-    }else {
+    z[n].className += "";
+    }else if (n > 0) {
     z[n-1].className += " active";
     }
 

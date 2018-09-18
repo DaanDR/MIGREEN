@@ -97,7 +97,7 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                 </div>
 
                 <div class="progressbar-col-titles">
-                    <div class="step-title active">1. Basisgegevens</div>
+                    <div class="step-title">1. Basisgegevens</div>
                     <div class="step-title">2. Systemen</div>
                     <div class="step-title">3. Relaties</div>
                 </div>
