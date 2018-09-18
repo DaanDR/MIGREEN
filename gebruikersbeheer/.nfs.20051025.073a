@@ -79,7 +79,7 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao = new UserDaoMysql();
-            $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            $createUser = $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
             $userCustomerDao = new UserCustomerDaoMysql();
             $userCustomerDao-> insertUserCustomer($_POST['username'], $_POST['customername']);  
@@ -175,7 +175,7 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
                             <optgroup label="Kies een klant">
                                 <option selected hidden>Kies een klant</option>
                                 <?php foreach($customers as $customer):?>
-                                    <option value="<?=$customer["customerName"]?>"><?=$customer["customerName"]?></option>
+                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
                                     <?php endforeach;?>
                             </optgroup>
                         </select>
