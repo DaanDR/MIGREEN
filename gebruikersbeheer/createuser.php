@@ -22,32 +22,32 @@ session_start();
     include_once ("../autorisatie/UserDaoMysql.php");
     include ("../autorisatie/HashPassword.php"); // Hash PWD
 
-    // Title van de pagina...
-    if(!isset($_SESSION))
-    {
-        $_SESSION["title"] = "Log hier in";
-    }
+//    // Title van de pagina...
+//    if(!isset($_SESSION))
+//    {
+//        $_SESSION["title"] = "Log hier in";
+//    }
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )
-    {
+    if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+        
         // Controleren of de user al bestaat
+        $newUserName = $_POST['username'];
+        $oldUserName = null;
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-        $newUser = new UserDaoMysql();
-        $newUser = $newUser->selectUser( $_POST['username'] );
-
-        // Haal de user info uit de User array/object $loginUser
-        // en maak session vars aan.
-        $_SESSION['username'] =  $newUser->getUsername();
-
+        $userDao = new UserDaoMysql();
+        $oldUser = $userDao->selectUser( $_POST['username'] );
+        $oldUserName = $oldUser->getUsername();
+        
         //Geef melding als de user al bestaat
-        if( $_POST['username'] == $_SESSION['username'])
+        if( $oldUserName !== null && $newUserName == $oldUserName )
         {
+            echo "<br> <h2>Deze username bestaat al in de database.</h2>";
             // Session leeg maken!!!!
             $_SESSION = array();
-            echo "<br> <h2>Deze username bestaat al in de database.</h2>";
         }
 
+        // Wachtwoord checks
         // Controleren op hoofdletters
         if(!preg_match('/[A-Z]/', $_POST['password'] )){
             $_SESSION = array();
@@ -78,9 +78,14 @@ session_start();
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $createUser = new UserDaoMysql();
             $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
+            echo "<p>Aanmaken gebruiker gelukt</p>";
         }
+        
+    } else {
+        // foutmeldingen als niet alles is ingevuld
+        
+        
     }
 ?>
 
@@ -93,14 +98,14 @@ session_start();
     <link rel="stylesheet" href="../css/content.css">
 
     <meta charset="utf-8">
-    <title>Gebruiker Aanmaken</title>
+    <title>Nieuwe gebruiker Aanmaken</title>
 </head>
 <body>
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-        <h2>Gebruiker aanmaken</h2>
+        <h2>Nieuwe gebruiker aanmaken</h2>
     </div>
 
 
@@ -110,11 +115,11 @@ session_start();
 
     <div class="content">
 
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form method="post" enctype="multipart/form-data" action="createuser.php">
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input type="text" name="username" minlength=5 class="input-text-style">
+                <br><input type="text" name="username" minlength=5 class="input-text-style" required>
             </div>
 
 
@@ -125,24 +130,24 @@ session_start();
                     <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style">
+                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style"  required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style">
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" required>
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style">
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style" required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email" class="input-text-style"><br>
+                <br><input type="email" name="email" class="input-text-style" required><br>
             </div>
 
             <div class="role-form form-field-padding form-field-style">
@@ -150,8 +155,8 @@ session_start();
                 <br>
                 <select name="role" required>
                     <optgroup label="Kies een rol">
-                    <option selected hidden>Kies een rol</option>
-                    <option value="user">gebruiker</option>
+<!--                    <option selected disabled>Kies een rol</option>-->
+                    <option value="user" selected>gebruiker</option>
                     <option value="admin">admin</option>
                     </optgroup>
                 </select>
@@ -169,7 +174,7 @@ session_start();
         <div class="buttons-form">
             <a href="overzicht.php" target="_self">
             <button class="button-form-secondary" type="button">Annuleren</button></a>
-            <button class="button-form-primary" type="submit" value="Inloggen"> Gebruiker aanmaken </button>
+            <button class="button-form-primary" type="submit"> Opslaan </button>
             <!-- buttons -->
             <div>
                 </form>
