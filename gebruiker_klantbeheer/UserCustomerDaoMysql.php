@@ -12,7 +12,7 @@ class UserCustomerDaoMysql implements UserCustomerDao
 	
 	private $dbConn;
 
-	public function _construct()
+	public function __construct()
 	{
 			
 	}
@@ -21,7 +21,7 @@ class UserCustomerDaoMysql implements UserCustomerDao
     {
         $dbConn = new mysqlConnector();
         
-        $sql = "INSERT INTO user_customer (username, customerName) values (?,?)";
+        $sql = "INSERT INTO user_customer(userName, customerName) values (?,?)";
         
         $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('ss', $username, $customername);

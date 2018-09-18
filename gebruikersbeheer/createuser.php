@@ -82,8 +82,8 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
             $createUser = $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
             $userCustomerDao = new UserCustomerDaoMysql();
-            $userCustomerDao-> insertUserCustomer($_POST['username'], $_POST['customerName']);  
-            echo $_POST['username'].$_POST['customerName'];
+            $userCustomerDao-> insertUserCustomer($_POST['username'], $_POST['customername']);  
+
             echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
         }
@@ -171,7 +171,7 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
                     <div class="customer-form form-field-padding form-field-style">
                         Gekoppelde klant(en)
                         <br>
-                        <select name="customerName" required>
+                        <select name="customername" required>
                             <optgroup label="Kies een klant">
                                 <option selected hidden>Kies een klant</option>
                                 <?php foreach($customers as $customer):?>
