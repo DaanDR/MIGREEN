@@ -17,9 +17,9 @@
 .grid-wrapper > div {
     /*border: 2px solid rgb(233,171,88); - old, to check the grid partitions*/
     /*border-radius: 5px; - old, to check the grid partitions*/
-    background-color: #white;
+    background-color: white;
     padding: 1em;
-    color: #d9480f;
+    color: #444444;
 }
 
 .grid-header-left {
@@ -196,7 +196,7 @@ li > input, select  {
 
 .progressbar-col-titles > div.active {
     opacity: 1;
-    color: black;
+    color: #444444;
 }
 
 .progressbar-col-titles > div {
