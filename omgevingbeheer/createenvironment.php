@@ -14,7 +14,7 @@ session_start();
       echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
   }
 
-// ini_set('display_errors', 1);
+
     // Header in de bovenkant
     include ("../header/header.php");
 
