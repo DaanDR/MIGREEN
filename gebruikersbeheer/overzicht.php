@@ -1,7 +1,7 @@
 <?php
   include('../header/header.php'); 
   include('../autorisatie/UserDaoMysql.php');
-  
+    
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
   $userLoggedin = new UserIsLoggedin();
@@ -102,7 +102,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php");
+            header("Location: edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
@@ -125,7 +125,8 @@
       
     function delete($name, $dao) {
         if ($_SESSION['username'] == $name) {
-            echo '<script type="text/javascript"> notDeleteSelf(); </script>';
+//            echo '<script type="text/javascript"> notDeleteSelf(); </script>';
+            echo "Je kunt niet jezelf verwijderen dummy!";
         } else {
             $succes = $dao->deactivateUser($name);
             header("Location: overzicht.php");
