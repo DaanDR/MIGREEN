@@ -133,7 +133,7 @@ li > input, select  {
 /* Mark the active step: */
 .step.active {
     opacity: 1;
-    background-color: #eb1313;
+    background-color: red;
 }
 
 /* Mark the steps that are finished and valid: */
