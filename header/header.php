@@ -54,7 +54,7 @@ if (isset($_SESSION["title"])) {
 						href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
 					<li><a id="hover" class="<?php active('customers.php');?>"
 						href="../klantbeheer/customers.php">KLANTEN</a></li>
-					<li><a id="hover" class="<?php active('omgevingen.php');?>"
+					<li><a id="hover" class="<?php active('omgevingsoverzicht.php');?>"
 						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
 
