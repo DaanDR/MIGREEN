@@ -23,12 +23,12 @@
 }
 
 .grid-header-left {
-  grid-column: 1 / 2;
+  grid-column: 1 / 3;
   grid-row: 1;
 }
 
 .grid-header-right {
-  grid-column: 2 / 5;
+  grid-column: 3 / 5;
   grid-row: 1;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .grid-footer-right {
-  grid-column: 4 / 5;
+  grid-column: 3 / 5;
   grid-row: 3;
 }
 
@@ -169,4 +169,66 @@ li > input, select  {
   background: green;
   color: white;
   /*z-index: 0;*/
+}
+
+
+/* TEST CODE */
+
+.step {
+  height: 50px;
+  width: 50px;
+  margin: 0 2px;
+  /* margin-top: 10%; */
+  background-color: #cbcbcb;
+  border: none;
+  border-radius: 50%;
+  display: block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+  background-color: #eb1313;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+.progressbar-icon {
+  margin-top: 12px;
+  font-size:200%;
+  color: white;
+}
+
+.progressbar-proto {
+  margin-left: 5px;
+}
+
+.progressbar-line-one  {
+    border-left: 2px solid grey;
+    height: 50px;
+    margin-left: 25px;
+}
+
+.progressbar-line-two  {
+    border-left: 2px solid grey;
+    height: 50px;
+    margin-left: 25px;
+    opacity: 0.3;
+}
+
+.progressbar-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.progressbar-col-icons {
+  grid-column: 1;
+}
+
+.progressbar-col-titles {
+  grid-column: 2;
 }
