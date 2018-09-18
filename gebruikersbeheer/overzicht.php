@@ -20,7 +20,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="../css/overzicht.css">
+  <link rel="stylesheet" type="text/css" href="../css/customers.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script type="text/javascript" src="../js/overzichtFunctions.js"></script>
@@ -30,31 +30,30 @@
 </head>
 
 <body>
-<div class="grid-container" <?php echo $adminLoggedin ?> >
-    <div class="header-left">
-      <h1>Home</h1>
-      <h2>Gebruikersoverzicht</h2>
-    </div>
-    <div class="header-mid"></div>
-    <div class="header-right">
-        
-        <a href="createuser.php" target="_self">
-        <button class="new-user-button" type="button" name="button">Nieuwe gebruiker aanmaken</button>
-        </a>
-      </div>
-    <div class="content">
+<div id="pagestyling">
 
-    <table>
-        <thead>
-          <tr>
-           <th>GEBRUIKERSNAAM</th>
-           <th>VOORNAAM</th>
-           <th>ACHTERNAAM</th>
-           <th>ROL</th>
-           <th></th>
-         </tr>
-       </thead>
-       <tbody>
+
+    <div id="customerTable">
+
+        <table>
+            <thead>
+            <tr>
+                <th id="tabletitle">Home
+                    <p>Gebruikersoverzicht</p>
+                </th>
+                <th></th>
+                <th id="new-customer-button"><button class="new-customer-button"
+                                                     type="button" name="button">Nieuwe gebruiker aanmaken</button></th>
+            </tr>
+            <tr>
+                <th id="tablehead">GEBRUIKERSNAAM</th>
+                <th id="tablehead">VOORNAAM</th>
+                <th id="tablehead">ACHTERNAAM</th>
+                <th id="tablehead">ROL</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
 
       <?php 
         $userDao = new UserDaoMysql();
@@ -63,24 +62,28 @@
 
         <?php foreach($users as $user):
            $username = $user["userName"];?>
-          <tr>
-            <td><?=$user["userName"] ?></td>
-            <td><?=$user["firstname"] ?></td>
-            <td><?=$user["lastname"] ?></td>
-            <td><?=$user["role"] ?></td>
-            <td class="icon-cell">
-                <a href="../gebruikersbeheer/overzicht.php?action=edit&userName=<?php echo $username; ?>">
-                  <i class="editbutton"><img src='../res/edit.svg'><img
-                  src='../res/edit-hover.svg'></i></a>
-                <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>">
-                  <i class="deletebutton" onclick="return confirmDelete('<?php echo $username ?>');"><img src='../res/delete.svg'><img
-                  src='../res/delete-hover.svg'></i></a>
 
-            </td>
-          </tr>
+
+            <tr class="withhover">
+                <td id='gebruikerinfo'><?=$user["userName"]?></td>
+                <td id='gebruikerinfo'><?=$user["firstname"]?></td>
+                <td id='gebruikerinfo'><?=$user["lastname"]?></td>
+                <td id='gebruikerinfo'><?=$user["role"]?></td>
+                <td class="withhover">
+
+
+                <td class='editbutton'><img src='../res/edit.svg'><img
+                            src='../res/edit-hover.svg'></td>
+                <td class='deletebutton'><img src='../res/delete.svg'><img
+                            src='../res/delete-hover.svg'></td>
+                </td>
+            </tr>
+
         <?php endforeach;?>
 
       </tbody>
+        </table>
+
   </div>
 </div>
 

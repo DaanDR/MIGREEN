@@ -29,7 +29,7 @@ include ('../header/header.php');
 	<div id="pagestyling">
 		<!-- Div voor de tabel met klantnamen -->
 		<div id="customerTable">
-			<table>
+			<table id="tabelpadding">
 				<thead>
 					<tr>
 						<th id="tabletitle">Home
