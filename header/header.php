@@ -55,7 +55,7 @@ if (isset($_SESSION["title"])) {
 					<li><a id="hover" class="<?php active('customers.php');?>"
 						href="../klantbeheer/customers.php">KLANTEN</a></li>
 					<li><a id="hover" class="<?php active('omgevingen.php');?>"
-						href="../omgevingbeheer/omgeving.php" class="btn">OMGEVINGEN</a></li>
+						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
 
 				</div>
