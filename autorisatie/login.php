@@ -17,7 +17,7 @@ include_once ("../error/ErrorMessage.php");
     // Login the page > kijk eerst of beide velden zijn ingevoerd met isset()
     if( isset($_POST['username']) && isset($_POST['password']) )
     {
-        // Create Error class
+        // Instantiate Error class
         $errMessage = new ErrorMessage();
 
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
@@ -45,7 +45,7 @@ include_once ("../error/ErrorMessage.php");
             // Session leeg maken!!!!
             $_SESSION = array();
 
-            echo $errMessage->createErrorMessage('Helaas... niet ingelogged. Probeer het nog eens.');
+            echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Helaas... niet ingelogged. Probeer het nog eens.');
         }
         else
         {
@@ -70,7 +70,7 @@ include_once ("../error/ErrorMessage.php");
                 // Session leeg maken!!!!
                 $_SESSION = array();
                 echo "";
-                echo $errMessage->createErrorMessage('Uw passwoord is niet juist. Probeer het nog eens.');
+                echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Uw passwoord is niet juist. Probeer het nog eens.');
             }
         }
     }
