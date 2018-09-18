@@ -1,15 +1,12 @@
  <?php
-//  Voor de title bar
-    $title = "";
+// Voor de title bar
+$title = "";
 
-    if ( isset($_SESSION["title"]) )
-    {
-        $title = $_SESSION["title"];
-    }
-    else
-    {
-        $title = "MyBit MyInsight";
-    }
+if (isset($_SESSION["title"])) {
+    $title = $_SESSION["title"];
+} else {
+    $title = "MyBit MyInsight";
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,50 +23,60 @@
 <script src="../js/header.js"></script>
 
     <?php
-function active($currect_page){
-  $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
-  $url = end($url_array);  
-  if($currect_page == $url){
-      echo 'active'; //class name in css 
-  } 
-}
-?>
+
+    function active($currect_page)
+    {
+        $url_array = explode('/', $_SERVER['REQUEST_URI']);
+        $url = end($url_array);
+        if ($currect_page == $url) {
+            echo 'active'; // class name in css
+        }
+    }
+    ?>
     
 
 
 
 <title><?php echo $title ?></title>
 </head>
-<body >
-    <div id="headerbody">
-    <div id="compleet">
-    <div id="logo">MyInsights</div>
-		<ul class="mainmenu">
-            <div class="hoofdmenu">
-			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
-				class="fas fa-home"></a></li>
+<body>
+	<div id="headerbody">
+		<div id="compleet">
+			<div id="logo">MyInsights</div>
+			<ul class="mainmenu">
+				<div class="hoofdmenu">
+					<li><a id="home-button"
+						href="http://localhost:8080/MIGreen/header/header.php"
+						class="fas fa-home"></a></li>
 
-<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
-			<li><a id="hover" class="<?php active('overzicht.php');?>" href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
-			<li><a id="hover" class="<?php active('klantenoverzicht.php');?>" href="../klantbeheer/klantenoverzicht.php">KLANTEN</a></li>
-			<li><a id="hover" class="<?php active('omgevingen.php');?>" href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
+					<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
+					<li><a id="hover" class="<?php active('overzicht.php');?>"
+						href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
+					<li><a id="hover" class="<?php active('customers.php');?>"
+						href="../klantbeheer/customers.php">KLANTEN</a></li>
+					<li><a id="hover" class="<?php active('omgevingen.php');?>"
+						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
 
-                                                            </div>
-            
+				</div>
 
 
-            <div id="dropdown-window">
-            <li><i class="fas fa-user"></i>
-                <ul class="dropdown-content">
-                    <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
-                    <li id="dropdown-padding"><a  href="../header/header.php?action=logout" onclick="return deleteask();">Uitloggen</a></li>
-                </ul>
-                </div>
-		</ul>
-   
-        </div>
-    </div>
+
+				<div id="dropdown-window">
+					<li><i class="fas fa-user"></i>
+						<ul class="dropdown-content">
+							<li id="dropdown-padding"><a
+								href="../header/header.php?action=account"> Account </a></li>
+							<li id="dropdown-padding"><a
+								href="../header/header.php?action=logout"
+								onclick="return deleteask();">Uitloggen</a></li>
+						</ul>
+				
+				</div>
+			</ul>
+
+		</div>
+	</div>
      <?php
     // Voor de title bar
     session_start();
@@ -109,13 +116,6 @@ function active($currect_page){
     {
         print "accountje";
     }
-    
-
-    
-    
-
-    
-    
     
     ?>
     
