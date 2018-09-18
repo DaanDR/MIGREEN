@@ -162,18 +162,18 @@ li > input, select  {
     margin-left: 0px;
 }
 
-.progressbar-line.active  {
-    border-left: 2px solid grey;
-    height: 50px;
-    margin-left: 25px;
-    opacity: 1;
-}
-
 .progressbar-line  {
     border-left: 2px solid grey;
     height: 50px;
     margin-left: 25px;
     opacity: 0.3;
+}
+/* Mark the progress line active*/
+.progressbar-line.active  {
+    border-left: 2px solid grey;
+    height: 50px;
+    margin-left: 25px;
+    opacity: 1;
 }
 
 .progressbar-wrapper {

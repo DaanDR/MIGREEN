@@ -38,17 +38,18 @@ function nextPrev(n) {
     var a = document.getElementsByClassName("step");
     var b = document.getElementsByClassName("step-title");
     var c = document.getElementsByClassName("progressbar-line");
+    var PreviousTab;
     // Exit the function if any field in the current tab is invalid:
     if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
-    var PreviousTab = currentTab;
     currentTab = currentTab + n;
+    PreviousTab = currentTab - n;
     if (n == -1) {
-            a[PreviousTab].className = a[currentTab+1].className.replace(" active", "");
-            b[PreviousTab].className = b[currentTab+1].className.replace(" active", "");
-            c[PreviousTab].className = c[currentTab+1].className.replace(" active", "");
+            a[PreviousTab].className = a[currentTab].className.replace(" active finish", "");
+            b[PreviousTab].className = b[currentTab].className.replace(" active finish", "");
+            // c[PreviousTab].className = c[currentTab].className.replace(" active", "");
     }
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
@@ -87,7 +88,6 @@ function fixStepIndicator(n) {
     var x = document.getElementsByClassName("step");
     var y = document.getElementsByClassName("step-title");
     var z = document.getElementsByClassName("progressbar-line");
-    var i = n+1;
     // for (i = x.length; currentTab < i ; i--) {
     //     x[i].className = x[i].className.replace(" active", "");
     //     y[i].className = y[i].className.replace(" active", "");
@@ -97,18 +97,11 @@ function fixStepIndicator(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
     y[n].className += " active";
-    // x[i].className = x[i].className.replace(" active", "");
-    // y[i].className = y[i].className.replace(" active", "");
     if (n==0) {
     z[n].className += " active";
-
     }else {
     z[n-1].className += " active";
     }
-    // z[i-1].className = z[i-1].className.replace(" active", "");
-
-    //..remove inactivity when stepping back
-
 
 }
 

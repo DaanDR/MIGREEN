@@ -87,7 +87,7 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                 <div class="progressbar-col-icons">
                     <div class="progressbar-proto">
                         <div style="text-align:center;margin-top:40px;">
-                            <span class="step active"><i class="progressbar-icon fas fa-info-circle"></i></span>
+                            <span class="step"><i class="progressbar-icon fas fa-info-circle"></i></span>
                             <div class="progressbar-line"></div>
                             <span class="step"><i class="progressbar-icon fas fa-database"></i></span>
                             <div class="progressbar-line"></div>
