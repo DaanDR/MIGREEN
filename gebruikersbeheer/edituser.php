@@ -15,7 +15,7 @@ if( ! $userLoggedin->isAdmin() ) {
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-    // ini_set('display_errors', 1);
+    
     // Header in de bovenkant
     include ("../header/header.php");
     
@@ -39,30 +39,47 @@ if( ! $userLoggedin->isAdmin() ) {
     $currentUserEmail = $currentUser->getEmail();
     $currentUserRole = $currentUser->getRole();
 
+    
+
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
         
-        if ( isset($_POST['password']) ){
-            // Password Checks
+           
         
+        if ( !empty($_POST['password']) ){
+            
+            // Password Checks
+            
             // Controleren op hoofdletters
             if(!preg_match('/[A-Z]/', $_POST['password'] )){
-                $_SESSION = array();
+
                 echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
+                $checkHoofdletter = FALSE;
+            } else {
+                $checkHoofdletter = TRUE;
             }
 
             // Controleren op cijfers
             if (!preg_match('([0-9])', $_POST['password'] )){
-                $_SESSION = array();
+
                 echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
+                $checkGetal = FALSE;
+            } else {
+                $checkGetal = TRUE;
             }
 
             // Controleren of wachtwoorden gelijk zijn
             if( $_POST['password'] != $_POST['password2'] ){
-                // Session leeg maken!!!!
-                $_SESSION = array();
+            
                 echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+                $checkGelijk = FALSE;
+            } else {
+                $checkGelijk = TRUE;
             }
+            
+            
+            
+            if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE){
             
             //Hash het opgegeven password
             $hash = new HashPassword();
@@ -70,24 +87,28 @@ if( ! $userLoggedin->isAdmin() ) {
              // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao = new UserDaoMysql();
             $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            
-        }
-        
-        else {
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            }
+                
+        } else {
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+           
             $userDao2 = new UserDaoMysql();
             $passwordleeg = "0000";
             $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            echo "hij doet het!";
-            //header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            
+           
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
         
-        header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+        
                    
     }
+
+ 
     
 ?>
-
+ 
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -112,7 +133,7 @@ if( ! $userLoggedin->isAdmin() ) {
 
     <div class="header"></div>
 
-    <!-- form elements -->
+    <!-- form elements pattern="(?=.*\d)(?=.*[A-Z]).{8,}" -->
 
     <div class="content">
 
@@ -122,7 +143,7 @@ if( ! $userLoggedin->isAdmin() ) {
 
                 <div class="password-form-initial">
                     Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
+                    <br><input type="password" name="password" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
                 </div>
                 <div class="password-form-confirm">
                     Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style">
@@ -158,7 +179,7 @@ if( ! $userLoggedin->isAdmin() ) {
 
     </div>
 
-    <!-- end form elements -->
+    <!-- end form elements>-->
 
     <div class="footer"></div>
     
