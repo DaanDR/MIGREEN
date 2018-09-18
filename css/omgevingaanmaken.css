@@ -60,7 +60,7 @@
 .grid-footer-right {
     grid-column: 2 / 5;
     grid-row: 3;
-    text-align:right;
+    text-align: right;
     border-top: 1px solid #F2F6FA;
 
 }
@@ -246,7 +246,7 @@ input.invalid {
 }
 
 .relaties-textarea {
-/* color: white; */
+color:#444444;
 border-style: solid;
 border-color: #cbcbcb;
 border-width: 0.5px;
