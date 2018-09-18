@@ -115,10 +115,6 @@
 	display: block;
 }
 
-#createCustomer {
-	display: none;
-}
-
 #customerTable table {
 	table-layout: auto;
 	background-color: white;

@@ -6,42 +6,17 @@ const names = document.getElementsByClassName("klantnaam");
 
 
 newCustomerButton.onclick = function() {
-	window.location("../klantbeheer/createcustomer.php");
-}
-
-
-for (var i = 0; i < editButtons.length; i++){
-	var editButton = editButtons[i];
-	var name = names[i];
-	editButton.onclick = function() {
-		document.getElementById("customerName").value = name;
-		var customertable = document.getElementById("customerTable");
-		var createcustomer = document.getElementById("createCustomer");
-		customertable.style.display = "none";
-		createcustomer.style.display = "block";
-	}
-}
-
-for (var i = 0; i < deleteButtons.length; i++){
-	var deleteButton = deleteButtons[i];
-	deleteButton.onclick = function() {
-		var check = confirm("Wil je deze klant verwijderen?");
-		if (check == true) {
-			
-		} else {
-			alert("Klant niet verwijderd");
-		}
-	}
+	window.open("../klantbeheer/createcustomer.php", "_self");
 }
 
 function stringTooShort(){
-	hideCustomers();
 	alert("Een klantnaam moet minimaal 2 karakters bevatten!");
 }
 
-function hideCustomers(){
-	var customertable = document.getElementById("customerTable");
-	var createcustomer = document.getElementById("createCustomer");
-	customertable.style.display = "none";
-	createcustomer.style.display = "block";
+function noSpaces(){
+	alert("Een klantnaam mag geen spaties bevatten!");
+}
+
+function customerDeleted(name){
+	alert("Klant " + name + " is verwijderd")
 }

@@ -1,13 +1,3 @@
-<?php
-if (isset($_POST['customerName'])) {
-    if (strlen($_POST['customerName']) < 2) {
-        echo "<script type='text/javascript'>stringTooShort();</script>";
-    } else {
-        $createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
-        header('Location: ../klantbeheer/klantenoverzicht.php');
-    }
-}
-?>
 
 <!DOCTYPE html>
 <html>
@@ -49,10 +39,12 @@ include ('../header/header.php');
     <?php foreach($customers as $client):?>
     <tr class="withhover">
 						<td class='klantnaam'><?=$client["customerName"]?></td>
-						<td class='editbutton'><img src='../res/edit.svg'><img
-							src='../res/edit-hover.svg'></td>
-						<td class='deletebutton'><img src='../res/delete.svg'><img
-							src='../res/delete-hover.svg'></td>
+						<td class='editbutton'><a
+							href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
+							src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></td>
+						<td class='deletebutton'><a onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');" 
+							href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>"><img src='../res/delete.svg'><img
+							src='../res/delete-hover.svg'></a></td>
 					</tr>
 					</tr>
     <?php endforeach;?>
@@ -61,5 +53,26 @@ include ('../header/header.php');
 		</div>
 	</div>
 	<script src="../js/customers.js"></script>
+	<?php 
+	
+	if (! isset($_GET["action"])) {
+	    $action = "Home";
+	} else {
+	    $action = $_GET["action"];
+	}
+	
+	switch ($action) {
+	    case "Home":
+	        break;
+	    case "delete":
+	        if(isset($_GET['customer'])){
+	            
+	            $deleteCustomer = $customerdaomysql->deleteCustomer($_GET['customer']);
+	            echo '<script type="text/javascript"> customerDeleted(<?=$client["customerName"]?>); </script>';
+	            header("Location: ../klantbeheer/customers.php");
+	        }
+	        break;
+	}
+	?>
 </body>
 </html>

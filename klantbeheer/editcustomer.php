@@ -8,7 +8,12 @@
 include ('../klantbeheer/CustomerDaoMysql.php');
 
 $customerdaomysql = new CustomerDaoMysql();
-$customers = $customerdaomysql->selectAllCustomers();
+
+if (isset ($_GET['customer'])){
+$currentName = $_GET['customer'];
+} else {
+    $currentName = "";
+}
 
 ?>
 <body>
@@ -29,10 +34,11 @@ include ('../header/header.php');
 				<tbody>
 					<tr class="nohover">
 						<td>
-							<form method="post" action="../klantbeheer/createcustomer.php">
+							<form method="post" action="../klantbeheer/editcustomer.php?customer=<?php echo $currentName; ?>"
+								name="editForm">
 								<div id="formName">
 									Klantnaam<br> <br> <input type="text" name="customerName"
-										id="customerName" value="">
+										value=<?=$currentName?> >
 								</div>
 								<div id="crudbuttons">
 									<div id="cancelButton">
@@ -53,14 +59,13 @@ include ('../header/header.php');
 	<script src="../js/customers.js"></script>
 	<?php
 if (isset($_POST['customerName'])) {
-    if (strlen($_POST['customerName']) < 2) {
+    $newName = $_POST['customerName'];
+    if (strlen($newName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
-    } else if(preg_match('/\s/', $_POST['customerName'])){
-        echo "<script type='text/javascript'>noSpaces();</script>";
-} else {
-    $createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
-    header('Location: ../klantbeheer/customers.php');
-}
+    } else {
+        $editCustomer = $customerdaomysql->updateCustomer($currentName, $newName);
+        header('Location: ../klantbeheer/customers.php');
+    }
 }
 ?>
 </body>
