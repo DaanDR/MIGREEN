@@ -26,8 +26,8 @@ include_once ("../autorisatie/UserDaoMysql.php");
     // customerDao voor selecteren van alle klanten
 include ('../klantbeheer/CustomerDaoMysql.php');
     // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
-    $customerdao = new CustomerDaoMysql();
-    $customers = $customerdao-> selectAllCustomers();
+$customerdao = new CustomerDaoMysql();
+$customers = $customerdao-> selectAllCustomers();
 // include user_customer class 
 include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 include ("../autorisatie/HashPassword.php"); // Hash PWD
@@ -39,84 +39,84 @@ include ("../autorisatie/HashPassword.php"); // Hash PWD
 //    }
 
     // Customerdao aanmaken voor het ophalen van alle klanten
-    $customerdaomysql = new CustomerDaoMysql();
-    $customers = $customerdaomysql-> selectAllCustomers();
+$customerdaomysql = new CustomerDaoMysql();
+$customers = $customerdaomysql-> selectAllCustomers();
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
 
         // Controleren of de user al bestaat
-        $newUserName = $_POST['username'];
-        $oldUserName = null;
+    $newUserName = $_POST['username'];
+    $oldUserName = null;
         // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-        $userDao = new UserDaoMysql();
-        $oldUser = $userDao->selectUser( $_POST['username'] );
-        $oldUserName = $oldUser->getUsername();
-        
+    $userDao = new UserDaoMysql();
+    $oldUser = $userDao->selectUser( $_POST['username'] );
+    $oldUserName = $oldUser->getUsername();
+
         //Geef melding als de user al bestaat
-        if( $oldUserName !== null && $newUserName == $oldUserName )
-        {
-            echo "<br> <h2>Deze username bestaat al in de database.</h2>";
+    if( $oldUserName !== null && $newUserName == $oldUserName )
+    {
+        echo "<br> <h2>Deze username bestaat al in de database.</h2>";
             // Session leeg maken!!!!
-            $_SESSION = array();
-        }
+        $_SESSION = array();
+    }
 
         // Wachtwoord checks
         // Controleren op hoofdletters
-        if(!preg_match('/[A-Z]/', $_POST['password'] )){
-            $_SESSION = array();
-            echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
-        }
+    if(!preg_match('/[A-Z]/', $_POST['password'] )){
+        $_SESSION = array();
+        echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
+    }
 
         // Controleren op cijfers
-        if (!preg_match('([0-9])', $_POST['password'] )){
-            $_SESSION = array();
-            echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
-        }
+    if (!preg_match('([0-9])', $_POST['password'] )){
+        $_SESSION = array();
+        echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
+    }
 
         // Controleren of wachtwoorden gelijk zijn
-        if( $_POST['password'] != $_POST['password2'] )
-        {
+    if( $_POST['password'] != $_POST['password2'] )
+    {
                // Session leeg maken!!!!
-            $_SESSION = array();
-            echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-        }
+        $_SESSION = array();
+        echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+    }
 
 
-        else
-        {
+    else
+    {
             //Hash het opgegeven password
-            $hash = new HashPassword();
-            $hash_password = $hash->hashPwd($_POST['password']);
+        $hash = new HashPassword();
+        $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $userDao = new UserDaoMysql();
-            $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+        $userDao = new UserDaoMysql();
+        $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
 
             // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
-            $customerdao = new CustomerDaoMysql();
-            $customers = $customerdao-> selectAllCustomers();
+        $customerdao = new CustomerDaoMysql();
+        $customers = $customerdao-> selectAllCustomers();
 
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-            $userCustomerDao = new UserCustomerDaoMysql();
+        $userCustomerDao = new UserCustomerDaoMysql();
             //clear all userCustomers
-            $userCustomerDao->clearUserCustomer($_POST['username']);
-            foreach($_POST['clients'] as $customerName) {
-               $userCustomerDao-> UserCustomerDaoMysql($_POST['username'], $customerName);  
-           }
-           
-           echo "<p>Aanmaken gebruiker gelukt</p>";
-           header('Location: ../gebruikersbeheer/overzicht.php');
-       }
+        $userCustomerDao->clearUserCustomer($_POST['username']);
+        foreach($_POST['clients'] as $customerName) {
+         $userCustomerDao-> UserCustomerDaoMysql($_POST['username'], $customerName);  
+     }
 
-   } else {
+     echo "<p>Aanmaken gebruiker gelukt</p>";
+     header('Location: ../gebruikersbeheer/overzicht.php');
+ }
+
+} else {
         // foutmeldingen als niet alles is ingevuld
 
-   }
+}
 
-   ?>
+?>
 
-   <div class="header-left">
+<div class="header-left">
     <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
     <h2>Nieuwe gebruiker aanmaken</h2>
 </div>
@@ -125,6 +125,16 @@ include ("../autorisatie/HashPassword.php"); // Hash PWD
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
+    <script type="text/javascript" src="../js/gebruiker_klantFunctions.js"></script>
+    
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#add-field").click(function(){
+                $("#customers").clone().appendTo("#dropdown");
+            });
+        });
+    </script> -->
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
@@ -174,19 +184,19 @@ include ("../autorisatie/HashPassword.php"); // Hash PWD
                 <div class="role-form form-field-padding form-field-style">
                     Rol
                     <br>
-                    <select name="role" required>
+                    <select id="roles" name="role" required>
                         <optgroup label="Kies een rol">
-                            <!--                    <option selected disabled>Kies een rol</option>-->
+                            <!--<option selected disabled>Kies een rol</option>-->
                             <option value="user" selected>gebruiker</option>
                             <option value="admin">admin</option>
                         </optgroup>
                     </select>
                 </div>
 
-                <div class="customer-form form-field-padding form-field-style">
+                <div id="dropdown" class="customer-form form-field-padding form-field-style">
                     Gekoppelde klant(en)
                     <br>
-                    <select id="customers" name="customers[]" required multiple="multiple">
+                    <select id="customers" name="customers[]" required>
                         <optgroup label="Kies een klant">
                             <option value="0" selected hidden>Kies een klant</option>
                             <?php foreach($customers as $customer):?>
@@ -194,6 +204,9 @@ include ("../autorisatie/HashPassword.php"); // Hash PWD
                             <?php endforeach;?>
                         </optgroup>
                     </select>
+                </div>
+                <div class="duplicate-button" id="poep">
+                    <a id="add-field" type="button" onclick="addField();"><img src="../res/add.svg"></a>
                 </div>
 
                 <!-- end form elements -->
