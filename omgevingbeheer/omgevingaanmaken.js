@@ -8,15 +8,25 @@ function showTab(n) {
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
     //... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
+
+    document.getElementById("prevBtn").onclick = function(){nextPrev(-1)};
     if (n == (x.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Opslaan";
     } else {
-        document.getElementById("nextBtn").innerHTML = "Volgende";
+        document.getElementById("nextBtn").innerHTML = "Volgende stap";
+        document.getElementById("prevBtn").innerHTML = "Vorige stap";
+    }
+
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").innerHTML = "Annuleren";
+        document.getElementById("prevBtn").onclick = function (){
+          if(confirm('Weet u het zeker')){
+            window.location.href = 'overzicht.html';
+          }
+        };
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
     }
     //... and run a function that will display the correct step indicator:
     fixStepIndicator(n)

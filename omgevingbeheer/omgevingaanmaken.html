@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="../css/content.css">
   <link rel="stylesheet" type="text/css" href="../css/header.css">
   <link rel="stylesheet" type="text/css" href="../css/omgevingaanmaken.css">
-    <link rel="stylesheet" type="text/css" href="../css/form.css">
+  <link rel="stylesheet" type="text/css" href="../css/form.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
   <meta charset="utf-8">
@@ -20,12 +20,12 @@
 
     <div class="grid-header-left">
 
-      <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgevingenoverzicht</p>
+      <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgevingenoverzicht</p>
       <h2>Omgeving aanmaken</h2>
 
     </div>
 
-    <div class="grid-header-right">  </div>
+    <div class="grid-header-right"> </div>
 
     <div class="grid-content-left">
 <!-- MITCHELL TEST CODE -->
@@ -121,15 +121,61 @@
       </div>
       </div>
 
+      <div class="tab">
+
+        <div class="relaties-information">
+          <h3>Relaties</h3>
+            <p>In deze stap kan voor het systeem relaties aangeven tussen de machines.</p>
+            <p>Kies eerst een machine uit lijst 1, de relatie met de andere machine(enkel- of tweezijdig) en tot slot de andere machine.</p>
+            <p>Optioneel kan je een beschrijving toevoegen aan deze relatie.</p>
+              <br>
+            <p>Bij meerdere relaties zal je meerdere relaties moet opgeven. Dit kan met de + knop.</p>
+        </div>
+
+        <div class="relaties-wrapper">
+
+          <div class="relaties-col-one">
+            <p>Machine 1</p>
+            <input type="text" name="" value="">
+            <p>Protocol</p>
+            <input type="text" name="" value="">
+
+          </div>
+
+          <div class="relaties-col-two">
+            <p>Relatie</p>
+            <input type="text" name="" value="">
+            <p>Poort</p>
+            <input type="text" name="" value="">
+          </div>
+
+          <div class="relaties-col-three">
+            <p>Machine 1</p>
+            <input type="text" name="" value="">
+          </div>
+
+          <div class="relaties-row-two">
+            <p>Beschrijving relatie</p>
+            <textarea class="relaties-textarea"name="Text1"></textarea>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+
         <!--</fieldset>-->
       </form>
 
     </div>
-        <div class="grid-footer-left">  </div>
+        <div class="grid-footer-left"> </div>
 
         <div class="grid-footer-right">
           <div class="gebruikeraanmaken-buttons">
-          <button class="button-form-secondary" name="button" id="prevBtn" onclick="nextPrev(-1)">Vorige stap</button>
+          <button class="button-form-secondary" name="button" id="prevBtn" onclick="nextPrev(-1)">Annuleren</button>
           <button class="button-form-primary" id="nextBtn" onclick="nextPrev(1)">Volgende stap</button>
         </div>
 
