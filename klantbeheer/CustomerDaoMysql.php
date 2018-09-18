@@ -54,9 +54,9 @@ class CustomerDaoMysql implements CustomerDao
     {
         $newCustomer = null;
         
-        $customername;
+       // $customername;
         
-        $sql = "SELECT * from customer WHERE customerName = ? LIMIT 1";
+        $sql = "SELECT customerName from customer WHERE customerName = ?";
         $stmt = $this->dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $customername);
         $stmt->execute();
@@ -74,7 +74,6 @@ class CustomerDaoMysql implements CustomerDao
     {
         $customers = null;
         
-        //$this->dbConn = new mysqlConnector();
         $customername;
         
         $sql = "SELECT customerName FROM customer WHERE status_active = 1 ORDER BY customerName";

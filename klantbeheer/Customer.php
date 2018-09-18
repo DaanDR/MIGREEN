@@ -9,7 +9,7 @@ class Customer{
     private $customername;
     private $status_active;
     
-    public function _construct($customername){
+    public function __construct($customername){
         $this->customername = $customername;
     }
     
