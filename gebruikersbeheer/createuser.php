@@ -1,20 +1,23 @@
 <?php
 session_start();
 
+//init_set('display_errors', 1);
+
+
   // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
-
   // Check of de admin is ingelogged....
 $adminLoggedin = "";
 if( ! $userLoggedin->isAdmin() )
 {
   $adminLoggedin = "style='display: none;'";
-  echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+  echo "<h1 style='margin-top:50px;'>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-// ini_set('display_errors', 1);
+ ini_set('display_errors', 1);
     // Header in de bovenkant
 include ("../header/header.php");
 
@@ -82,7 +85,12 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
             $userDao->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
             $userCustomerDao = new UserCustomerDaoMysql();
-            $userCustomerDao-> insertUserCustomer($_POST['username'], $_POST['customername']);  
+            //clear all userCustomers
+            $userCustomerDao->clearUserCustomer($_POST['username']);
+            foreach($_POST['clients'] as $customerName) {
+                 $userCustomerDao-> UserCustomerDaoMysql($_POST['username'], $customerName);  
+            }
+           
 
             echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: ../gebruikersbeheer/overzicht.php');
@@ -168,26 +176,23 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
                             </optgroup>
                         </select>
                     </div>
-                    <div class="customer-form form-field-padding form-field-style">
+                    
+                    <div id="kkk" class="customer-form form-field-padding form-field-style">
                         Gekoppelde klant(en)
                         <br>
-                        <select id="testprint" name="customername" required>
+                        <select id="clients" name="clients" required multiple="multiple">
                             <optgroup label="Kies een klant">
-                                <option selected hidden>Kies een klant</option>
+                                <option value="0" selected hidden>Kies een klant</option>
                                 <?php foreach($customers as $customer):?>
                                     <option value="<?=$customer["customerName"]?>"><?=$customer["customerName"]?></option>
                                 <?php endforeach;?>
                             </optgroup>
                         </select>
-                        <div class="buttons-right">
-                            <button onclick="addField('testprint')" type="button" name="add" id="add" class="btn btn-info"><img src='../res/add.svg'></button> 
-                        </div>
-
-
-
                     </div>
-
+                    
                 </div>
+
+                
 
                 <!-- end form elements -->
 

@@ -1,10 +1,14 @@
-function addField(testprint) {
-     var printContents = document.getElementById(testprint).innerHTML;
-     var originalContents = document.body.innerHTML;
+function addField() {
+	document.getElementById("poep").innerHTML = "<select name='customername' required>" +
+                            "<optgroup label='Kies een klant'>" +
+                                "<option selected hidden>Kies een klant</option>" +
+                                "<?php foreach($customers as $customer):?>" +
+                                    "<option value='<?=$customer['customerName']?>'><?=$customer['customerName']?></option>" +
+                                "<?php endforeach;?>" +
+                            "</optgroup>" +
+                        "</select>" +
+						"<div class='buttons-right'>" +
+                            "<button onclick='addField()' type='button' name='add' id='add' class='btn btn-info'><img src='../res/add.svg'></button>" +
+                        "</div>";
 
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     document.body.innerHTML = originalContents;
 }
