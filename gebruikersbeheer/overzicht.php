@@ -1,6 +1,10 @@
 <?php
 include('../header/header.php');
 include('../autorisatie/UserDaoMysql.php');
+include_once ("../error/ErrorMessage.php");
+
+// Instantiate Error class
+$errMessage = new ErrorMessage();
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
@@ -12,7 +16,7 @@ $adminLoggedin = "";
 if( ! $userLoggedin->isAdmin() )
 {
     $adminLoggedin = "style='display: none;'";
-    echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
+    echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Geen gerbuikersrecht als admin.....');
 }
 ?>
 
