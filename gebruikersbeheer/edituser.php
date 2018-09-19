@@ -1,7 +1,6 @@
 <?php
-
-// Header in de bovenkant + session_start()
-include('../header/header.php');
+// Header in de bovenkant
+include("../header/header.php");
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once("../autorisatie/UserIsLoggedin.php");
@@ -19,6 +18,8 @@ if (!$userLoggedin->isAdmin()) {
 
 // Is logged in class
 include_once("../autorisatie/UserDaoMysql.php");
+include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+include_once("../klantbeheer/CustomerDaoMysql.php");
 
 // Vang de meegegeven username op
 if (!isset($_GET["username"])) {
@@ -36,6 +37,20 @@ $currentUserFirstname = $currentUser->getFirstname();
 $currentUserLastname = $currentUser->getLastname();
 $currentUserEmail = $currentUser->getEmail();
 $currentUserRole = $currentUser->getRole();
+
+// Haal de gekoppelde klanten uit de koppeltabel in de database
+$userCustomerDao = new userCustomerDaoMysql();
+$customersByUser = $userCustomerDao->getCustomersByUsername($userName);
+
+//    var_dump($customers);
+//    die;
+
+// Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
+$customerdao = new CustomerDaoMysql();
+$customers = $customerdao->selectAllCustomers();
+
+
+// Eerste formulier voor edit user
 
 // Kijk eerst of alle velden zijn ingevoerd met isset()
 if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])) {
@@ -77,6 +92,17 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao = new UserDaoMysql();
             $userDao->updateUser($userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
+
+            // Clear all userCustomers om met schone lei te beginnen
+            $userCustomerDao->clearUserCustomer($userName);
+
+            // Voer de nieuw geselecteerde customers in in de koppeltabel
+            foreach ($_POST['customers'] as $customerName) {
+                $userCustomerDao->insertUserCustomer($userName, $customerName);
+            }
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
 
@@ -86,6 +112,20 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
         $userDao2 = new UserDaoMysql();
         $passwordleeg = "0000";
         $userDao2->updateUser($userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+
+        // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+        $userCustomerDao = new UserCustomerDaoMysql();
+
+        // Clear all userCustomers om met schone lei te beginnen
+        $userCustomerDao->clearUserCustomer($userName);
+
+        // Voer de nieuw geselecteerde customers in in de koppeltabel
+        foreach ($_POST['customers'] as $customerName) {
+            $userCustomerDao->insertUserCustomer($userName, $customerName);
+        }
+
+//        var_dump($_POST['customers']);
+//        die;
 
         header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
     }
@@ -110,6 +150,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
+
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
         <h2>Gebruiker bewerken: <?php echo $userName ?></h2>
@@ -126,8 +167,10 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             <div class="password-form form-field-padding form-field-style">
 
                 <div class="password-form-initial">
-                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span
-                                class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
+                    Wachtwoord
+                    <span class="info-symbol password-info"><i class="fas fa-info-circle"></i>
+                        <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span>
+                    </span>
                     <br><input type="password" name="password" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
                 </div>
                 <div class="password-form-confirm">
@@ -171,14 +214,18 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                 <select id="user-customer" name="customers[]" required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
+                        <option value="none">Geen klant koppelen</option>
                         <?php foreach ($customers as $customer): ?>
-                            <option value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
+                            <option <?php if (in_array($customer["customerName"], $customersByUser)) {
+                                echo "selected";
+                            } ?> value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 </select>
             </div>
 
-            <!-- end form elements -->
+
+            <!-- end form elements>-->
 
             <div class="footer"></div>
 
@@ -194,6 +241,9 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                 </div>
             </div>
         </form>
+
+
     </div>
 </div>
+
 </html>
