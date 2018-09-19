@@ -28,7 +28,7 @@ session_start();
         $_SESSION["title"] = "Nieuwe Omgeving Aanmaken";
     }
 
-     // customerDao voor selecteren van alle klanten
+     // customerDao voor het ophalen van alle klanten
     include ('../klantbeheer/CustomerDaoMysql.php');
 
     $customerdaomysql = new CustomerDaoMysql();
@@ -36,7 +36,7 @@ session_start();
     
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['systemName']) )
+    if( isset($_POST['systemName']) && isset($_POST['vmURL']))
     {
         // Controleren of de omgeving al bestaat
         // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving te checken
@@ -50,16 +50,30 @@ session_start();
         //Geef melding als de omgeving al bestaat
         if( $_POST['systemName'] == $_SESSION['systemName'])
         {
-            // Session leeg maken!!!!
-            $_SESSION = array();
+            $checkSystemNameIsNew = FALSE;
             echo "<br> <h2>Deze omgeving bestaat al in de database.</h2>";
-        }
-
-        else
+        } else
         {
+            $checkSystemNameIsNew = TRUE;
+        }
+        
+        
+        //Check of de systemName minimaal uit 5 karakters bestaat
+        $numberOfChars = strlen($_POST['systemName']);
+        if ($numberOfChars >= 5){
+            $checkNumberOfCharsOK = TRUE;
+        } else 
+        {
+            $checkNumberOfCharsOK = FALSE;
+            echo "<br> <h2> Het aantal karakters van de systeemnaam moet minimaal 5 zijn!</h2>";
+        }
+        
+        
+        // Als alles ok is, nieuwe omgeving wegschrijven naar de database
+        if($checkSystemNameIsNew == TRUE && $checkNumberOfCharsOK == TRUE){
             // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
             $createEnvironment = new EnvironmentDaoMysql();
-            $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'] );
+            $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'], $_POST['vmURL'] );
             echo "<p>Aanmaken nieuwe Omgeving gelukt</p>";
             header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
@@ -111,7 +125,10 @@ session_start();
                             </optgroup>
                         </select>
             </div>
-            
+            <div class="user-form form-field-padding form-field-style">
+                VM URL 
+                <br><input type="text" name="vmURL" class="input-text-style" required>
+            </div>
             
             
 

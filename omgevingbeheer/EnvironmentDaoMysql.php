@@ -17,23 +17,23 @@ class EnvironmentDaoMysql implements EnvironmentDao
     
     
     // Create new Environment in database
-    public function insertEnvironment($systemName, $customerName)
+    public function insertEnvironment($systemName, $customerName, $vmURL)
     {
         try {
             $dbConn = new mysqlConnector();
             
             if($customerName !== null){
-                $sql = "INSERT INTO environment(systemName, customerName) VALUES (?, ?)";
+                $sql = "INSERT INTO environment(systemName, customerName, vmURL) VALUES (?, ?, ?)";
   
                 $stmt = $dbConn->getConnector()->prepare($sql);
-                $stmt->bind_param('ss', $systemName, $customerName);
+                $stmt->bind_param('ss', $systemName, $customerName, $vmURL);
                 $stmt->execute();
             }
             else {
-                $sql = "INSERT INTO environment(systemName) VALUES (?)";
+                $sql = "INSERT INTO environment(systemName, vmURL) VALUES (?,?)";
   
                 $stmt = $dbConn->getConnector()->prepare($sql);
-                $stmt->bind_param('s', $systemName);
+                $stmt->bind_param('ss', $systemName, $vmURL);
                 $stmt->execute();    
             }
         
@@ -48,15 +48,15 @@ class EnvironmentDaoMysql implements EnvironmentDao
     
     
     // Functionality: add a customer to an environment, or change the customer allready coupled with an environment
-    public function updateEnvironment($systemNameOld, $systemNameNew, $customerName)
+    public function updateEnvironment($systemNameOld, $systemNameNew, $customerName, $vmURL)
     {
         try {
             $dbConn = new mysqlConnector();
         
-            $sql = "UPDATE environment SET systemName = ?, customerName = ? WHERE systemName = ?";
+            $sql = "UPDATE environment SET systemName = ?, customerName = ?, vmURL = ? WHERE systemName = ?";
         
             $stmt = $dbConn->getConnector()->prepare($sql);
-            $stmt->bind_param('sss', $systemNameNew, $customerName, $systemNameOld);
+            $stmt->bind_param('ssss', $systemNameNew, $customerName, $vmURL, $systemNameOld);
             $stmt->execute();
         
             $dbConn->getConnector()->close();
@@ -120,7 +120,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
             
             $dbConn = new mysqlConnector();
 
-            $sql = "SELECT systemName, customerName, status_active FROM environment WHERE systemName = ?"; 
+            $sql = "SELECT systemName, customerName, vmURL, status_active FROM environment WHERE systemName = ?"; 
             $conn = $dbConn->getConnector();
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('s', $systemName);
@@ -138,22 +138,24 @@ class EnvironmentDaoMysql implements EnvironmentDao
 		$stmt->bind_result(
         $systemNamedb,
         $customerNamedb,
+        $vmURLdb,
         $status_activedb
         );
             // Vul de rij met maar 1 record uit de database
             while ($stmt->fetch()) 
             {
-                $newEnvironment = new Environment($systemNamedb, $customerNamedb, $status_activedb);
+                $newEnvironment = new Environment($systemNamedb, $customerNamedb, $vmURLdb, $status_activedb);
             }
         }else
         {
             //alles op null zetten bij teruggave lege resultset
-            $newEnvironment = new Environment($systemName = null, $customerName = null, $status_active = FALSE);
+            $newEnvironment = new Environment($systemName = null, $customerName = null, $vmURLdb = null, $status_active = FALSE);
         }
         
         
         return $newEnvironment;
     }
+    
     
     public function selectViewCurrentEnvironments()
     {

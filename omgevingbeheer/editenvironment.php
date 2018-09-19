@@ -33,48 +33,52 @@ if( ! $userLoggedin->isAdmin() )
     $environmentDao = new EnvironmentDaoMysql();
     $currentEnvironment = $environmentDao->selectEnvironment($systemName);
 
-    // Sla de relevante gegevens op in eigen variabele
+    // Sla de relevante gegevens van de te wijzigen omgeving op in eigen variabele
     $currentEnvironmentSystemName = $currentEnvironment->getSystemName();
     $currentEnvironmentCustomername = $currentEnvironment->getCustomerName();
+    $currentEnvironmentVmURL = $currentEnvironment->getVmURL();
 
-    // customerDao voor selecteren van alle klanten
+    // customerDao voor selecteren in dropdown menu van klanten
     include ('../klantbeheer/CustomerDaoMysql.php');
-
     $customerdaomysql = new CustomerDaoMysql();
     $customers = $customerdaomysql-> selectAllCustomers();
-    
-    
-    
+        
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
-    if( isset($_POST['systemName']) ) {
+    if( isset($_POST['systemName']) && isset($_POST['vmURL']))
+    {
+        //Check of de systemName minimaal uit 5 karakters bestaat
+        $numberOfChars = strlen($_POST['systemName']);
+        if ($numberOfChars >= 5){
+            $checkNumberOfCharsOK = TRUE;
+        } else 
+        {
+            $checkNumberOfCharsOK = FALSE;
+            echo "<br> <h2> Het aantal karakters van de systeemnaam moet minimaal 5 zijn!</h2>";
+        }  
         
-        // Controleren of de omgeving al bestaat
-        // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving te checken
-        $newEnvironment = new EnvironmentDaoMysql();
-        $newEnvironment = $newEnvironment->selectEnvironment( $_POST['systemName'] );
-
-        // Haal de environment info uit de Environment array/object 
-        // en maak session vars aan.
-        $_SESSION['systemName'] =  $newEnvironment->getSystemName();
-
-        //Geef melding als de omgeving al bestaat
-        if( $_POST['systemName'] == $_SESSION['systemName'])
-        {
-            // Session leeg maken!!!!
-            $_SESSION = array();
-            echo "<br> <h2>Deze omgeving bestaat al in de database.</h2>";
+        
+        //Verwerken wat er met de klant keuze gebeurt
+        //Eerst checken of er een selectie gemaakt is (resultaat: huidige situatie blijft behouden)
+        if($_POST['customerName']==null){
+            $customerToDB = $currentEnvironmentCustomername;
         }
-
-        else
-        {
+        
+        //Checken of de keuze "Geen klant koppelen" ofwel none is
+        if($_POST['customerName']=="none"){
+            $customerToDB = null;
+        } else {
+            $customerToDB = $_POST['customerName'];
+        }
+        
+        
+        if($checkNumberOfCharsOK == TRUE){
             // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
             $updateEnvironment = new EnvironmentDaoMysql();
-            $updateEnvironment = $updateEnvironment->updateEnvironment($currentEnvironmentSystemName, $_POST['systemName'], $_POST['customerName'] );
+            $updateEnvironment = $updateEnvironment->updateEnvironment($currentEnvironmentSystemName, $_POST['systemName'], $customerToDB, $_POST['vmURL'] );
             echo "<p>Wijzigen Omgeving gelukt</p>";
             header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
-                           
     }
     
 ?>
@@ -120,14 +124,18 @@ if( ! $userLoggedin->isAdmin() )
                         <br>
                         <select name="customers">
                             <optgroup label="Kies een klant">
-                                <option selected hidden> "Optioneel" </option>
+                                <option selected hidden default> Geen keuze: huidige situatie blijft behouden. </option>
+                                <option value="none">Geen klant koppelen </option>
                                 <?php foreach($customers as $customer):?>
                                     <option value="{$customer['customerName']}"><?=$customer["customerName"]?> </option>
                                     <?php endforeach;?>
                             </optgroup>
                         </select>
             </div>
-            
+            <div class="user-form form-field-padding form-field-style">
+                VM URL 
+                <br><input type="text" name="vmURL" class="input-text-style" value="<?php echo $currentEnvironmentVmURL ?>" required>
+            </div>
            
             
 
