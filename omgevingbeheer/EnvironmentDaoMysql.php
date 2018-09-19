@@ -109,7 +109,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
         return TRUE;    
     }
 
-    
+    //lookup an environment using the systemName and put in in an object
     public function selectEnvironment($systemName)
     {
         try {
@@ -132,7 +132,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
         return FALSE;
         }
         
-        //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
+        //checken of de sql statement een resultset teruggeeft (hij is leeg als de omgeving niet bestaat)
         if ($stmt->num_rows > 0)
         {    
         
@@ -158,24 +158,29 @@ class EnvironmentDaoMysql implements EnvironmentDao
         return $newEnvironment;
     }
     
-    
+    //function used to display an overview of all systems in the database
     public function selectViewCurrentEnvironments()
     {
-        $environments = null;
-        $dbConn = new mysqlConnector();
-
-        $systemName;
-        $customerName;
+        try {    
+            $environments = null;
+            $dbConn = new mysqlConnector();
+            $systemName;
+            $customerName;
         
         
-        $sql = "SELECT systemName, customerName FROM environment WHERE status_active = 1 ORDER BY systemName"; 
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result(
+            $sql = "SELECT systemName, customerName FROM environment WHERE status_active = 1 ORDER BY systemName"; 
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->execute();
+            $stmt->store_result();
+            
+            $stmt->bind_result(
             $systemName,
             $customerName
-        );
+            );
+        }
+        catch(Exception $e) {
+        
+        }
 
         while ($stmt->fetch()) 
         {
