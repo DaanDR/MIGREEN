@@ -13,7 +13,7 @@ $customerdaomysql = new CustomerDaoMysql();
 // Opvragen van de meegegeven klantnaam om te gebruiken in de eigenschappen van het tekstveld
 if (isset($_GET['customer'])) {
     $currentName = $_GET['customer'];
-// Geen naam meegegeven: tekstveld is leeg
+    // Geen naam meegegeven: tekstveld is leeg
 } else {
     $currentName = "";
 }
@@ -80,20 +80,38 @@ if (! $userLoggedin->isAdmin()) {
 	<?php
 // Haal de ingevulde klantnaam op (bij geen wijzigingen is dat de bestaande klantnaam)
 if (isset($_POST['customerName'])) {
-    $newName = $_POST['customerName'];
     
+    // Klantnaam variabele voor de nieuw ingevoerde klantnaam
+    $newName = $_POST['customerName'];
+        
     // Als de klantnaam te kort is: geef foutmelding
     if (strlen($newName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
         
     // als de klantnaam spaties bevat: geef foutmelding
-    } else if (preg_match('/\s/', $_POST['customerName'])) {
+    } else if (preg_match('/\s/', $newName)) {
         echo "<script type='text/javascript'>noSpaces();</script>";
         
-    // Check doorgekomen: wijzig in database
+    // geen foutmelding: ga verder met wijzigen
     } else {
-        $editCustomer = $customerdaomysql->updateCustomer($currentName, $newName);
-        header('Location: ../klantbeheer/customers.php');
+        
+        // Klantnaam variabele om gegevens uit database in op te slaan
+        $oldName = null;
+        
+        // sql functionaliteit aanroepen om namen in database te controleren
+        $customerdaomysql = new CustomerDaoMysql();
+        $oldCustomer = $customerdaomysql->selectCustomer($newName);
+        $oldName = $oldCustomer->getCustomerName();
+        
+        // Check of klant al bestaat, zo ja: geef melding
+        if ($oldName !== null && $newName == $oldName) {
+            echo "<script type='text/javascript'>alert('Deze klant bestaat al in de database');</script>";
+        
+        // Check doorgekomen: wijzig in database
+        } else {
+            $editCustomer = $customerdaomysql->updateCustomer($currentName, $newName);
+            header('Location: ../klantbeheer/customers.php');
+        }
     }
 }
 ?>

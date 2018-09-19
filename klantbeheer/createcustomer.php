@@ -68,24 +68,26 @@ if (! $userLoggedin->isAdmin()) {
 // check of er een klantnaam is ingevuld
 if (isset($_POST['customerName'])) {
     
+    // Klantnaam variabele voor de nieuw ingevoerde klantnaam
+    $newCustomerName = $_POST['customerName'];
+    
     // als de klantnaam te kort is: geef foutmelding
-    if (strlen($_POST['customerName']) < 2) {
+    if (strlen($newCustomerName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
         
     // als de klantnaam spaties bevat: geef foutmelding
-    } else if (preg_match('/\s/', $_POST['customerName'])) {
+    } else if (preg_match('/\s/', $newCustomerName)) {
         echo "<script type='text/javascript'>noSpaces();</script>";
         
     // geen foutmelding: ga verder met toevoegen
     } else {
         
-        // twee klantnaam variabelen - oud en nieuw - om met elkaar te vergelijken
-        $newCustomerName = $_POST['customerName'];
+        // Klantnaam variabele om gegevens uit database in op te slaan
         $oldCustomerName = null;
         
-        // sql functionaliteit aanroepen
+        // sql functionaliteit aanroepen om namen in database te controleren
         $customerdaomysql = new CustomerDaoMysql();
-        $oldCustomer = $customerdaomysql->selectCustomer($_POST['customerName']);
+        $oldCustomer = $customerdaomysql->selectCustomer($newCustomerName);
         $oldCustomerName = $oldCustomer->getCustomerName();
         
         // Check of klant al bestaat, zo ja: geef melding
