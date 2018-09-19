@@ -26,12 +26,15 @@ references role(role)
 on update no action
 on delete no action
 );
-CREATE TABLE insights_db.customer (
-  customerName VARCHAR(45) unique NOT NULL,
-  PRIMARY KEY (customerName)
-);
-INSERT INTO insights_db.customer (customerName) VALUES ('De_Eerste_Klant');
-INSERT INTO insights_db.customer (customerName) VALUES ('De_Tweede_Klant');
+CREATE TABLE `insights_db`.`customer` (
+  `customerID` INT NOT NULL AUTO_INCREMENT,
+  `customerName` VARCHAR(45) NOT NULL,
+  `status_active` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`customerID`),
+  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC),
+  UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MyFirstCustomer');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MySecondCustomer');
 create table insights_db.environment (
 systemID int not null auto_increment,
 systemName varchar(45) unique not null,
