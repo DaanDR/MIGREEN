@@ -27,14 +27,13 @@ on update no action
 on delete no action
 );
 CREATE TABLE `insights_db`.`customer` (
+  `customerID` INT NOT NULL AUTO_INCREMENT,
   `customerName` VARCHAR(45) NOT NULL,
   `status_active` INT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`customerName`),
+  PRIMARY KEY (`customerID`),
+  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC),
   UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
-INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
-INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MyFirstCustomer');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MySecondCustomer');
 
-
-ALTER TABLE `insights_db`.`customer` 
-ADD COLUMN `status_active` INT NOT NULL DEFAULT 1 AFTER `customerName`;
 
