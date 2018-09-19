@@ -1,5 +1,6 @@
 <?php
-session_start();
+// Header in de bovenkant
+include ("../header/header.php");
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
@@ -15,18 +16,17 @@ if( ! $userLoggedin->isAdmin() ) {
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-    // Header in de bovenkant
-    include ("../header/header.php");
-    
-    // Is logged in class
-    include_once ("../autorisatie/UserDaoMysql.php");
+// Is logged in class
+include_once ("../autorisatie/UserDaoMysql.php");
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+include_once ("../klantbeheer/CustomerDaoMysql.php");
 
-    // Vang de meegegeven username op
-    if (! isset($_GET["username"])) {
-        $userName = null;
-    } else {
-        $userName = $_GET["username"];
-    }
+// Vang de meegegeven username op
+if (! isset($_GET["username"])) {
+    $userName = null;
+} else {
+    $userName = $_GET["username"];
+}
 
     // Haal de user uit de database met de opgegeven username
     $userDao = new UserDaoMysql();
@@ -37,6 +37,20 @@ if( ! $userLoggedin->isAdmin() ) {
     $currentUserLastname = $currentUser->getLastname();
     $currentUserEmail = $currentUser->getEmail();
     $currentUserRole = $currentUser->getRole();
+
+    // Haal de gekoppelde klanten uit de koppeltabel in de database
+    $userCustomerDao = new userCustomerDaoMysql();
+    $customersByUser = $userCustomerDao->getCustomersByUsername($userName);
+
+//    var_dump($customers);
+//    die;
+
+    // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
+    $customerdao = new CustomerDaoMysql();
+    $customers = $customerdao->selectAllCustomers();
+
+
+    // Eerste formulier voor edit user
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
@@ -92,6 +106,28 @@ if( ! $userLoggedin->isAdmin() ) {
         }
               
     }
+
+
+//    // tweede formulier voor klant koppeling
+//
+//// Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+//        $userCustomerDao = new UserCustomerDaoMysql();
+//
+//        // Clear all userCustomers om met schone lei te beginnen
+//        $userCustomerDao->clearUserCustomer($_POST['username']);
+//        
+//        // Voer de nieuw geselecteerde customers in in de koppeltabel
+//        foreach ($_POST['customers'] as $customerName) {
+//            $userCustomerDao-> insertUserCustomer($_POST['username'], $customerName);
+//        }
+//
+////        var_dump($_POST['customers']);
+////        die;
+//
+//        header('Location: ../gebruikersbeheer/overzicht.php');
+//
+//
+
     
 ?>
 
@@ -115,7 +151,6 @@ if( ! $userLoggedin->isAdmin() ) {
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
         <h2>Gebruiker bewerken: <?php echo $userName ?></h2>
     </div>
-
 
     <div class="header"></div>
 
@@ -162,13 +197,11 @@ if( ! $userLoggedin->isAdmin() ) {
                     </optgroup>
                 </select>
             </div>
-
-    </div>
-
+            
+             
     <!-- end form elements>-->
 
     <div class="footer"></div>
-    
 
     <!-- buttons  -->
 
@@ -178,11 +211,60 @@ if( ! $userLoggedin->isAdmin() ) {
             <button class="button-form-secondary" type="button">Annuleren</button></a>
             <button class="button-form-primary" type="submit"> Opslaan </button>
             <!-- buttons -->
-     
         </div> 
-    
     </div>
-        
     </form>
+        
+        
+        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
 
+             <div class="role-form form-field-padding form-field-style">
+                Huidige klanten gekoppeld aan deze gebruiker: <br>
+                
+                <?php 
+                if ($customersByUser == null) {
+                    echo "<br>Geen klanten gekoppeld aan deze gebruiker.";
+                } else {
+                    foreach ($customersByUser as $customerName):
+                    echo "<br>" . $customerName["customerName"]; 
+                    endforeach; 
+                } ?>
+            </div>
+            
+            <div class="customer-form form-field-padding form-field-style">
+                Gekoppelde klant(en)
+                <br>
+                <select id="user-customer" name="customers[]" required multiple="multiple">
+                    <optgroup label="Kies een klant">
+                        <option value="0" selected hidden>Kies een klant</option>
+                        <?php foreach ($customers as $customer): ?>
+                            <option value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                </select>
+            </div>
+            
+
+    <!-- end form elements>-->
+
+    <div class="footer"></div>
+
+    <!-- buttons  -->
+
+    <div class="footer-right">
+        <div class="buttons-form">
+            <a href="overzicht.php" target="_self">
+            <button class="button-form-secondary" type="button">Annuleren</button></a>
+            <button class="button-form-primary" type="submit"> Opslaan </button>
+            <!-- buttons -->
+        </div> 
+    </div>
+            
+    </form>
+        
+        
+        
+    </div>
+    </div>
+    
 </html>
