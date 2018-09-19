@@ -1,5 +1,6 @@
 <?php
-session_start();
+// Header in de bovenkant
+include ("../header/header.php");
 
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
@@ -14,9 +15,6 @@ session_start();
       echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
   }
 
-
-    // Header in de bovenkant
-    include ("../header/header.php");
 
     // Is logged in class
     include_once ("EnvironmentDaoMysql.php");
