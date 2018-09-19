@@ -19,8 +19,21 @@ $currentName = $_GET['customer'];
 <body>
 	<div id="pageheader"><?php
 include ('../header/header.php');
+		
+		// Check of user is ingelogged en anders terug naar de login pagina
+  include_once ("../autorisatie/UserIsLoggedin.php");
+  $userLoggedin = new UserIsLoggedin();
+  $userLoggedin->backToLoging();
+
+  // Check of de admin is ingelogged....
+  $adminLoggedin = "";
+  if( ! $userLoggedin->isAdmin() )
+  {
+      $adminLoggedin = "style='display: none;'";
+      echo "<br><br><br><br><h1>Geen gebruikersrecht als admin.....</h1>";
+  }
 ?></div>
-	<div id="pagestyling">
+	<div id="pagestyling" <?php echo $adminLoggedin ?> >
 		<div id="createCustomer">
 			<table>
 				<thead>

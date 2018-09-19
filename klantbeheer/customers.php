@@ -8,6 +8,9 @@
 <?php
 include ('../klantbeheer/CustomerDaoMysql.php');
 
+
+
+
 $customerdaomysql = new CustomerDaoMysql();
 $customers = $customerdaomysql->selectAllCustomers();
 
@@ -15,10 +18,23 @@ $customers = $customerdaomysql->selectAllCustomers();
 <body>
 	<div id="pageheader"><?php
 include ('../header/header.php');
+		
+		// Check of user is ingelogged en anders terug naar de login pagina
+  include_once ("../autorisatie/UserIsLoggedin.php");
+  $userLoggedin = new UserIsLoggedin();
+  $userLoggedin->backToLoging();
+
+  // Check of de admin is ingelogged....
+  $adminLoggedin = "";
+  if( ! $userLoggedin->isAdmin() )
+  {
+      $adminLoggedin = "style='display: none;'";
+      echo "<br><br><br><br><h1>Geen gebruikersrecht als admin.....</h1>";
+  }
 ?></div>
-	<div id="pagestyling">
+	<div id="pagestyling" <?php echo $adminLoggedin ?>>
 		<!-- Div voor de tabel met klantnamen -->
-		<div id="customerTable">
+		<div id="customerTable" >
 			<table>
 				<thead>
 					<tr>
