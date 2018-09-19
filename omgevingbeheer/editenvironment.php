@@ -145,7 +145,7 @@ if( ! $userLoggedin->isAdmin() )
 
     <div class="footer-right">
         <div class="buttons-form">
-            <a href="omgevingsoverzicht.php" target="_self">
+            <a href="overzicht.php" target="_self">
             <button class="button-form-secondary" type="button">Annuleren</button></a>
             <button class="button-form-primary" type="submit"> Opslaan </button>
             <!-- buttons -->
