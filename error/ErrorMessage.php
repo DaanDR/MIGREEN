@@ -7,11 +7,9 @@ class ErrorMessage
     public function createErrorMessage($strError)
     {
         $this->strHtml = '<div class="error-message-container">
-                    <div class="error-message">
-                        <div id="close" class="close"></div>'
-                        . $strError . 
-                        '</div>
-                    </div>
+                <div id="close" class="close"></div>
+                    <div class="error-message">' . $strError . '</div>
+                </div>
             <div class="error-message-backgr"></div>';
 
         return $this->strHtml;
