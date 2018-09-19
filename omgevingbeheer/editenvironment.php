@@ -96,8 +96,10 @@ if( ! $userLoggedin->isAdmin() )
     
 
     <div class="header-left">
-        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
+        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgeving Bewerken</p>
         <h2>Omgeving bewerken: <?php echo $currentEnvironmentSystemName ?></h2>
+        
+        <p> Deze omgeving in momenteel aan de volgende klant gekoppeld: <?php echo $currentEnvironmentCustomername ?> </p>
     </div>
 
 
@@ -118,9 +120,9 @@ if( ! $userLoggedin->isAdmin() )
                         <br>
                         <select name="customers">
                             <optgroup label="Kies een klant">
-                                <option selected hidden><? if($currentEnvironmentCustomername == null){ = "Kies een klant (optioneel)"}else{ =$currentEnvironmentCustomername} ?> </option>
+                                <option selected hidden> "Optioneel" </option>
                                 <?php foreach($customers as $customer):?>
-                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
+                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?> </option>
                                     <?php endforeach;?>
                             </optgroup>
                         </select>
@@ -130,52 +132,6 @@ if( ! $userLoggedin->isAdmin() )
             
 
     </div>
-
-<!--
-    <div class="content">
-
-        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
-
-            <div class="password-form form-field-padding form-field-style">
-
-                <div class="password-form-initial">
-                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
-                </div>
-                <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style">
-                </div>
-            </div>
-
-            <div class="form-field-padding form-field-padding form-field-style">
-                <div class="fullname-form-fn">
-                    Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?php echo $currentUserFirstname ?>" required>
-                </div>
-                <div class="fullname-form-ln">
-                    Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style"  value="<?php echo $currentUserLastname ?>" required>
-                </div>
-            </div>
-
-            <div class="form-field-padding form-field-style email-form">
-                E-mailadres
-                <br><input type="email" name="email" class="input-text-style" value="<?php echo $currentUserEmail ?>" required><br>
-            </div>
-
-            <div class="role-form form-field-padding form-field-style">
-                Rol (moet nog check op niet jezelf naar user terugzetten)
-                <br>
-                <select name="role" required>
-                    <optgroup label="Kies een rol">
-                    <option value="user" <?php if($currentUserRole=="user") echo "selected" ?>>gebruiker</option>
-                    <option value="admin" <?php if($currentUserRole=="admin") echo "selected" ?>>admin</option>
-                    </optgroup>
-                </select>
-            </div>
-
-    </div>
--->
 
     <!-- end form elements -->
 

@@ -93,7 +93,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: editenvironment.php");
+            header("Location: http://" . APP_PATH . "omgevingbeheer/editenvironment.php?systemName=" . $systemName);
             break;
         case "delete":
             delete($systemName, $environmentDao);
