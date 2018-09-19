@@ -13,6 +13,24 @@
     border: solid 1px #c4c4c4;
 }
 
+.deletebutton{
+    text-align: right;
+    padding-right: 3px;
+}
+
+.deletebutton img:last-child{
+    display: none;
+}
+
+.deletebutton:hover img:last-child {
+    display: inline;
+    cursor: pointer;
+}
+
+.deletebutton:hover img:first-child {
+    display: none;
+}
+
 /*media="screen"*/
 /*----------------------------------------------------------------------------------------------------------------*/
 /* grid properties */

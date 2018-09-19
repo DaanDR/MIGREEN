@@ -208,20 +208,54 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                 </select>
             </div>
 
+<!--                        <div class="customer-form form-field-padding form-field-style">-->
+<!--                            Gekoppelde klant(en)-->
+<!--                            <br>-->
+<!--                            <select id="user-customer" name="customers[]" required multiple="multiple">-->
+<!--                                <optgroup label="Kies een klant">-->
+<!--                                    <option value="0" selected hidden>Kies een klant</option>-->
+<!--                                    <option value="none">Geen klant koppelen</option>-->
+<!--                                    --><?php //foreach ($customers as $customer): ?>
+<!--                                        <option-->
+<!--            --><?php //if (in_array($customer["customerName"], $customersByUser)) {
+//                echo "selected";} ?><!-- value="--><?// //= $customer["customerName"] ?><!--">-->
+<!--            --><?//= $customer["customerName"] ?><!--</option>-->
+<!--                                    --><?php //endforeach; ?>
+<!--                                </optgroup>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+            <table id="table-current-usercustomers">
+                <?php foreach ($customers as $customer): ?>
+                    <tr>
+                        <td><?=$customer["customerName"] ?></td>
+                        <td class="icon-cell">
+                            <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $customerName; ?>">
+                                <i class="deletebutton" onclick="return confirmDelete('<?php echo $customerName ?>');">
+                                    <img src='../res/delete.svg'>
+                                    <img src='../res/delete-hover.svg'>
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
-                <select id="user-customer" name="customers[]" required multiple="multiple">
+                <select name="customers[]" required>
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
-                        <option value="none">Geen klant koppelen</option>
                         <?php foreach ($customers as $customer): ?>
-                            <option <?php if (in_array($customer["customerName"], $customersByUser)) {
-                                echo "selected";
-                            } ?> value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
+                            <option value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 </select>
+                <div class="insert-usercustomer">
+                    <a id="insert-button" type="button" onclick="addField();"><img src="../res/add.svg"
+                                                                                   style="background-color: blue;"></a>
+                </div>
             </div>
 
 
