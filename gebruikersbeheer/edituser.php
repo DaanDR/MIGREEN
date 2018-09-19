@@ -196,6 +196,7 @@ if (! isset($_GET["username"])) {
                 <select id="user-customer" name="customers[]" required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
+                        <option value= "none" >Geen klant koppelen </option>
                         <?php foreach ($customers as $customer): ?>
                             <option <?php if(in_array($customer["customerName"], $customersByUser)) { echo "selected";}?> value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
                         <?php endforeach; ?>
