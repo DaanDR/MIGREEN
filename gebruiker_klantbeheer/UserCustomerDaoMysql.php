@@ -45,7 +45,7 @@ class UserCustomerDaoMysql implements UserCustomerDao
     
     public function getCustomersByUsername($username)
     {
-        $customers = null;
+        $customers = array();
         
         $dbConn = new mysqlConnector();
 		
