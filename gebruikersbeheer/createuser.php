@@ -93,7 +93,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         $userCustomerDao->clearUserCustomer($_POST['username']);
 
         foreach ($_POST['customers'] as $customerName) {
-            $userCustomerDao-> insertUserCustomer($_POST['username'], $customerName);
+            $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
         }
 
 //        var_dump($_POST['customers']);
@@ -109,32 +109,25 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 }
 
 ?>
-<div class="header-left">
-    <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
-    <h2>Nieuwe gebruiker aanmaken</h2>
-</div>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
-    <script type="text/javascript" src="../js/gebruiker_klantFunctions.js"></script>
-
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#add-field").click(function(){
-                $("#customers").clone().appendTo("#dropdown");
-            });
-        });
-    </script> -->
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
 </head>
-<body>
 <div class="grid-container" <?php echo $adminLoggedin ?> >
+
+    <div class="header-left">
+        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
+        <h2>Nieuwe gebruiker aanmaken</h2>
+    </div>
 
     <!-- form elements -->
 
@@ -203,27 +196,23 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                     </optgroup>
                 </select>
             </div>
+
+            <!-- end form elements -->
+
+            <div class="footer"></div>
+
+            <!-- buttons  -->
+
+            <div class="footer-right">
+                <div class="buttons-form">
+                    <a href="overzicht.php" target="_self">
+                        <button class="button-form-secondary" type="button">Annuleren</button>
+                    </a>
+                    <button class="button-form-primary" type="submit"> Opslaan</button>
+                    <!-- buttons -->
+                </div>
+            </div>
+        </form>
     </div>
-
-
-    <!-- end form elements -->
-
-    <div class="footer"></div>
-
-    <!-- buttons   -->
-
-    <!-- buttons   -->
-
-    <div class="footer-right">
-        <div class="buttons-form">
-            <a href="overzicht.php" target="_self">
-                <button class="button-form-secondary" type="button">Annuleren</button>
-            </a>
-            <button class="button-form-primary" type="submit"> Opslaan</button>
-            <!-- buttons -->
-        </div>
-    </div>
-    </form>
 </div>
-</body>
 </html>
