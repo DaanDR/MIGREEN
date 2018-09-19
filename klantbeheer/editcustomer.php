@@ -5,35 +5,41 @@
 </head>
 
 <?php
+// Laden van de php met sql queries
 include ('../klantbeheer/CustomerDaoMysql.php');
 
 $customerdaomysql = new CustomerDaoMysql();
 
-if (isset ($_GET['customer'])){
-$currentName = $_GET['customer'];
+// Opvragen van de meegegeven klantnaam om te gebruiken in de eigenschappen van het tekstveld
+if (isset($_GET['customer'])) {
+    $currentName = $_GET['customer'];
+// Geen naam meegegeven: tekstveld is leeg
 } else {
     $currentName = "";
 }
 
 ?>
 <body>
-	<div id="pageheader"><?php
+	<div id="pageheader">
+	<?php
+// Header toevoegen aan pagina
 include ('../header/header.php');
-		
-		// Check of user is ingelogged en anders terug naar de login pagina
-  include_once ("../autorisatie/UserIsLoggedin.php");
-  $userLoggedin = new UserIsLoggedin();
-  $userLoggedin->backToLoging();
 
-  // Check of de admin is ingelogged....
-  $adminLoggedin = "";
-  if( ! $userLoggedin->isAdmin() )
-  {
-      $adminLoggedin = "style='display: none;'";
-      echo "<br><br><br><br><h1>Geen gebruikersrecht als admin.....</h1>";
-  }
-?></div>
-	<div id="pagestyling" <?php echo $adminLoggedin ?> >
+// Check of user is ingelogged en anders terug naar de login pagina
+include_once ("../autorisatie/UserIsLoggedin.php");
+$userLoggedin = new UserIsLoggedin();
+$userLoggedin->backToLoging();
+
+// Check of de admin is ingelogged....
+$adminLoggedin = "";
+if (! $userLoggedin->isAdmin()) {
+    $adminLoggedin = "style='display: none;'";
+    echo "<br><br><br><br><h1>Geen gebruikersrecht als admin.....</h1>";
+}
+?>
+</div>
+	<div id="pagestyling" <?php echo $adminLoggedin ?>>
+		<!-- Div voor het formulier voor bewerken klant -->
 		<div id="createCustomer">
 			<table>
 				<thead>
@@ -47,11 +53,12 @@ include ('../header/header.php');
 				<tbody>
 					<tr class="nohover">
 						<td>
-							<form method="post" action="../klantbeheer/editcustomer.php?customer=<?php echo $currentName; ?>"
+							<form method="post"
+								action="../klantbeheer/editcustomer.php?customer=<?php echo $currentName; ?>"
 								name="editForm">
 								<div id="formName">
 									Klantnaam<br> <br> <input type="text" name="customerName"
-										value=<?=$currentName?> >
+										value=<?=$currentName?>>
 								</div>
 								<div id="crudbuttons">
 									<div id="cancelButton">
@@ -71,10 +78,19 @@ include ('../header/header.php');
 	</div>
 	<script src="../js/customers.js"></script>
 	<?php
+// Haal de ingevulde klantnaam op (bij geen wijzigingen is dat de bestaande klantnaam)
 if (isset($_POST['customerName'])) {
     $newName = $_POST['customerName'];
+    
+    // Als de klantnaam te kort is: geef foutmelding
     if (strlen($newName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
+        
+    // als de klantnaam spaties bevat: geef foutmelding
+    } else if (preg_match('/\s/', $_POST['customerName'])) {
+        echo "<script type='text/javascript'>noSpaces();</script>";
+        
+    // Check doorgekomen: wijzig in database
     } else {
         $editCustomer = $customerdaomysql->updateCustomer($currentName, $newName);
         header('Location: ../klantbeheer/customers.php');
