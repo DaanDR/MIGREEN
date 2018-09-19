@@ -102,33 +102,25 @@ if (! isset($_GET["username"])) {
             $passwordleeg = "0000";
             $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             
+             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+        $userCustomerDao = new UserCustomerDaoMysql();
+
+        // Clear all userCustomers om met schone lei te beginnen
+        $userCustomerDao->clearUserCustomer($userName);
+        
+        // Voer de nieuw geselecteerde customers in in de koppeltabel
+        foreach ($_POST['customers'] as $customerName) {
+            $userCustomerDao-> insertUserCustomer($userName, $customerName);
+        }
+
+//        var_dump($_POST['customers']);
+//        die;
+
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
               
     }
 
-
-//    // tweede formulier voor klant koppeling
-//
-//// Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-//        $userCustomerDao = new UserCustomerDaoMysql();
-//
-//        // Clear all userCustomers om met schone lei te beginnen
-//        $userCustomerDao->clearUserCustomer($_POST['username']);
-//        
-//        // Voer de nieuw geselecteerde customers in in de koppeltabel
-//        foreach ($_POST['customers'] as $customerName) {
-//            $userCustomerDao-> insertUserCustomer($_POST['username'], $customerName);
-//        }
-//
-////        var_dump($_POST['customers']);
-////        die;
-//
-//        header('Location: ../gebruikersbeheer/overzicht.php');
-//
-//
-
-    
 ?>
 
 
@@ -198,6 +190,19 @@ if (! isset($_GET["username"])) {
                 </select>
             </div>
             
+            <div class="customer-form form-field-padding form-field-style">
+                Gekoppelde klant(en)
+                <br>
+                <select id="user-customer" name="customers[]" required multiple="multiple">
+                    <optgroup label="Kies een klant">
+                        <option value="0" selected hidden>Kies een klant</option>
+                        <?php foreach ($customers as $customer): ?>
+                            <option <?php if(in_array($customer["customerName"], $customersByUser)) { echo "selected";}?> value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                </select>
+            </div>
+            
              
     <!-- end form elements>-->
 
@@ -214,54 +219,6 @@ if (! isset($_GET["username"])) {
         </div> 
     </div>
     </form>
-        
-        
-        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
-
-             <div class="role-form form-field-padding form-field-style">
-                Huidige klanten gekoppeld aan deze gebruiker: <br>
-                
-                <?php 
-                if ($customersByUser == null) {
-                    echo "<br>Geen klanten gekoppeld aan deze gebruiker.";
-                } else {
-                    foreach ($customersByUser as $customerName):
-                    echo "<br>" . $customerName["customerName"]; 
-                    endforeach; 
-                } ?>
-            </div>
-            
-            <div class="customer-form form-field-padding form-field-style">
-                Gekoppelde klant(en)
-                <br>
-                <select id="user-customer" name="customers[]" required multiple="multiple">
-                    <optgroup label="Kies een klant">
-                        <option value="0" selected hidden>Kies een klant</option>
-                        <?php foreach ($customers as $customer): ?>
-                            <option value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
-                        <?php endforeach; ?>
-                    </optgroup>
-                </select>
-            </div>
-            
-
-    <!-- end form elements>-->
-
-    <div class="footer"></div>
-
-    <!-- buttons  -->
-
-    <div class="footer-right">
-        <div class="buttons-form">
-            <a href="overzicht.php" target="_self">
-            <button class="button-form-secondary" type="button">Annuleren</button></a>
-            <button class="button-form-primary" type="submit"> Opslaan </button>
-            <!-- buttons -->
-        </div> 
-    </div>
-            
-    </form>
-        
         
         
     </div>

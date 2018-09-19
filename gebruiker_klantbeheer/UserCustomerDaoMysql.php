@@ -62,9 +62,8 @@ class UserCustomerDaoMysql implements UserCustomerDao
 
         while ($stmt->fetch()) 
         {
-            $customers[] = array(
-                "customerName" => $customerName
-            );
+            $customers[] = $customerName;
+            
         }
 
         return $customers;
