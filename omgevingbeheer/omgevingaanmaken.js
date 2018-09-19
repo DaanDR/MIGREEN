@@ -111,10 +111,10 @@ function fixStepIndicator(n) {
     }
     if (currentTab == 0 && z[0].classList.contains("active") == false) {
         // z[0].className += " active";
-    } else if (currentTab == 1 && z[0].classList.contains("active") == false && z[1].classList.contains(" active") == false) {
+    } else if (currentTab == 1 && z[0].classList.contains("active") == false && z[1].classList.contains("active") == false) {
         z[0].className += " active";
         console.log("z 0 does not contains active. Making it active")
-    } else if (currentTab == 2 && z[1].classList.contains(" active") == false) {
+    } else if (currentTab == 2 && z[1].classList.contains("active") == false) {
         z[1].className += " active";
         console.log("z 1 does not contains active. Making it active")
 
