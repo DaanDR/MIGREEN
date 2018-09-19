@@ -149,8 +149,9 @@
 .button-form-delete {
     background-color: #EB1313; /* delete button red */
     border: 1px solid #EB1313; /* outline */
+    border-radius:3px;
     color: white;
-    padding: 4% 2%;
+    padding: 2% 1%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -166,33 +167,30 @@
 .button-form-primary {
     background-color: #99AFC6; /* primary button navy light*/
     border: 1px solid #99AFC6; /* outline */
+    border-radius:3px;
     color: white;
-    padding: 4% 2%;
+    padding: 2% 1%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-
-
 }
 
 
 .button-form-primary:hover {
     background-color: #638CB5; /* primary button hover color */
-
 }
 
 .button-form-secondary {
     background-color: #ffffff; /* white */
     border: 1px solid #99AFC6; /* outline secondary button */
+    border-radius:3px;
     color: #99AFC6;
-    padding: 4% 2%;
+    padding: 2% 1%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-
-
 }
 
 .button-form-secondary:hover {
