@@ -48,15 +48,15 @@ class EnvironmentDaoMysql implements EnvironmentDao
     
     
     // Functionality: add a customer to an environment, or change the customer allready coupled with an environment
-    public function updateEnvironment($systemNameOld, $systemNameNew, $customerName, $vmURL)
+    public function updateEnvironment($systemID, $systemNameNew, $customerName, $vmURL)
     {
         try {
             $dbConn = new mysqlConnector();
         
-            $sql = "UPDATE environment SET systemName = ?, customerName = ?, vmURL = ? WHERE systemName = ?";
+            $sql = "UPDATE environment SET systemName = ?, customerName = ?, vmURL = ? WHERE systemID = ?";
         
             $stmt = $dbConn->getConnector()->prepare($sql);
-            $stmt->bind_param('ssss', $systemNameNew, $customerName, $vmURL, $systemNameOld);
+            $stmt->bind_param('sssi', $systemNameNew, $customerName, $vmURL, $systemID);
             $stmt->execute();
         
             $dbConn->getConnector()->close();
@@ -113,6 +113,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
     public function selectEnvironment($systemName)
     {
         try {
+            $systemIDdb;
             $systemNamedb;
             $customerNamedb;
             $status_activedb;
@@ -120,7 +121,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
             
             $dbConn = new mysqlConnector();
 
-            $sql = "SELECT systemName, customerName, vmURL, status_active FROM environment WHERE systemName = ?"; 
+            $sql = "SELECT systemID, systemName, customerName, vmURL, status_active FROM environment WHERE systemName = ?"; 
             $conn = $dbConn->getConnector();
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('s', $systemName);
@@ -136,6 +137,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
         {    
         
 		$stmt->bind_result(
+        $systemIDdb,
         $systemNamedb,
         $customerNamedb,
         $vmURLdb,
@@ -144,12 +146,12 @@ class EnvironmentDaoMysql implements EnvironmentDao
             // Vul de rij met maar 1 record uit de database
             while ($stmt->fetch()) 
             {
-                $newEnvironment = new Environment($systemNamedb, $customerNamedb, $vmURLdb, $status_activedb);
+                $newEnvironment = new Environment($systemIDdb, $systemNamedb, $customerNamedb, $vmURLdb, $status_activedb);
             }
         }else
         {
             //alles op null zetten bij teruggave lege resultset
-            $newEnvironment = new Environment($systemName = null, $customerName = null, $vmURLdb = null, $status_active = FALSE);
+            $newEnvironment = new Environment($systemIDdb = null, $systemName = null, $customerName = null, $vmURLdb = null, $status_active = FALSE);
         }
         
         

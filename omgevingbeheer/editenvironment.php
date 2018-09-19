@@ -1,5 +1,6 @@
 <?php
-session_start();
+// Header in de bovenkant
+include ("../header/header.php");
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
@@ -14,10 +15,6 @@ if( ! $userLoggedin->isAdmin() )
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-    // ini_set('display_errors', 1);
-    // Header in de bovenkant
-    include ("../header/header.php");
-    
     // Is logged in class
     include_once ("EnvironmentDaoMysql.php");
     
@@ -34,6 +31,7 @@ if( ! $userLoggedin->isAdmin() )
     $currentEnvironment = $environmentDao->selectEnvironment($systemName);
 
     // Sla de relevante gegevens van de te wijzigen omgeving op in eigen variabele
+    $currentEnvironmentSystemID = $currentEnvironment->getSystemID();
     $currentEnvironmentSystemName = $currentEnvironment->getSystemName();
     $currentEnvironmentCustomername = $currentEnvironment->getCustomerName();
     $currentEnvironmentVmURL = $currentEnvironment->getVmURL();
@@ -55,15 +53,8 @@ if( ! $userLoggedin->isAdmin() )
         {
             $checkNumberOfCharsOK = FALSE;
             echo "<br> <h2> Het aantal karakters van de systeemnaam moet minimaal 5 zijn!</h2>";
-        }  
-        
-        
-        //Verwerken wat er met de klant keuze gebeurt
-        //Eerst checken of er een selectie gemaakt is (resultaat: huidige situatie blijft behouden)
-        if($_POST['customerName']==null){
-            $customerToDB = $currentEnvironmentCustomername;
-        }
-        
+        }   
+                
         //Checken of de keuze "Geen klant koppelen" ofwel none is
         if($_POST['customerName']=="none"){
             $customerToDB = null;
@@ -75,8 +66,9 @@ if( ! $userLoggedin->isAdmin() )
         if($checkNumberOfCharsOK == TRUE){
             // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
             $updateEnvironment = new EnvironmentDaoMysql();
-            $updateEnvironment = $updateEnvironment->updateEnvironment($currentEnvironmentSystemName, $_POST['systemName'], $customerToDB, $_POST['vmURL'] );
-            echo "<p>Wijzigen Omgeving gelukt</p>";
+            $updateEnvironment = $updateEnvironment->updateEnvironment( $_POST["systemID"], $_POST["systemName"], $customerToDB, $_POST["vmURL"] );
+            
+            echo "<p>Wijzigen Omgeving gelukt</p>";            
             header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
     }
@@ -103,7 +95,6 @@ if( ! $userLoggedin->isAdmin() )
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgeving Bewerken</p>
         <h2>Omgeving bewerken: <?php echo $currentEnvironmentSystemName ?></h2>
         
-        <p> Deze omgeving in momenteel aan de volgende klant gekoppeld: <?php echo $currentEnvironmentCustomername ?> </p>
     </div>
 
 
@@ -122,10 +113,10 @@ if( ! $userLoggedin->isAdmin() )
             <div class="customer-form form-field-padding form-field-style">
                         Beschikbare klanten
                         <br>
-                        <select name="customers">
+                        <select name="customerName">
                             <optgroup label="Kies een klant">
-                                <option selected hidden default> Geen keuze: huidige situatie blijft behouden. </option>
-                                <option value="none">Geen klant koppelen </option>
+                                <option selected hidden default value = "<?php echo $currentEnvironmentCustomername ?>"><?php if($currentEnvironmentCustomername==null){echo "Geen gekoppelde klant";}else{echo $currentEnvironmentCustomername;} ?></option>
+                                <option value= "none" >Geen klant koppelen </option>
                                 <?php foreach($customers as $customer):?>
                                     <option value="{$customer['customerName']}"><?=$customer["customerName"]?> </option>
                                     <?php endforeach;?>
@@ -135,6 +126,10 @@ if( ! $userLoggedin->isAdmin() )
             <div class="user-form form-field-padding form-field-style">
                 VM URL 
                 <br><input type="text" name="vmURL" class="input-text-style" value="<?php echo $currentEnvironmentVmURL ?>" required>
+            </div>
+            <div class="user-form form-field-padding form-field-style">
+                 <!-- de onderstaande onzichtbare button zorgt voor de opvang van het systemID voor de sql query -->
+                <br><input type="text" name="systemID" class="input-text-style" value="<?php echo $currentEnvironmentSystemID ?>" required hidden>
             </div>
            
             
