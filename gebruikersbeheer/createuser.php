@@ -1,8 +1,9 @@
 <?php
-session_start();
+
+// Header in de bovenkant + session_start()
+include ('../header/header.php');
 
 //init_set('display_errors', 1);
-
 
   // Check of user is ingelogged en anders terug naar de login pagina
 include_once ("../autorisatie/UserIsLoggedin.php");
@@ -18,8 +19,7 @@ if( ! $userLoggedin->isAdmin() )
 }
 
 ini_set('display_errors', 1);
-    // Header in de bovenkant
-include ("../header/header.php");
+
 
     // Is logged in class
 include_once ("../autorisatie/UserDaoMysql.php");
@@ -37,10 +37,6 @@ include ("../autorisatie/HashPassword.php"); // Hash PWD
 //    {
 //        $_SESSION["title"] = "Log hier in";
 //    }
-
-    // Customerdao aanmaken voor het ophalen van alle klanten
-$customerdaomysql = new CustomerDaoMysql();
-$customers = $customerdaomysql-> selectAllCustomers();
 
     // Kijk eerst of alle velden zijn ingevoerd met isset()
 if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
@@ -99,8 +95,13 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
         $userCustomerDao = new UserCustomerDaoMysql();
+
             //clear all userCustomers
         $userCustomerDao->clearUserCustomer($_POST['username']);
+
+        var_dump( $_POST['clients']);
+        die;
+
         foreach($_POST['clients'] as $customerName) {
          $userCustomerDao-> UserCustomerDaoMysql($_POST['username'], $customerName);  
      }
@@ -115,7 +116,6 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 }
 
 ?>
-
 <div class="header-left">
     <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
     <h2>Nieuwe gebruiker aanmaken</h2>
@@ -157,7 +157,10 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                 <div class="password-form form-field-padding form-field-style">
 
                     <div class="password-form-initial">
-                        Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
+                        Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i>
+                            <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
+                            </span>
+                        </span>
                         <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
                     </div>
                     <div class="password-form-confirm">
@@ -193,10 +196,10 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                     </select>
                 </div>
 
-                <div id="dropdown" class="customer-form form-field-padding form-field-style">
+                <div id="user-customer" class="customer-form form-field-padding form-field-style">
                     Gekoppelde klant(en)
                     <br>
-                    <select id="customers" name="customers[]" required>
+                    <select id="customers" name="customers[]" required multiple="multiple">
                         <optgroup label="Kies een klant">
                             <option value="0" selected hidden>Kies een klant</option>
                             <?php foreach($customers as $customer):?>
@@ -204,9 +207,6 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                             <?php endforeach;?>
                         </optgroup>
                     </select>
-                </div>
-                <div class="duplicate-button" id="poep">
-                    <a id="add-field" type="button" onclick="addField();"><img src="../res/add.svg"></a>
                 </div>
 
                 <!-- end form elements -->
