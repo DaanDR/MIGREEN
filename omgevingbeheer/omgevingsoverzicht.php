@@ -38,7 +38,7 @@
     <div class="header-mid"></div>
     <div class="header-right">
         
-        <a href="createomgeving.php" target="_self">
+        <a href="createenvironment.php" target="_self">
         <button class="new-user-button" type="button" name="button">Nieuwe omgeving aanmaken</button>
         </a>
       </div>
@@ -93,7 +93,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: editenvironment.php");
+            header("Location: http://" . APP_PATH . "omgevingbeheer/editenvironment.php?systemName=" . $systemName);
             break;
         case "delete":
             delete($systemName, $environmentDao);
@@ -103,7 +103,7 @@
       
     function delete($systemName, $dao) {
             $succes = $dao->deactivateEnvironment($systemName);
-            header("Location: omgevingsoverzicht.php");
+            header("Location: http://" . APP_PATH . "omgevingbeheer/omgevingsoverzicht.php");
             if (!$succes) {
                 echo "Omgeving kon niet worden verwijderd.";
             }

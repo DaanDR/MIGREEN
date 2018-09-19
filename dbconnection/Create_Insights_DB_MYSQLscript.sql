@@ -35,5 +35,19 @@ CREATE TABLE `insights_db`.`customer` (
   UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MyFirstCustomer');
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MySecondCustomer');
-
+create table insights_db.environment (
+systemID int not null auto_increment,
+systemName varchar(45) unique not null,
+customerName varchar(45),
+vmURL varchar(255),
+status_active boolean not null default TRUE,
+Constraint pk_systemID primary key (systemID),
+Constraint fk_environment_customer foreign key(customerName)
+references customer(customerName)
+on update no action
+on delete no action
+);
+INSERT INTO `insights_db`.`user` (`userID`, `userName`, `password`, `firstname`, `lastname`, `email`, `role`, `status_active`) VALUES ('1', 'Test1234', '$2y$10$1iYgTdCtHt1R01db6DdlBeYZXYY34g.VnwZG2jrydvzX8QZVWJaGy', 'Tester', 'Tester', 'test@test.nl', 'admin', '1');
+INSERT INTO `insights_db`.`environment` (`systemName`, `customerName`, vmURL, `status_active`) VALUES ('Testomgeving1', 'De_Eerste_Klant', 'link', '1');
+INSERT INTO `insights_db`.`environment` (`systemName`, `customerName`, vmURL, `status_active`) VALUES ('Testomgeving2', 'De_Tweede_Klant', 'link','1');
 
