@@ -1,0 +1,176 @@
+/* grid structure */
+
+.container {
+  font-family: ubuntu-regular;
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 100px;
+  background-color: white;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(10px, auto);
+}
+
+.grid-wrapper > div {
+  border: 2px solid rgb(233,171,88);
+  border-radius: 5px;
+  background-color: white;
+  padding: 1em;
+  color: #d9480f;
+}
+
+.grid-header-left {
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+
+.grid-header-right {
+  grid-column: 3 / 5;
+  grid-row: 1;
+}
+
+.grid-content-left {
+
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+
+.grid-content-right {
+  grid-column: 2 / 5;
+  grid-row: 2;
+}
+
+.grid-footer-left {
+  grid-column: 1 / 4;
+  grid-row: 3;
+}
+
+.grid-footer-right {
+  grid-column: 3 / 5;
+  grid-row: 3;
+}
+
+/* grid structure fieldsets */
+
+.systeem-input-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.systeem-input-wrapper > div {
+    padding: 1em;
+}
+
+.systeem-input-naam {
+  grid-column: 1;
+}
+
+.systeem-input-hernoemsysteem {
+  grid-column: 2;
+}
+
+.systeem-input-type {
+  grid-column: 3;
+}
+
+/* page specific styling */
+
+.grid-header-right > ul > li {
+  margin-bottom: 10px;
+}
+
+.form-title {
+  padding-left: 2%;
+}
+
+ul {
+  list-style: none;
+  padding-left: 2%;
+}
+
+ul > li {
+  margin-top: 2%;
+  margin-right: 2%;
+  font-weight: bold;
+}
+
+li > input, select  {
+  margin-top: 2%;
+  margin-right: 2%;
+  width: 50%;
+}
+
+#omgevingaanmaken-select {
+  width: 50%;
+}
+
+.gebruikeraanmaken-buttons {
+  /* padding-top: 20%; */
+  padding-left: 20%;
+  display: block;
+}
+
+
+/*progressbar*/
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+
+}
+#progressbar li {
+  list-style-type: none;
+  color: black;
+  font-size: 9px;
+  width: 33.33%;
+  /*float: left;*/
+  position: relative;
+  z-index:1;
+}
+#progressbar li:before {
+  /*list-style-image: url('https://cdn4.iconfinder.com/data/icons/proglyphs-computers-and-development/512/Time_Backup-512.png');*/
+  content: url('../res/database.svg');
+  counter-increment: step;
+  width: 40px;
+  line-height: 40px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: #E2E9F0;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+  text-align: center;
+  z-index:3;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+  content:'';
+  width: 2px;
+  height: 19px;
+  background: #E2E9F0;
+  position: absolute;
+  left:50%;
+  bottom:0;
+  top: -19px;
+  z-index: 0; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+  background: green;
+  color: white;
+  /*z-index: 0;*/
+}
+
+
+/* TEST CODE */
+
