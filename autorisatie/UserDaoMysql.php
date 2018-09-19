@@ -39,28 +39,28 @@ class UserDaoMysql implements UserDao
     
     // In front end: make sure you have complete record in your fields of the form, use the selectUser function for this
     public function updateUser($username, $password, $firstname, $lastname, $email, $role)
-    {  
+    {
         
         try {
+            $dbConn = new mysqlConnector();
             
-            $dbConn = new mysqlConnector(); 
-             
-            if ($password == "0000") {
-                
+            if ($password == "0000"){
                 $sql = "UPDATE user SET firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
+        
                 $stmt = $dbConn->getConnector()->prepare($sql);
                 $stmt->bind_param('sssss', $firstname, $lastname, $email, $role, $username);
-                $stmt->execute();
-
+                $stmt->execute(); 
+                
+                
             } else {
-            
                 $sql = "UPDATE user SET password = ?, firstname = ?, lastname = ?, email = ?, role = ? WHERE userName = ?";
+        
                 $stmt = $dbConn->getConnector()->prepare($sql);
                 $stmt->bind_param('ssssss', $password, $firstname, $lastname, $email, $role, $username);
                 $stmt->execute();
-            
+                
             }
-        
+            
             $dbConn->getConnector()->close();
              
         }

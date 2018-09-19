@@ -106,7 +106,7 @@
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php?username=" . $userName);
+            header("Location: http://" . APP_PATH . "gebruikersbeheer/edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
@@ -119,7 +119,7 @@
             echo "Je kunt niet jezelf verwijderen dummy!";
         } else {
             $succes = $dao->deactivateUser($name);
-            header("Location: overzicht.php");
+            header("Location: http://" . APP_PATH . "gebruikersbeheer/overzicht.php");
             if (!$succes) {
                 echo "Gebruiker kon niet worden verwijderd.";
             }

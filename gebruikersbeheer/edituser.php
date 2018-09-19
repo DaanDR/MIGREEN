@@ -15,6 +15,7 @@ if( ! $userLoggedin->isAdmin() ) {
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
+    
     // Header in de bovenkant
     include ("../header/header.php");
     
@@ -38,15 +39,20 @@ if( ! $userLoggedin->isAdmin() ) {
     $currentUserEmail = $currentUser->getEmail();
     $currentUserRole = $currentUser->getRole();
 
+    
+
     // Kijk eerst of alle velden zijn ingevoerd met isset()
     if( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+        
+           
         
         if ( !empty($_POST['password']) ){
             
             // Password Checks
             
             // Controleren op hoofdletters
-            if( !preg_match('/[A-Z]/', $_POST['password']) ){
+            if(!preg_match('/[A-Z]/', $_POST['password'] )){
+
                 echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
                 $checkHoofdletter = FALSE;
             } else {
@@ -54,7 +60,8 @@ if( ! $userLoggedin->isAdmin() ) {
             }
 
             // Controleren op cijfers
-            if ( !preg_match('([0-9])', $_POST['password']) ){
+            if (!preg_match('([0-9])', $_POST['password'] )){
+
                 echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
                 $checkGetal = FALSE;
             } else {
@@ -63,38 +70,45 @@ if( ! $userLoggedin->isAdmin() ) {
 
             // Controleren of wachtwoorden gelijk zijn
             if( $_POST['password'] != $_POST['password2'] ){
+            
                 echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
                 $checkGelijk = FALSE;
             } else {
                 $checkGelijk = TRUE;
             }
             
+            
+            
             if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE){
             
-                //Hash het opgegeven password
-                $hash = new HashPassword();
-                $hash_password = $hash->hashPwd($_POST['password']);
-                
-                // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-                $userDao = new UserDaoMysql();
-                $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-                header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            //Hash het opgegeven password
+            $hash = new HashPassword();
+            $hash_password = $hash->hashPwd($_POST['password']);
+             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+            $userDao = new UserDaoMysql();
+            $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
             }
                 
         } else {
-            
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+           
             $userDao2 = new UserDaoMysql();
             $passwordleeg = "0000";
             $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             
+           
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
-              
+        
+        
+                   
     }
+
+ 
     
 ?>
-
+ 
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -186,3 +200,5 @@ if( ! $userLoggedin->isAdmin() ) {
     </form>
 
 </html>
+
+
