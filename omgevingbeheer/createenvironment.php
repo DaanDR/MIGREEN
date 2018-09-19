@@ -87,67 +87,95 @@ session_start();
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
+    <link rel="stylesheet" type="text/css" href="../css/omgevingaanmaken.css">
+
 
     <meta charset="utf-8">
     <title>Omgeving Aanmaken</title>
 </head>
 <body>
-<div class="grid-container" <?php echo $adminLoggedin ?> >
+<div class="container" <?php echo $adminLoggedin ?> >
 
-    <div class="header-left">
-        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgevingsoverzicht</p>
-        <h2>Omgeving aanmaken</h2>
-    </div>
-
-
-    <div class="header"></div>
-
-    <!-- form elements -->
-
-    <div class="content">
-
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
-
-            <div class="user-form form-field-padding form-field-style">
-                Systeemnaam 
-                <br><input type="text" name="systemName" minlength=5 class="input-text-style" required>
-            </div>
-            
-            <div class="customer-form form-field-padding form-field-style">
-                        Beschikbare klanten
-                        <br>
-                        <select name="customers">
-                            <optgroup label="Kies een klant">
-                                <option selected hidden>Kies een klant (optioneel)</option>
-                                <?php foreach($customers as $customer):?>
-                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
-                                    <?php endforeach;?>
-                            </optgroup>
-                        </select>
-            </div>
-            <div class="user-form form-field-padding form-field-style">
-                VM URL 
-                <br><input type="text" name="vmURL" class="input-text-style" required>
-            </div>
-            
-            
+    <div class="grid-wrapper" >
+        <div class="grid-header-left">
+            <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgevingenoverzicht</p>
+            <h2>Omgeving aanmaken</h2>
 
     </div>
 
-    <!-- end form elements -->
+        <div class="grid-header-right"> </div>
 
-    <div class="footer"></div>
+        <div class="grid-content-left">
+
+            <div class="progressbar-wrapper">
+                <div class="progressbar-col-icons">
+                    <div class="progressbar-proto">
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step"><i class="progressbar-icon fas fa-info-circle"></i></span>
+                            <div class="progressbar-line"></div>
+                            <span class="step"><i class="progressbar-icon fas fa-database"></i></span>
+                            <div class="progressbar-line"></div>
+                            <span class="step"><i class="progressbar-icon fas fa-exchange-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progressbar-col-titles">
+                    <div class="step-title">1. Basisgegevens</div>
+                    <div class="step-title">2. Systemen</div>
+                    <div class="step-title">3. Relaties</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grid-content-right">
+
+        <form id="regForm" method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+
+            <div class="tab">
+                <h3>Basisgegevens</h3>
+                <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
+
+            <ul>
+                <li>Omgeving naam<br><input type="text" name="systemName" minlength=5 required oninput="this.className = ''"></li>
+
+                <li>Gekoppelde klant<br>
+                    <select id="omgevingaanmaken-select" type="select" name="customers" required="required" oninput="this.className = ''">
+                        <optgroup label="Kies een klant">
+                            <option selected hidden>Kies een klant (optioneel)</option>
+                            <?php foreach($customers as $customer):?>
+                                <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
+                            <?php endforeach;?>
+                        </optgroup>
+                    </select>
+                </li>
+
+                <li>VM URL<br><input type="text" name="vmURL" required="required" oninput="this.className = ''"></li>
+
+            </ul>
+            
+            </div>
+        </form>
+
+        </div>
+
+    </div>
+    <div class="grid-footer-left"> </div>
 
     <!-- buttons   -->
 
     <div class="footer-right">
-        <div class="buttons-form">
+        <div class="gebruikeraanmaken-buttons">
             <a href="omgevingsoverzicht.php" target="_self">
-            <button class="button-form-secondary" type="button">Annuleren</button></a>
-            <button class="button-form-primary" type="submit" value="Aanmaken"> Omgeving aanmaken </button>
+            <button class="button-form-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Annuleren</button></a>
+            <button class="button-form-primary" type="submit" value="Aanmaken" id="nextBtn" onclick="nextPrev(1)"> Omgeving aanmaken </button>
             <!-- buttons -->
             <div>
-                </form>
             </div>
+        </div>
      </body>
+<script src="omgevingaanmaken.js"></script>
+
 </html>

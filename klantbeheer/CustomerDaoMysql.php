@@ -10,59 +10,62 @@ class CustomerDaoMysql implements CustomerDao
 
     private $dbConn;
 
-    public function __construct()
-    {
-        $this->dbConn = new mysqlConnector();
-    }
+    public function _construct()
+    {}
 
     public function insertCustomer($customername)
     {
-        
+        $dbConn = new mysqlConnector();
+
         $sql = "INSERT INTO customer (customerName) values (?)";
-        $stmt = $this->dbConn->getConnector()->prepare($sql);
+
+        $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $customername);
         $stmt->execute();
-        
-        $this->dbConn->getConnector()->close();
+
+        $dbConn->getConnector()->close();
     }
 
     public function updateCustomer($customername, $newname)
     {
-        
+        $dbConn = new mysqlConnector();
+
         $sql = "UPDATE customer SET customerName = ? WHERE customerName = ?";
-        
-        $stmt = $this->dbConn->getConnector()->prepare($sql);
+
+        $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('ss', $newname, $customername);
         $stmt->execute();
-        
-        $this->dbConn->getConnector()->close();
+
+        $dbConn->getConnector()->close();
     }
 
     public function deleteCustomer($customername)
     {
-        
-        $sql = "Update customer SET status_active = 0 WHERE customerName = ?";
-        
-        $stmt = $this->dbConn->getConnector()->prepare($sql);
+        $dbConn = new mysqlConnector();
+
+        $sql = "DELETE FROM customer WHERE customerName = ?";
+
+        $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $customername);
         $stmt->execute();
-        
-        $this->dbConn->getConnector()->close();
+
+        $dbConn->getConnector()->close();
     }
 
     public function selectCustomer($customername)
     {
         $newCustomer = null;
-        
-       // $customername;
-        
-        $sql = "SELECT customerName from customer WHERE customerName = ?";
-        $stmt = $this->dbConn->getConnector()->prepare($sql);
+        $dbConn = new mysqlConnector();
+
+        $customername;
+
+        $sql = "SELECT * from customer WHERE customerName = ? LIMIT 1";
+        $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->bind_param('s', $customername);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($customername);
-        
+
         // Vul de rij met enkel 1 rij uit database
         while ($stmt->fetch()) {
             $newCustomer = new Customer($customername);
@@ -73,20 +76,18 @@ class CustomerDaoMysql implements CustomerDao
     public function selectAllCustomers()
     {
         $customers = null;
-        
         $dbConn = new mysqlConnector();
+
         $customername;
-        
-        $sql = "SELECT customerName from customer Where status_active = 1";
-        $stmt = $this->dbConn->getConnector()->prepare($sql);
+
+        $sql = "SELECT customerName from customer";
+        $stmt = $dbConn->getConnector()->prepare($sql);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($customername);
-        
+
         while ($stmt->fetch()) {
-            $customers[] = array(
-                "customerName" => $customername
-            );
+            $customers[] = array("customerName" => $customername);
         }
         return $customers;
     }
