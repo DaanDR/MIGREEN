@@ -21,35 +21,6 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("prevBtn").innerHTML = "Annuleren";
         document.getElementById("prevBtn").onclick = function (){
-          if(confirm('Weet u het zeker')){
-            window.location.href = 'overzicht.html';
-          }
-        };
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    //... and run a function that will display the correct step indicator:
-    fixStepIndicator(n)
-}
-
-function showTabWithoutFix(n) {
-    // This function will display the specified tab of the form...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    //... and fix the Previous/Next buttons:
-
-    document.getElementById("prevBtn").onclick = function(){nextPrev(-1)};
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Opslaan";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Volgende stap";
-        document.getElementById("prevBtn").innerHTML = "Vorige stap";
-    }
-
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "inline";
-        document.getElementById("prevBtn").innerHTML = "Annuleren";
-        document.getElementById("prevBtn").onclick = function (){
             if(confirm('Weet u het zeker')){
                 window.location.href = 'overzicht.html';
             }
@@ -58,6 +29,7 @@ function showTabWithoutFix(n) {
         document.getElementById("prevBtn").style.display = "inline";
     }
     //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
 }
 
 function nextPrev(n) {
@@ -75,15 +47,18 @@ function nextPrev(n) {
     currentTab = currentTab + n;
     PreviousTab = currentTab - n;
     if (n == -1) {
-            a[PreviousTab].className = a[currentTab].className.replace(" active finish", "");
-            b[PreviousTab].className = b[currentTab].className.replace(" active finish", "");
-            if (PreviousTab <= 0) {
-                c[0].className = c[currentTab].className.replace(" active", "");
-            } else if (PreviousTab >0) {
-            c[PreviousTab].className = c[currentTab].className.replace(" active", "");
-            }
+        a[PreviousTab].className = a[currentTab].className.replace(" active", "");
+        b[PreviousTab].className = b[currentTab].className.replace(" active", "");
+        if (PreviousTab <= 1) {
+            c[0].className = c[0].className.replace(" active", "");
+            console.log("Deactivating line of c 0");
+        } else {
+            c[1].className = c[1].className.replace(" active", "");
+            console.log("Deactivating line of c 1");
 
-        showTabWithoutFix(currentTab);
+        }
+
+        // showTabWithoutFix(currentTab);
     }
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
@@ -122,19 +97,27 @@ function fixStepIndicator(n) {
     var x = document.getElementsByClassName("step");
     var y = document.getElementsByClassName("step-title");
     var z = document.getElementsByClassName("progressbar-line");
-    // for (i = x.length; currentTab < i ; i--) {
-    //     x[i].className = x[i].className.replace(" active", "");
-    //     y[i].className = y[i].className.replace(" active", "");
-    //     z[i].className = z[i].className.replace(" active", "");
-    //
-    // }
+
     //... and adds the "active" class on the current step:
-    x[n].className += " active";
-    y[n].className += " active";
-    if (n==0) {
-    z[n].className += "";
-    }else if (n > 0) {
-    z[n-1].className += " active";
+    if (x[n].classList.contains("active") == false) {
+        x[n].className += " active";
+    } else {
+        x[n].className += "";
+    }
+    if (y[n].classList.contains("active") == false) {
+        y[n].className += " active";
+    } else {
+        y[n].className += "";
+    }
+    if (currentTab == 0 && z[0].classList.contains("active") == false) {
+        // z[0].className += " active";
+    } else if (currentTab == 1 && z[0].classList.contains("active") == false && z[1].classList.contains(" active") == false) {
+        z[0].className += " active";
+        console.log("z 0 does not contains active. Making it active")
+    } else if (currentTab == 2 && z[1].classList.contains(" active") == false) {
+        z[1].className += " active";
+        console.log("z 1 does not contains active. Making it active")
+
     }
 
 }
