@@ -112,24 +112,10 @@
             delete($userName, $userDao);
             break;
     }
-
-//    function delete($name, $dao) {
-//        if ($_SESSION['username'] == $name) {
-//            echo '<script type="text/javascript">notDeleteSelf();</script>';
-//        } else {
-//            $succes = $dao->deactivateUser($name);
-////          var_dump $succes;
-//            header("Location: overzicht.php");
-//            if (!$succes) {
-//                echo "Gebruiker kon niet worden verwijderd.";
-//            }
-//        }
-//    }
     
       
     function delete($name, $dao) {
         if ($_SESSION['username'] == $name) {
-//            echo '<script type="text/javascript"> notDeleteSelf(); </script>';
             echo "Je kunt niet jezelf verwijderen dummy!";
         } else {
             $succes = $dao->deactivateUser($name);
