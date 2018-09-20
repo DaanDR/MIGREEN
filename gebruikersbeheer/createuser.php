@@ -62,6 +62,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             $checkNewUserUnique = FALSE;
             $errorusernamemessage = "Kies een andere gebruikersnaam";
             $errorinputdusername="username-error";
+        } else {
+            $checkNewUserUnique = TRUE; 
         }
 
         // Controleren op hoofdletters
