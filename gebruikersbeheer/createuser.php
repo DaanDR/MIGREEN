@@ -27,7 +27,7 @@ include('../klantbeheer/CustomerDaoMysql.php');
 // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
 $customerdao = new CustomerDaoMysql();
 $customers = $customerdao->selectAllCustomers();
-// include user_customer class 
+// include user_customer class
 include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 include("../autorisatie/HashPassword.php"); // Hash PWD
 
@@ -50,7 +50,9 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
     //Geef melding als de user al bestaat
     if ($oldUserName !== null && $newUserName == $oldUserName) {
-        echo "<br> <h2>Deze username bestaat al in de database.</h2>";
+        // echo "<br> <h2>Deze username bestaat al in de database.</h2>";
+echo '<script type="text/javascript">','formError2();','</script>';
+
         // Session leeg maken!!!!
         $_SESSION = array();
     }
@@ -72,7 +74,9 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
     if ($_POST['password'] != $_POST['password2']) {
         // Session leeg maken!!!!
         $_SESSION = array();
-        echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+        // echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+        echo '<script type="text/javascript">','formError();','</script>';
+
     } else {
         //Hash het opgegeven password
         $hash = new HashPassword();
@@ -121,6 +125,24 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
+
+    <style media="screen">
+
+      .username-errormessage {
+        color: #eb1313;
+        font-size: 80%;
+        position: absolute;
+        z-index: 2;
+      }
+
+      #username-error {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+    </style>
+
 </head>
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
@@ -137,7 +159,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input type="text" name="username" minlength=5 class="input-text-style" required>
+                <br><input id="" type="text" name="username" minlength=5 class="input-text-style" required>
+                <i class="username-errormessage"></i>
             </div>
 
 
@@ -150,9 +173,11 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                         </span>
                     <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}"
                                title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
+                    <i class="password-errormessage"></i>
                 </div>
                 <div class="password-form-confirm">
                     Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style" required>
+                    <i class="password-errormessage"></i>
                 </div>
             </div>
 
