@@ -10,8 +10,11 @@ class CustomerDaoMysql implements CustomerDao
 
     private $dbConn;
 
-    public function _construct()
-    {}
+    public function __construct()
+    {
+        $this->dbConn = new mysqlConnector();
+
+    }
 
     public function insertCustomer($customername)
     {

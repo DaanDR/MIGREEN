@@ -140,11 +140,11 @@ include ("../header/header.php");
                 <li>Omgeving naam<br><input type="text" name="systemName" minlength=5 required oninput="this.className = ''"></li>
 
                 <li>Gekoppelde klant<br>
-                    <select id="omgevingaanmaken-select" type="select" name="customers" required="required" oninput="this.className = ''">
+                    <select id="omgevingaanmaken-select" type="select" name="customerName" required="required" oninput="this.className = ''">
                         <optgroup label="Kies een klant">
                             <option selected hidden>Kies een klant (optioneel)</option>
                             <?php foreach($customers as $customer):?>
-                                <option value="{$customer['customerName']}"><?=$customer["customerName"]?></option>
+                                <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?></option>
                             <?php endforeach;?>
                         </optgroup>
                     </select>
@@ -153,35 +153,19 @@ include ("../header/header.php");
                 <li>VM URL<br><input type="text" name="vmURL" required="required" oninput="this.className = ''"></li>
 
             </ul>
-            
-            <div class="customer-form form-field-padding form-field-style">
-                        Beschikbare klanten
-                        <br>
-                        <select name="customerName">
-                            <optgroup label="Kies een klant">
-                                <option selected hidden value="null">Kies een klant (optioneel)</option>
-                                <?php foreach($customers as $customer):?>
-                                    <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?> </option>
-                                <?php endforeach;?>
-                            </optgroup>
-                        </select>
-            </div>
+
+
         </form>
 
         </div>
 
-            <div class="user-form form-field-padding form-field-style">
-                VM URL 
-                <br><input type="text" name="vmURL" class="input-text-style" required>
-            </div>
-            
          
     </div>
     <div class="grid-footer-left"> </div>
 
     <!-- buttons   -->
 
-    <div class="footer-right">
+    <div class="grid-footer-right">
         <div class="gebruikeraanmaken-buttons">
             <a href="omgevingsoverzicht.php" target="_self">
             <button class="button-form-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Annuleren</button></a>
