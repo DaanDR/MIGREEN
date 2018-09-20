@@ -118,7 +118,7 @@ if (! isset($_GET["action"])) {
                 echo "Gebruiker kon niet worden verwijderd.";
             }
         }
-    }
+
 }
 
 
