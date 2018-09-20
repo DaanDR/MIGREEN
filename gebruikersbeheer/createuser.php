@@ -85,7 +85,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         // Controleren of wachtwoorden gelijk zijn
         if( $_POST['password'] != $_POST['password2'] ){
             $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
-            $errorinputid="username-error";
+            $errorinputid="password-error";
             $checkGelijk = FALSE;
         } else {
             $checkGelijk = TRUE;
@@ -148,11 +148,19 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         z-index: 2;
       }
 
-      #username-error {
+      #username-error  {
         border-color: #eb1313;
         border-style: solid;
         border-width: 1px;
       }
+
+      #password-error  {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+
 
       .succes-message {
         font-size: 200%;
@@ -179,7 +187,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input id="<?php echo $errorinputuser ?>" type="text" name="username" minlength=5 class="input-text-style" required>
+                <br><input id="<?php echo $errorinputdusername ?>" type="text" name="username" minlength=5 class="input-text-style" required>
                 <i class="errormessage"> <?php echo $errorusernamemessage ?></i>
             </div>
 
