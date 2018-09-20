@@ -8,16 +8,6 @@
 //  Voor de title bar
     $title = "";
 
-    if ( isset($_SESSION["title"]) )
-    {
-        $title = $_SESSION["title"];
-    }
-    else
-    {
-        $title = "MyBit MyInsight";
-    }
-
-        // Voor de title bar
         if (isset($_SESSION["title"])) 
         {
             $title = $_SESSION["title"];
