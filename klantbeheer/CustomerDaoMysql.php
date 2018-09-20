@@ -13,6 +13,7 @@ class CustomerDaoMysql implements CustomerDao
     public function __construct()
     {
         $this->dbConn = new mysqlConnector();
+
     }
 
     public function insertCustomer($customername)
@@ -150,9 +151,7 @@ class CustomerDaoMysql implements CustomerDao
         
         // Voor iedere klant in resultaat: voeg toe aan array
         while ($stmt->fetch()) {
-            $customers[] = array(
-                "customerName" => $customername
-            );
+            $customers[] = array("customerName" => $customername);
         }
         
         // Retourneer de array met klanten

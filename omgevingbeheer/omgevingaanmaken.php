@@ -14,40 +14,69 @@ if( ! $userLoggedin->isAdmin() )
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-// ini_set('display_errors', 1);
+
 // Header in de bovenkant
 include ("../header/header.php");
 
 // Is logged in class
-include_once ("../autorisatie/UserDaoMysql.php");
-include ("../autorisatie/EncryptDecrypt.php");
+include_once ("EnvironmentDaoMysql.php");
+
 
 // Title van de pagina...
 if(!isset($_SESSION))
 {
-    $_SESSION["title"] = "Log hier in";
+    $_SESSION["title"] = "Nieuwe Omgeving Aanmaken";
 }
+
+// customerDao voor het ophalen van alle klanten
+include ('../klantbeheer/CustomerDaoMysql.php');
+
+$customerdaomysql = new CustomerDaoMysql();
+$customers = $customerdaomysql-> selectAllCustomers();
+
 
 // Kijk eerst of alle velden zijn ingevoerd met isset()
 if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) )
 {
     // Controleren of de user al bestaat
     // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-    $newUser = new UserDaoMysql();
-    $newUser = $newUser->selectUser( $_POST['username'] );
+    $newUser = new EnvironmentDaoMysql();
+    $newEnvironment = $newEnvironment->selectEnvironment( $_POST['systemName'] );
 
     // Haal de user info uit de User array/object $loginUser
     // en maak session vars aan.
-    $_SESSION['username'] =  $newUser->getUsername();
+    $_SESSION['systemName'] =  $newEnvironment->getSystemName();
 
-    //Geef melding als de user al bestaat
-    if( $_POST['username'] == $_SESSION['username'])
+    //Geef melding als de omgeving al bestaat
+    if( $_POST['systemName'] == $_SESSION['systemName'])
     {
-        // Session leeg maken!!!!
-        $_SESSION = array();
-        echo "<br> <h2>Deze username bestaat al in de database.</h2>";
+        $checkSystemNameIsNew = FALSE;
+        echo "<br> <h2>Deze omgeving bestaat al in de database.</h2>";
+    } else
+    {
+        $checkSystemNameIsNew = TRUE;
     }
 
+
+    //Check of de systemName minimaal uit 5 karakters bestaat
+    $numberOfChars = strlen($_POST['systemName']);
+    if ($numberOfChars >= 5){
+        $checkNumberOfCharsOK = TRUE;
+    } else
+    {
+        $checkNumberOfCharsOK = FALSE;
+        echo "<br> <h2> Het aantal karakters van de systeemnaam moet minimaal 5 zijn!</h2>";
+    }
+
+
+    // Als alles ok is, nieuwe omgeving wegschrijven naar de database
+    if($checkSystemNameIsNew == TRUE && $checkNumberOfCharsOK == TRUE){
+        // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
+        $createEnvironment = new EnvironmentDaoMysql();
+        $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'], $_POST['vmURL'] );
+        echo "<p>Aanmaken nieuwe Omgeving gelukt</p>";
+        header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
+    }
 }
 ?>
 
@@ -55,24 +84,20 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 <html lang="en" dir="ltr">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/content.css">
-    <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/omgevingaanmaken.css">
-    <link rel="stylesheet" type="text/css" href="../css/form.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/form.css">
+    <link rel="stylesheet" type="text/css" href="../css/content.css">
+    <link rel="stylesheet" type="text/css" href="../css/omgevingaanmaken.css">
+
 
     <meta charset="utf-8">
     <title>Omgeving aanmaken</title>
 </head>
-
 <body>
+<div class="container" <?php echo $adminLoggedin ?> >
 
-<div class="container">
-
-    <div class="grid-wrapper">
-
+    <div class="grid-wrapper" >
         <div class="grid-header-left">
-
             <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgevingenoverzicht</p>
             <h2>Omgeving aanmaken</h2>
 
@@ -81,7 +106,6 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         <div class="grid-header-right"> </div>
 
         <div class="grid-content-left">
-            <!-- MITCHELL TEST CODE -->
 
             <div class="progressbar-wrapper">
                 <div class="progressbar-col-icons">
@@ -104,30 +128,15 @@ if( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             </div>
 
-
-
-
-            <!-- ANDERSON OPLOSSING -->
-            <!-- <ul id="progressbar">
-              <li class="active"><i class="fas fa-database"></i>&nbsp; </li>
-              <li>&nbsp; </li>
-              <li>&nbsp; </li>
-            </ul> -->
-
         </div>
 
         <div class="grid-content-right">
+
             <form id="regForm" action="welcome.php" method="post">
 
-                <!-- start fieldsets -->
-                <!-- fieldset one -->
-
-                <!--<fieldset>-->
-                <div class="tab">       <!--<div class="form-title">-->
+                <div class="tab"> <!-- Eerste Tab -->
                     <h3>Basisgegevens</h3>
                     <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
-
-                    <!--<form action="welcome.php" method="post"> extra??-->
 
                     <ul>
                         <li>Omgeving naam<br><input type="text" name="name" required="required" oninput="this.className = ''"></li>

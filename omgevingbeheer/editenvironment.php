@@ -83,79 +83,97 @@ if( ! $userLoggedin->isAdmin() )
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
+    <link rel="stylesheet" type="text/css" href="../css/omgevingaanmaken.css">
+
 
     <meta charset="utf-8">
     <title>Omgeving Bewerken</title>
 </head>
+<body>
+<div class="container" <?php echo $adminLoggedin ?> >
 
-<div class="grid-container" <?php echo $adminLoggedin ?> >
-    
-
-    <div class="header-left">
-        <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Omgeving Bewerken</p>
+    <div class="grid-wrapper" >
+        <div class="grid-header-left">
+            <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgeving Bewerken</p>
         <h2>Omgeving bewerken: <?php echo $currentEnvironmentSystemName ?></h2>
         
     </div>
 
 
-    <div class="header"></div>
+        <div class="grid-header-right"> </div>
 
-    <!-- form elements -->
-    <div class="content">
+        <div class="grid-content-left">
+            <div class="progressbar-wrapper">
+                <div class="progressbar-col-icons">
+                    <div class="progressbar-proto">
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step"><i class="progressbar-icon fas fa-info-circle"></i></span>
+                            <div class="progressbar-line"></div>
+                            <span class="step"><i class="progressbar-icon fas fa-database"></i></span>
+                            <div class="progressbar-line"></div>
+                            <span class="step"><i class="progressbar-icon fas fa-exchange-alt"></i></span>
+                        </div>
+                    </div>
+                </div>
 
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                <div class="progressbar-col-titles">
+                    <div class="step-title">1. Basisgegevens</div>
+                    <div class="step-title">2. Systemen</div>
+                    <div class="step-title">3. Relaties</div>
+                </div>
 
-            <div class="user-form form-field-padding form-field-style">
-                Systeemnaam 
-                <br><input type="text" name="systemName" minlength=5 class="input-text-style" value="<?php echo $currentEnvironmentSystemName ?>"required>
             </div>
-            
-            <div class="customer-form form-field-padding form-field-style">
-                        Beschikbare klanten
-                        <br>
-                        <select name="customerName">
-                            <optgroup label="Kies een klant">
-                                <option selected hidden default value = "<?php echo $currentEnvironmentCustomername ?>"><?php if($currentEnvironmentCustomername==null){echo "Geen gekoppelde klant";}else{echo $currentEnvironmentCustomername;} ?></option>
-                                <option value= "none" >Geen klant koppelen </option>
-                                <?php foreach($customers as $customer):?>
-                                    <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?> </option>
-                                    <?php endforeach;?>
-                            </optgroup>
-                        </select>
+        </div>
+
+            <div class="grid-content-right">
+
+                <form id="regForm" method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+
+                    <div class="tab">
+                        <h3>Basisgegevens</h3>
+                        <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
+
+
+                        <ul>
+                            <li>Omgeving naam<br><input type="text" name="systemName" minlength=5 value="<?php echo $currentEnvironmentSystemName ?>" required oninput="this.className = ''"></li>
+
+                            <li>Gekoppelde klant<br>
+                                <select id="omgevingaanmaken-select" type="select" name="customerName" required="required" oninput="this.className = ''">
+                                    <optgroup label="Kies een klant">
+                                        <option selected hidden default value = "<?php echo $currentEnvironmentCustomername ?>"><?php if($currentEnvironmentCustomername==null){echo "Geen gekoppelde klant";}else{echo $currentEnvironmentCustomername;} ?></option>
+                                        <option value= "none" >Geen klant koppelen </option>
+                                        <?php foreach($customers as $customer):?>
+                                            <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?></option>
+                                        <?php endforeach;?>
+                                    </optgroup>
+                                </select>
+                            </li>
+
+                            <li>VM URL<br><input type="text" name="vmURL" value="<?php echo $currentEnvironmentVmURL ?>" required oninput="this.className = ''"></li>
+                            <li><input type="text" name="systemID" class="input-text-style" value="<?php echo $currentEnvironmentSystemID ?>" required hidden></li>
+
+                        </ul>
+                    </div>
+
+                </form>
+
+        </div>
+
+        <div class="grid-footer-left"> </div>
+
+        <!-- buttons   -->
+
+        <div class="grid-footer-right">
+            <div class="gebruikeraanmaken-buttons">
+                <a href="omgevingsoverzicht.php" target="_self">
+                    <button class="button-form-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Annuleren</button></a>
+                <button class="button-form-primary" type="submit" id="nextBtn" onclick="nextPrev(1)"> Opslaan </button>
+                <!-- buttons -->
+                <div>
+                </div>
             </div>
-            <div class="user-form form-field-padding form-field-style">
-                VM URL 
-                <br><input type="text" name="vmURL" class="input-text-style" value="<?php echo $currentEnvironmentVmURL ?>" required>
-            </div>
-            <div class="user-form form-field-padding form-field-style">
-                 <!-- de onderstaande onzichtbare button zorgt voor de opvang van het systemID voor de sql query -->
-                <br><input type="text" name="systemID" class="input-text-style" value="<?php echo $currentEnvironmentSystemID ?>" required hidden>
-            </div>
-           
-            
-
-    </div>
-
-    <!-- end form elements -->
-
-    <div class="footer"></div>
-    
-
-    <!-- buttons  -->
-
-    <div class="footer-right">
-        <div class="buttons-form">
-            <a href="omgevingsoverzicht.php" target="_self">
-            <button class="button-form-secondary" type="button">Annuleren</button></a>
-            <button class="button-form-primary" type="submit"> Opslaan </button>
-            <!-- buttons -->
-     
-        </div> 
-    
-    </div>
-        
-    </form>
+</body>
+<script src="omgevingaanmaken.js"></script>
 
 </html>
-
 
