@@ -26,7 +26,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
                 $sql = "INSERT INTO environment(systemName, customerName, vmURL) VALUES (?, ?, ?)";
   
                 $stmt = $dbConn->getConnector()->prepare($sql);
-                $stmt->bind_param('ss', $systemName, $customerName, $vmURL);
+                $stmt->bind_param('sss', $systemName, $customerName, $vmURL);
                 $stmt->execute();
             }
             else {
