@@ -93,8 +93,8 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
         // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
         $userCustomerDao = new UserCustomerDaoMysql();
 
-        //clear all userCustomers
-        $userCustomerDao->clearUserCustomer($_POST['username']);
+//        //clear all userCustomers
+//        $userCustomerDao->clearUserCustomer($_POST['username']);
 
         foreach ($_POST['customers'] as $customerName) {
             $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
