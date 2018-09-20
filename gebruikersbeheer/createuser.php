@@ -92,6 +92,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         //clear all userCustomers
         $userCustomerDao->clearUserCustomer($_POST['username']);
 
+        //koppelfunctie oproepen
         foreach ($_POST['customers'] as $customerName) {
             $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
         }
