@@ -208,7 +208,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 
     <div class="content">
 
-        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>">
+        <form method="post" enctype="multipart/form-data" action="edituser.php?username=<?php echo $userName ?>" id="hoofdFormulier">
 
             <div class="password-form form-field-padding form-field-style">
 
@@ -254,7 +254,6 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                 </select>
             </div>
 
-        
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
@@ -267,12 +266,22 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                         <?php endforeach; ?>
                     </optgroup>
                 </select>
+                
+                <input type="submit" name="submit" value="Get selected values" />
+                    
+                <?php
+                if(isset($_POST['submit'])) {
+                    // iets in deze if-statement...
+                    $voegKlantToe = $_POST['submit'];
+                } ?>
+               
+                
                 <div class="insert-usercustomer">
-                    <a id="insert-button" type="button" onclick="addField();" href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $customer["customerName"]; ?>">
+                    <a id="insert-button" type="button" href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $voegKlantToe; ?>">
                         <img src="../res/add.svg" style="background-color: blue;">
                     </a>
                 </div>
-                
+       
                  <br>
                 
                 <div class="role-form form-field-padding form-field-style">
