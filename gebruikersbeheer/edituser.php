@@ -3,15 +3,15 @@
 include ("../header/header.php");
 
 // Check of user is ingelogged en anders terug naar de login pagina
-include_once("../autorisatie/UserIsLoggedin.php");
-include("../autorisatie/HashPassword.php");
+include_once ("../autorisatie/UserIsLoggedin.php");
+include ("../autorisatie/HashPassword.php");
 
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
 
 // Check of de admin is ingelogged....
 $adminLoggedin = "";
-if (!$userLoggedin->isAdmin()) {
+if( ! $userLoggedin->isAdmin() ) {
     $adminLoggedin = "style='display: none;'";
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
@@ -92,65 +92,42 @@ if (! isset($_GET["username"])) {
                 // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
                 $userDao = new UserDaoMysql();
                 $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+                
+                // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+                $userCustomerDao = new UserCustomerDaoMysql();
+
+            // Clear all userCustomers om met schone lei te beginnen
+            $userCustomerDao->clearUserCustomer($userName);
+        
+            // Voer de nieuw geselecteerde customers in in de koppeltabel
+            foreach ($_POST['customers'] as $customerName) {
+                $userCustomerDao-> insertUserCustomer($userName, $customerName);
+            }
+                
                 header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
             }
                 
         } else {
-            $checkHoofdletter = TRUE;
-        }
-
-        // Controleren op cijfers
-        if (!preg_match('([0-9])', $_POST['password'])) {
-            echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
-            $checkGetal = FALSE;
-        } else {
-            $checkGetal = TRUE;
-        }
-
-        // Controleren of wachtwoorden gelijk zijn
-        if ($_POST['password'] != $_POST['password2']) {
-            echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-            $checkGelijk = FALSE;
-        } else {
-            $checkGelijk = TRUE;
-        }
-
-        if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE) {
-
-            //Hash het opgegeven password
-            $hash = new HashPassword();
-            $hash_password = $hash->hashPwd($_POST['password']);
-
+            
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao2 = new UserDaoMysql();
             $passwordleeg = "0000";
             $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             
-             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-        $userCustomerDao = new UserCustomerDaoMysql();
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
 
-        // Clear all userCustomers om met schone lei te beginnen
-        $userCustomerDao->clearUserCustomer($userName);
+            // Clear all userCustomers om met schone lei te beginnen
+            $userCustomerDao->clearUserCustomer($userName);
         
-        // Voer de nieuw geselecteerde customers in in de koppeltabel
-        foreach ($_POST['customers'] as $customerName) {
-            $userCustomerDao-> insertUserCustomer($userName, $customerName);
-        }
-
-//        var_dump($_POST['customers']);
-//        die;
+            // Voer de nieuw geselecteerde customers in in de koppeltabel
+            foreach ($_POST['customers'] as $customerName) {
+                $userCustomerDao-> insertUserCustomer($userName, $customerName);
+            }
 
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
-
-    } else {
-
-        // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-        $userDao2 = new UserDaoMysql();
-        $passwordleeg = "0000";
-        $userDao2->updateUser($userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
-
-        header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+              
     }
 
 ?>
@@ -160,8 +137,7 @@ if (! isset($_GET["username"])) {
 <html lang="en" dir="ltr">
 
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
 
@@ -170,6 +146,7 @@ if (! isset($_GET["username"])) {
 </head>
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
+    
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
@@ -187,8 +164,7 @@ if (! isset($_GET["username"])) {
             <div class="password-form form-field-padding form-field-style">
 
                 <div class="password-form-initial">
-                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span
-                                class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
+                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
                     <br><input type="password" name="password" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
                 </div>
                 <div class="password-form-confirm">
@@ -199,20 +175,17 @@ if (! isset($_GET["username"])) {
             <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style"
-                               value="<?php echo $currentUserFirstname ?>" required>
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?php echo $currentUserFirstname ?>" required>
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style"
-                               value="<?php echo $currentUserLastname ?>" required>
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style"  value="<?php echo $currentUserLastname ?>" required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email" class="input-text-style" value="<?php echo $currentUserEmail ?>"
-                           required><br>
+                <br><input type="email" name="email" class="input-text-style" value="<?php echo $currentUserEmail ?>" required><br>
             </div>
 
             <div class="role-form form-field-padding form-field-style">
@@ -220,8 +193,8 @@ if (! isset($_GET["username"])) {
                 <br>
                 <select name="role" required>
                     <optgroup label="Kies een rol">
-                        <option value="user" <?php if ($currentUserRole == "user") echo "selected" ?>>gebruiker</option>
-                        <option value="admin" <?php if ($currentUserRole == "admin") echo "selected" ?>>admin</option>
+                    <option value="user" <?php if($currentUserRole=="user") echo "selected" ?>>gebruiker</option>
+                    <option value="admin" <?php if($currentUserRole=="admin") echo "selected" ?>>admin</option>
                     </optgroup>
                 </select>
             </div>
@@ -245,7 +218,7 @@ if (! isset($_GET["username"])) {
 
     <div class="footer"></div>
 
-            <!-- buttons  -->
+    <!-- buttons  -->
 
     <div class="footer-right">
         <div class="buttons-form">
