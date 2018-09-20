@@ -11,6 +11,7 @@
 
 #headerbody{
     border-bottom: 1px solid var(--myBit-text);
+    background-color: white;
 }
 
 #compleet{

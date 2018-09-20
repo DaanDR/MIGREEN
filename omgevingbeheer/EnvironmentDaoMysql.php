@@ -22,7 +22,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
         try {
             $dbConn = new mysqlConnector();
             
-            if($customerName !== null){
+            if($customerName !== "null"){
                 $sql = "INSERT INTO environment(systemName, customerName, vmURL) VALUES (?, ?, ?)";
   
                 $stmt = $dbConn->getConnector()->prepare($sql);
