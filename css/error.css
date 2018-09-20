@@ -6,13 +6,15 @@
     height: 100%;
     position: absolute;
     top: 0px;
+    left: 0px;
     z-index: 3;
 }
 .error-message-container
 {
     position: absolute;
     width: 100%;
-    top: -20px;
+    top: -100px;
+    left: 0px;
     padding-top: 30%;
     z-index: 5;
 }

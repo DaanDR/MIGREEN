@@ -1,7 +1,10 @@
 <?php
+ob_start();
+
 include('../header/header.php');
 include('../autorisatie/UserDaoMysql.php');
 include_once ("../error/ErrorMessage.php");
+include_once ("../config/configure.php");
 
 // Instantiate Error class
 $errMessage = new ErrorMessage();
@@ -77,7 +80,7 @@ if( ! $userLoggedin->isAdmin() )
                             <i class="editbutton"><img src='../res/edit.svg'><img
                                         src='../res/edit-hover.svg'></i></a>
                         <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $username; ?>">
-                            <i class="deletebutton" onclick="return confirmDelete('<?php echo $username ?>');"><img src='../res/delete.svg'><img
+                            <i class="deletebutton"><img src='../res/delete.svg'><img
                                         src='../res/delete-hover.svg'></i></a>
 
                     </td>
@@ -105,7 +108,7 @@ if (! isset($_GET["action"])) {
         case "Home":
             break;
         case "edit":
-            header("Location: edituser.php?username=" . $userName);
+            header("Location: http://" . APP_PATH . "gebruikersbeheer/edituser.php?username=" . $userName);
             break;
         case "delete":
             delete($userName, $userDao);
@@ -113,22 +116,35 @@ if (! isset($_GET["action"])) {
     }
     
       
-    function delete($name, $dao) {
-        if ($_SESSION['username'] == $name) {
-            echo "Je kunt niet jezelf verwijderen dummy!";
-        } else {
-            $succes = $dao->deactivateUser($name);
-            header("Location: overzicht.php");
-            if (!$succes) {
-                echo "Gebruiker kon niet worden verwijderd.";
+    function delete($name, $dao) 
+    {
+        // Instantiate Error class en set de Error message
+        $errMessage = new ErrorMessage();
+        if ($_SESSION['username'] == $name) 
+        {
+            echo $errMessage->createErrorMessage( "Je kunt niet jezelf verwijderen dummy!" );
+        } 
+        else
+        {
+            $strUrl = 'http://' . APP_PATH . 'gebruikersbeheer/overzicht.php?action=delete&userName=' . $name . '&dodelete=1';
+            $strUrlCancel = 'http://' . APP_PATH . 'gebruikersbeheer/overzicht.php';
+            echo $errMessage->createErrorMessageConfirmButton('<h2>Delete user</h2>Weet je zeker dat je ' . $name  . ' wilt verwijderen?', $strUrl, $strUrlCancel, 'buttOkDelete');
+            
+            if(isset($_GET['dodelete']))
+            {
+                $succes = $dao->deactivateUser($name);
+                header("Location: http://" . APP_PATH . "gebruikersbeheer/overzicht.php?username=");
+                if (!$succes) 
+                {
+                    echo "Gebruiker kon niet worden verwijderd.";
+                }
             }
         }
-     
-
 }
 
 
 ?>
+<script src="../js/confirmdelete.js"></script>
 <script src="../js/error.js"></script>
 </body>
 </html>
