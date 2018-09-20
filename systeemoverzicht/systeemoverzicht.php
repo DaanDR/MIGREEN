@@ -141,13 +141,13 @@
   position: absolute;
   width: 100%;
   top: -20px;
-  padding-top: 30%;
+  padding-top: 15%;
   z-index: 5;
 }
 
 .info-background {
   background: #000;
-  opacity: 0.7;
+  opacity: 0.5;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -173,13 +173,13 @@
   font-size: 300%;
 }
 
-/* .system-image {
+.system-image {
   width: 20%;
   margin-left: 40%;
   top: 0px;
   z-index: 6;
   border-radius: 5px;
-} */
+}
 
 	</style>
 
@@ -190,10 +190,10 @@
 	<!-- Save for Web Slices (Untitled-1) -->
   <div class="hidden" onclick="showPopup()">
     <div class="info-container">
-      <div class="info-message">
-        <p>Test</p>
-        <img src="../res/systeem2.png" alt="">
-      </div>
+      <!-- <div class="info-message"> -->
+        <!-- <p>Test</p> -->
+        <img class="system-image" src="../res/systeem2.jpg" alt="">
+      <!-- </div> -->
 
       </div>
 <div class="info-background">
