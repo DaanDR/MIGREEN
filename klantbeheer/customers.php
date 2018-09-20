@@ -53,27 +53,19 @@ if (! $userLoggedin->isAdmin()) {
 					</tr>
 				</thead>
 				<tbody>
-
-
-					<!--                Dit is de foreach van de oude styling, daarom zien de buttons er niet goed uit.(MAAR WERKT) -->
-
+				<!-- For each loop om alle klanten uit de geladen array in een losse rij af te drukken -->
     <?php foreach($customers as $client):?>
     <tr>
 						<td class="klantnaam"><?=$client["customerName"]?></td>
-                        <div class="icon-cell">
-						<td class='editbutton'><a
-							href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
-								src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></td>
-						<td class='deletebutton'><a
-							onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');"
-							href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>"><img
-								src='../res/delete.svg'><img src='../res/delete-hover.svg'></a></td></div>
-					</tr>
+						<td class="icon-cell"><i class='editbutton'><a
+								href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
+									src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></i>
+							<i class='deletebutton'><a
+								onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');"
+								href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>"><img
+									src='../res/delete.svg'><img src='../res/delete-hover.svg'></a></i></td>
 					</tr>
     <?php endforeach;?>
-
-
-
 			</tbody>
 			</table>
 		</div>
