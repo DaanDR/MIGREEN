@@ -119,6 +119,8 @@ tr:hover {
 
 .content {
   grid-area: main;
+  padding-left: 0px;
+
 }
 
 .header-mid {
@@ -128,6 +130,8 @@ tr:hover {
 .header-left {
   grid-area: left;
   margin: 10px;
+  padding-left: 0px;
+
 }
 
 .header-right {
