@@ -44,86 +44,75 @@ $customers = $customerdao->selectAllCustomers();
 include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 include("../autorisatie/HashPassword.php"); // Hash PWD
 
-//    // Title van de pagina...
-//    if(!isset($_SESSION))
-//    {
-//        $_SESSION["title"] = "Log hier in";
-//    }
+
 
 // Kijk eerst of alle velden zijn ingevoerd met isset()
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])) {
 
-    // Controleren of de user al bestaat
-    $newUserName = $_POST['username'];
-    $oldUserName = null;
-    // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-    $userDao = new UserDaoMysql();
-    $oldUser = $userDao->selectUser($_POST['username']);
-    $oldUserName = $oldUser->getUsername();
-
-    //Geef melding als de user al bestaat
-    if ($oldUserName !== null && $newUserName == $oldUserName) {
-        // echo "<br> <h2>Deze username bestaat al in de database.</h2>";
-// echo '<script type="text/javascript">','formErrorUsername();','</script>';
-        // Session leeg maken!!!!
-        // $_SESSION = array();
-        $errorusernamemessage = "Kies een andere username";
-        $errorinputdusername="username-error";
-    }
-
-    // Wachtwoord checks
-    // Controleren op hoofdletters
-    if (!preg_match('/[A-Z]/', $_POST['password'])) {
-        echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
-    }
-
-    // Controleren op cijfers
-    if (!preg_match('([0-9])', $_POST['password'])) {
-        echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
-    }
-
-
-    // Controleren of wachtwoorden gelijk zijn
-    if ($_POST['password'] != $_POST['password2']) {
-        // Session leeg maken!!!!
-        $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
-        $errorinputid="username-error";
-        // echo "<br> <h2>Woops! uw wachtwoord is niet gelijk....</h2>";
-        // echo '<script type="text/javascript"> formErrorPassword(); </script>';
-
-    } else {
-
-        //Hash het opgegeven password
-        $hash = new HashPassword();
-        $hash_password = $hash->hashPwd($_POST['password']);
-
-        // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+        // Controleren of de user al bestaat
+        $newUserName = $_POST['username'];
+        $oldUserName = null;
+        // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $userDao = new UserDaoMysql();
-        $userDao->insertUser($_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+        $oldUser = $userDao->selectUser($_POST['username']);
+        $oldUserName = $oldUser->getUsername();
 
-        // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
-        $customerdao = new CustomerDaoMysql();
-        $customers = $customerdao->selectAllCustomers();
-
-        // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-        $userCustomerDao = new UserCustomerDaoMysql();
-
-//        //clear all userCustomers
-//        $userCustomerDao->clearUserCustomer($_POST['username']);
-
-        foreach ($_POST['customers'] as $customerName) {
-            $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
+        //Geef melding als de user al bestaat
+        if ($oldUserName !== null && $newUserName == $oldUserName) {
+            $checkNewUserUnique = FALSE;
+            $errorusernamemessage = "Kies een andere gebruikersnaam";
+            $errorinputdusername="username-error";
         }
 
-       // var_dump($_POST['customers']);
-       // die;
+        // Controleren op hoofdletters
+        if( !preg_match('/[A-Z]/', $_POST['password']) ){
+            echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
+             $checkHoofdletter = FALSE;
+        } else {
+             $checkHoofdletter = TRUE;
+        }
 
-        // echo '<br><br><br><br><i class="succes-message">Gebruiker aanmaken is gelukt!</i>';
-        // echo "<br><br><br><p>test</p>";
-        // sleep(3);
-        // echo '<br><br><br><br><i class="succes-message">Gebruiker aanmaken is gelukt!</i>';
-        // echo "<br><br><br><br><p>test</p>";
-        header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+        // Controleren op cijfers
+        if ( !preg_match('([0-9])', $_POST['password']) ){
+            echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
+            $checkGetal = FALSE;
+        } else {
+            $checkGetal = TRUE;
+        }
+
+        // Controleren of wachtwoorden gelijk zijn
+        if( $_POST['password'] != $_POST['password2'] ){
+            $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
+            $errorinputid="username-error";
+            $checkGelijk = FALSE;
+        } else {
+            $checkGelijk = TRUE;
+        }
+        
+        
+        if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE && $checkNewUserUnique == TRUE){
+            
+            //Hash het opgegeven password
+            $hash = new HashPassword();
+            $hash_password = $hash->hashPwd($_POST['password']);                
+
+            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+            $userDao = new UserDaoMysql();
+            $userDao->insertUser($_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+
+            // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
+            $customerdao = new CustomerDaoMysql();
+            $customers = $customerdao->selectAllCustomers();
+
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
+            
+            foreach ($_POST['customers'] as $customerName) {
+            $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
+                
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');   
+            }       
+        
     }
 
 } else {
