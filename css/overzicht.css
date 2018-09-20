@@ -166,19 +166,20 @@ td.deletebutton{
   font-size: 15px;
 }
 
+
 .new-user-button {
-  background-color: #98AEC5;
+  background-color: #99AFC6;
   color: white;
-  /* font-weight: bolder; */
   margin-top: 10%;
   margin-left: 25%;
   border-radius: 2px;
   padding: 10px;
+
 }
 
 .new-user-button:hover {
   border-color: #98AEC5;
-  background-color: white;
-  color: #98AEC5;
+  background-color: #638CB5;
+  color: white;
   cursor: pointer;
 }
