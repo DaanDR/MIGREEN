@@ -1,4 +1,4 @@
- <?php
+<?php
  session_start();
  // ini_set('display_errors', 1);
 
@@ -42,7 +42,7 @@
         {
             // Instantiate Error class
             $errMessage = new ErrorMessage();
-            $strUrl = 'http://' . APP_PATH . 'autorisatie/login.php';
+            $strUrl = 'http://' . APP_PATH . 'autorisatie/logout.php'; // 'autorisatie/login.php';
             echo $errMessage->createErrorMessageButton('<h2>Uitloggen</h2>Weet je zeker dat je wilt uitloggen?', $strUrl, 'buttOkLogOut');
 
             if ( isset($_GET["logoutinfo"]) )
@@ -51,11 +51,6 @@
                 {
                     // Session Leeg....
                     $_SESSION = array();
-                    echo '
-                    <script type="text/javascript">
-                        parent.window.location.href = "http://' . APP_PATH . 'autorisatie/login.php";
-                    </script>
-                    ';
                 }
             }
         }
