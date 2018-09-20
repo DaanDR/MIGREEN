@@ -28,6 +28,10 @@ if (!isset($_GET["username"])) {
     $userName = $_GET["username"];
 }
 
+
+
+
+
 // Haal de user uit de database met de opgegeven username
 $userDao = new UserDaoMysql();
 $currentUser = $userDao->selectUser($userName);
@@ -50,7 +54,49 @@ $customerdao = new CustomerDaoMysql();
 $customers = $customerdao->selectAllCustomers();
 
 
-// Eerste formulier voor edit user
+
+// Functionaliteit voor add/delete gekoppelde klant
+
+if (! isset($_GET["action"])) {
+        $action = "Home";
+    } else {
+        $action = $_GET["action"];
+    }
+    
+if (! isset($_GET["customerName"])) {
+     $customerName = null;
+} else {
+     $customerName = $_GET["customerName"];
+}
+
+switch ($action) {
+    case "Home":
+        break;
+    case "delete":
+        delete($userName, $customerName, $userCustomerDao);
+        break;
+    case "add":
+        add($userName, $customerName, $userCustomerDao);
+        break;
+}
+
+function delete($userName, $customerName, $userCustomerDao) {
+    $userCustomerDao->clearUserCustomerLink($userName, $customerName);
+    header("Location: edituser.php?username=" . $userName);
+}
+
+function add($userName, $customerName, $userCustomerDao) {
+    if ( !$userCustomerDao->linkExists($userName, $customerName) ) {
+        $userCustomerDao->insertUserCustomer($userName, $customerName);
+    }
+    header("Location: edituser.php?username=" . $userName);
+}
+
+    
+// -- Einde functionaliteit voor add/delete gekoppelde klant
+
+
+
 
 // Kijk eerst of alle velden zijn ingevoerd met isset()
 if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])) {
@@ -93,16 +139,16 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             $userDao = new UserDaoMysql();
             $userDao->updateUser($userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
 
-            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-            $userCustomerDao = new UserCustomerDaoMysql();
-
-            // Clear all userCustomers om met schone lei te beginnen
-            $userCustomerDao->clearUserCustomer($userName);
-
-            // Voer de nieuw geselecteerde customers in in de koppeltabel
-            foreach ($_POST['customers'] as $customerName) {
-                $userCustomerDao->insertUserCustomer($userName, $customerName);
-            }
+//            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+//            $userCustomerDao = new UserCustomerDaoMysql();
+//
+//            // Clear all userCustomers om met schone lei te beginnen
+//            $userCustomerDao->clearUserCustomer($userName);
+//
+//            // Voer de nieuw geselecteerde customers in in de koppeltabel
+//            foreach ($_POST['customers'] as $customerName) {
+//                $userCustomerDao->insertUserCustomer($userName, $customerName);
+//            }
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
 
@@ -113,17 +159,17 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
         $passwordleeg = "0000";
         $userDao2->updateUser($userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
 
-        // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-        $userCustomerDao = new UserCustomerDaoMysql();
-
-        // Clear all userCustomers om met schone lei te beginnen
-        $userCustomerDao->clearUserCustomer($userName);
-
-        // Voer de nieuw geselecteerde customers in in de koppeltabel
-        foreach ($_POST['customers'] as $customerName) {
-            $userCustomerDao->insertUserCustomer($userName, $customerName);
-        }
-
+//        // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+//        $userCustomerDao = new UserCustomerDaoMysql();
+//
+//        // Clear all userCustomers om met schone lei te beginnen
+//        $userCustomerDao->clearUserCustomer($userName);
+//
+//        // Voer de nieuw geselecteerde customers in in de koppeltabel
+//        foreach ($_POST['customers'] as $customerName) {
+//            $userCustomerDao->insertUserCustomer($userName, $customerName);
+//        }
+//
 //        var_dump($_POST['customers']);
 //        die;
 
@@ -225,25 +271,14 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 <!--                            </select>-->
 <!--                        </div>-->
 
-            <table id="table-current-usercustomers">
-                <?php foreach ($customers as $customer): ?>
-                    <tr>
-                        <td><?=$customer["customerName"] ?></td>
-                        <td class="icon-cell">
-                            <a href="../gebruikersbeheer/overzicht.php?action=delete&userName=<?php echo $customerName; ?>">
-                                <i class="deletebutton" onclick="return confirmDelete('<?php echo $customerName ?>');">
-                                    <img src='../res/delete.svg'>
-                                    <img src='../res/delete-hover.svg'>
-                                </i>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            
 
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
+               
+                
                 <br>
+                
                 <select name="customers[]" required>
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
@@ -253,9 +288,32 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                     </optgroup>
                 </select>
                 <div class="insert-usercustomer">
-                    <a id="insert-button" type="button" onclick="addField();"><img src="../res/add.svg"
-                                                                                   style="background-color: blue;"></a>
+                    <a id="insert-button" type="button" onclick="addField();" href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $customer["customerName"]; ?>">
+                        <img src="../res/add.svg" style="background-color: blue;">
+                    </a>
                 </div>
+                
+                 <br>
+                
+                <div class="role-form form-field-padding form-field-style">
+            <table id="table-current-usercustomers">
+                <?php foreach ($customersByUser as $customer): ?>
+                <tr>
+                    <td><?php echo $customer; ?></td>
+                    <td class="icon-cell">
+                        <a href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=delete&customerName=<?php echo $customer; ?>">
+                            <i class="deletebutton" onclick="return confirmDelete('<?php echo $customer ?>');">
+                            <img src='../res/delete.svg'>
+                            <img src='../res/delete-hover.svg'>
+                            </i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+            </div>
+                
+                
             </div>
 
 

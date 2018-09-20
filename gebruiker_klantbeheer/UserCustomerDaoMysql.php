@@ -17,6 +17,10 @@ class UserCustomerDaoMysql implements UserCustomerDao
 
     }
 
+    
+    
+    
+    
     public function insertUserCustomer($username, $customername)
     {
         $dbConn = new mysqlConnector();
@@ -30,6 +34,20 @@ class UserCustomerDaoMysql implements UserCustomerDao
         $dbConn->getConnector()->close();
     }
 
+    public function clearUserCustomerLink($username, $customername)
+    {
+        $dbConn = new mysqlConnector();
+
+        $sql = "DELETE FROM user_customer WHERE userName = ? && customerName = ?";
+
+        $stmt = $dbConn->getConnector()->prepare($sql);
+        $stmt->bind_param('ss', $username, $customername);
+        $stmt->execute();
+
+        $dbConn->getConnector()->close();
+    }
+    
+    
     public function clearUserCustomer($username)
     {
         $dbConn = new mysqlConnector();
@@ -41,6 +59,29 @@ class UserCustomerDaoMysql implements UserCustomerDao
         $stmt->execute();
 
         $dbConn->getConnector()->close();
+    }
+    
+    
+    public function linkExists($username, $customername)
+    {
+            $dbConn = new mysqlConnector();
+
+            $userName;
+            $customerName;
+        
+            $sql = "SELECT userName, customerName FROM user_customer WHERE userName = ? && customerName = ?"; 
+            $conn = $dbConn->getConnector();
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ss', $username, $customername);
+            $stmt->execute();
+            $stmt->store_result();    
+                
+        //checken of de sql statement een resultset teruggeeft (hij is leeg als de link niet bestaat)
+        if ($stmt->num_rows > 0) {    
+            return true;
+		} else {
+            return false;  
+        }
     }
 
     public function getCustomersByUsername($username)
