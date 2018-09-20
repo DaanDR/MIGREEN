@@ -1,7 +1,6 @@
 <?php
-
-// Header in de bovenkant + session_start()
-include('../header/header.php');
+// Header in de bovenkant
+include ("../header/header.php");
 
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once("../autorisatie/UserIsLoggedin.php");
@@ -17,41 +16,85 @@ if (!$userLoggedin->isAdmin()) {
     echo "<br><br><br><br><h1>Geen gerbuikersrecht als admin.....</h1>";
 }
 
-    
-    // Header in de bovenkant
-    include ("../header/header.php");
-    
-    // Is logged in class
-    include_once ("../autorisatie/UserDaoMysql.php");
+// Is logged in class
+include_once ("../autorisatie/UserDaoMysql.php");
+include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+include_once ("../klantbeheer/CustomerDaoMysql.php");
 
 // Vang de meegegeven username op
-if (!isset($_GET["username"])) {
+if (! isset($_GET["username"])) {
     $userName = null;
 } else {
     $userName = $_GET["username"];
 }
 
-// Haal de user uit de database met de opgegeven username
-$userDao = new UserDaoMysql();
-$currentUser = $userDao->selectUser($userName);
+    // Haal de user uit de database met de opgegeven username
+    $userDao = new UserDaoMysql();
+    $currentUser = $userDao->selectUser($userName);
 
-// Sla de relevante gegevens op in eigen variabelen
-$currentUserFirstname = $currentUser->getFirstname();
-$currentUserLastname = $currentUser->getLastname();
-$currentUserEmail = $currentUser->getEmail();
-$currentUserRole = $currentUser->getRole();
+    // Sla de relevante gegevens op in eigen variabelen
+    $currentUserFirstname = $currentUser->getFirstname();
+    $currentUserLastname = $currentUser->getLastname();
+    $currentUserEmail = $currentUser->getEmail();
+    $currentUserRole = $currentUser->getRole();
 
-// Kijk eerst of alle velden zijn ingevoerd met isset()
-if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])) {
+    // Haal de gekoppelde klanten uit de koppeltabel in de database
+    $userCustomerDao = new userCustomerDaoMysql();
+    $customersByUser = $userCustomerDao->getCustomersByUsername($userName);
 
-    if (!empty($_POST['password'])) {
+//    var_dump($customers);
+//    die;
 
-        // Password Checks
+    // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
+    $customerdao = new CustomerDaoMysql();
+    $customers = $customerdao->selectAllCustomers();
 
-        // Controleren op hoofdletters
-        if (!preg_match('/[A-Z]/', $_POST['password'])) {
-            echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
-            $checkHoofdletter = FALSE;
+
+    // Eerste formulier voor edit user
+
+    // Kijk eerst of alle velden zijn ingevoerd met isset()
+    if( isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role']) ) {
+        
+        if ( !empty($_POST['password']) ){
+            
+            // Password Checks
+            
+            // Controleren op hoofdletters
+            if( !preg_match('/[A-Z]/', $_POST['password']) ){
+                echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
+                $checkHoofdletter = FALSE;
+            } else {
+                $checkHoofdletter = TRUE;
+            }
+
+            // Controleren op cijfers
+            if ( !preg_match('([0-9])', $_POST['password']) ){
+                echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
+                $checkGetal = FALSE;
+            } else {
+                $checkGetal = TRUE;
+            }
+
+            // Controleren of wachtwoorden gelijk zijn
+            if( $_POST['password'] != $_POST['password2'] ){
+                echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+                $checkGelijk = FALSE;
+            } else {
+                $checkGelijk = TRUE;
+            }
+            
+            if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE){
+            
+                //Hash het opgegeven password
+                $hash = new HashPassword();
+                $hash_password = $hash->hashPwd($_POST['password']);
+                
+                // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+                $userDao = new UserDaoMysql();
+                $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+                header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            }
+                
         } else {
             $checkHoofdletter = TRUE;
         }
@@ -79,8 +122,24 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $userDao = new UserDaoMysql();
-            $userDao->updateUser($userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+            $userDao2 = new UserDaoMysql();
+            $passwordleeg = "0000";
+            $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            
+             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+        $userCustomerDao = new UserCustomerDaoMysql();
+
+        // Clear all userCustomers om met schone lei te beginnen
+        $userCustomerDao->clearUserCustomer($userName);
+        
+        // Voer de nieuw geselecteerde customers in in de koppeltabel
+        foreach ($_POST['customers'] as $customerName) {
+            $userCustomerDao-> insertUserCustomer($userName, $customerName);
+        }
+
+//        var_dump($_POST['customers']);
+//        die;
+
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
 
@@ -93,8 +152,6 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 
         header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
     }
-
-}
 
 ?>
 
@@ -168,36 +225,40 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                     </optgroup>
                 </select>
             </div>
-
+            
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
                 <select id="user-customer" name="customers[]" required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
+                        <option value= "none" >Geen klant koppelen </option>
                         <?php foreach ($customers as $customer): ?>
-                            <option value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
+                            <option <?php if(in_array($customer["customerName"], $customersByUser)) { echo "selected";}?> value="<?= $customer["customerName"] ?>"><?= $customer["customerName"] ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 </select>
             </div>
+            
+             
+    <!-- end form elements>-->
 
-            <!-- end form elements -->
-
-            <div class="footer"></div>
+    <div class="footer"></div>
 
             <!-- buttons  -->
 
-            <div class="footer-right">
-                <div class="buttons-form">
-                    <a href="overzicht.php" target="_self">
-                        <button class="button-form-secondary" type="button">Annuleren</button>
-                    </a>
-                    <button class="button-form-primary" type="submit"> Opslaan</button>
-                    <!-- buttons -->
-                </div>
-            </div>
-        </form>
+    <div class="footer-right">
+        <div class="buttons-form">
+            <a href="overzicht.php" target="_self">
+            <button class="button-form-secondary" type="button">Annuleren</button></a>
+            <button class="button-form-primary" type="submit"> Opslaan </button>
+            <!-- buttons -->
+        </div> 
     </div>
-</div>
+    </form>
+        
+        
+    </div>
+    </div>
+    
 </html>

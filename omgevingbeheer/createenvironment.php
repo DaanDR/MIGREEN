@@ -71,7 +71,7 @@ include ("../header/header.php");
         if($checkSystemNameIsNew == TRUE && $checkNumberOfCharsOK == TRUE){
             // Roep de class EnvironmentDaoMysql aan voor sql functionaliteit om omgeving in te voeren in database
             $createEnvironment = new EnvironmentDaoMysql();
-            $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST['customerName'], $_POST['vmURL'] );
+            $createEnvironment = $createEnvironment->insertEnvironment( $_POST['systemName'], $_POST["customerName"], $_POST['vmURL'] );
             echo "<p>Aanmaken nieuwe Omgeving gelukt</p>";
             header('Location: http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php');
         }
@@ -154,11 +154,28 @@ include ("../header/header.php");
 
             </ul>
             
+            <div class="customer-form form-field-padding form-field-style">
+                        Beschikbare klanten
+                        <br>
+                        <select name="customerName">
+                            <optgroup label="Kies een klant">
+                                <option selected hidden>Kies een klant (optioneel)</option>
+                                <?php foreach($customers as $customer):?>
+                                    <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?> </option>
+                                <?php endforeach;?>
+                            </optgroup>
+                        </select>
             </div>
         </form>
 
         </div>
 
+            <div class="user-form form-field-padding form-field-style">
+                VM URL 
+                <br><input type="text" name="vmURL" class="input-text-style" required>
+            </div>
+            
+         
     </div>
     <div class="grid-footer-left"> </div>
 
