@@ -103,11 +103,13 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         header('Location: ../gebruikersbeheer/overzicht.php');
     }
 
-} else {
-    // foutmeldingen als niet alles is ingevuld
-
-}
-
+            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+            $createUser = new UserDaoMysql();
+            $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
+            echo "<p>Aanmaken gebruiker gelukt</p>";
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+        }
+    }
 ?>
 
 <!DOCTYPE html>
