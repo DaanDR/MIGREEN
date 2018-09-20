@@ -1,7 +1,8 @@
-function formError() {
+function formErrorPassword() {
   document.getElementById("password-errormessage").innerHTML = De wachtwoorden komen niet overeen, stupid!;
+
 }
 
-function formError2() {
+function formErrorUsername() {
   document.getElementById("username-errormessage").innerHTML = Deze gebruiker bestaat al!;
 }

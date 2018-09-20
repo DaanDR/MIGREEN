@@ -51,7 +51,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
     //Geef melding als de user al bestaat
     if ($oldUserName !== null && $newUserName == $oldUserName) {
         // echo "<br> <h2>Deze username bestaat al in de database.</h2>";
-echo '<script type="text/javascript">','formError2();','</script>';
+echo '<script type="text/javascript">','formErrorUsername();','</script>';
 
         // Session leeg maken!!!!
         $_SESSION = array();
@@ -75,7 +75,7 @@ echo '<script type="text/javascript">','formError2();','</script>';
         // Session leeg maken!!!!
         $_SESSION = array();
         // echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-        echo '<script type="text/javascript">','formError();','</script>';
+        echo '<script type="text/javascript">','formErrorPassword();','</script>';
 
     } else {
         //Hash het opgegeven password
@@ -159,8 +159,8 @@ echo '<script type="text/javascript">','formError2();','</script>';
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input id="" type="text" name="username" minlength=5 class="input-text-style" required>
-                <i class="username-errormessage"></i>
+                <br><input id="username-error" type="text" name="username" minlength=5 class="input-text-style" required>
+                <i class="username-errormessage">Username bestaat al!</i>
             </div>
 
 
