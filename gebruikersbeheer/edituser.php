@@ -50,6 +50,13 @@ $customersByUser = $userCustomerDao->getCustomersByUsername($userName);
 $customerdao = new CustomerDaoMysql();
 $customers = $customerdao->selectAllCustomers();
 
+$customerNames = array();
+foreach($customers as $customer):
+    $customerNames[] = $customer['customerName'];
+endforeach;
+
+$customersNotLinked=array_diff($customerNames,$customersByUser);
+
 
 
 // Functionaliteit voor add/delete gekoppelde klant
@@ -257,12 +264,12 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 
                 <div class="role-form form-field-padding form-field-style">
             <table id="table-current-usercustomers">
-                <?php foreach ($customers as $customer): ?>
+                <?php foreach ($customersNotLinked as $customer): ?>
                 <tr>
-                    <td><?php echo $customer['customerName']; ?></td>
+                    <td><?php echo $customer; ?></td>
                     <td class="icon-cell">
-                        <a href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $customer['customerName']; ?>">
-                            <i class="deletebutton" onclick="return confirmDelete('<?php echo $customer['customerName'] ?>');">
+                        <a href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $customer; ?>">
+                            <i class="deletebutton" onclick="return confirmDelete('<?php echo $customer; ?>');">
                             <img src='../res/delete.svg'>
                             <img src='../res/delete-hover.svg'>
                             </i>
