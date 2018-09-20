@@ -8,6 +8,19 @@ include('../header/header.php');
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once("../autorisatie/UserIsLoggedin.php");
 include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+// include('../js/formError.js');
+
+
+//errormessages & succesmessage
+$errorinputid="";
+$errorinputuser="";
+$errorpasswordmessage = "";
+$errorusernamemessage = "";
+$succesmessage= "";
+
+//end errormessages
+
+
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
 // Check of de admin is ingelogged....
@@ -51,33 +64,35 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
     //Geef melding als de user al bestaat
     if ($oldUserName !== null && $newUserName == $oldUserName) {
         // echo "<br> <h2>Deze username bestaat al in de database.</h2>";
-echo '<script type="text/javascript">','formErrorUsername();','</script>';
-
+// echo '<script type="text/javascript">','formErrorUsername();','</script>';
         // Session leeg maken!!!!
-        $_SESSION = array();
+        // $_SESSION = array();
+        $errorusernamemessage = "Kies een andere username";
+        $errorinputdusername="username-error";
     }
 
     // Wachtwoord checks
     // Controleren op hoofdletters
     if (!preg_match('/[A-Z]/', $_POST['password'])) {
-        $_SESSION = array();
         echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
     }
 
     // Controleren op cijfers
     if (!preg_match('([0-9])', $_POST['password'])) {
-        $_SESSION = array();
         echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
     }
+
 
     // Controleren of wachtwoorden gelijk zijn
     if ($_POST['password'] != $_POST['password2']) {
         // Session leeg maken!!!!
-        $_SESSION = array();
-        // echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-        echo '<script type="text/javascript">','formErrorPassword();','</script>';
+        $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
+        $errorinputid="username-error";
+        // echo "<br> <h2>Woops! uw wachtwoord is niet gelijk....</h2>";
+        // echo '<script type="text/javascript"> formErrorPassword(); </script>';
 
     } else {
+
         //Hash het opgegeven password
         $hash = new HashPassword();
         $hash_password = $hash->hashPwd($_POST['password']);
@@ -100,16 +115,19 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
             $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
         }
 
-//        var_dump($_POST['customers']);
-//        die;
+       // var_dump($_POST['customers']);
+       // die;
 
-        echo "<p>Aanmaken gebruiker gelukt</p>";
-        header('Location: ../gebruikersbeheer/overzicht.php');
+        // echo '<br><br><br><br><i class="succes-message">Gebruiker aanmaken is gelukt!</i>';
+        // echo "<br><br><br><p>test</p>";
+        // sleep(3);
+        // echo '<br><br><br><br><i class="succes-message">Gebruiker aanmaken is gelukt!</i>';
+        // echo "<br><br><br><br><p>test</p>";
+        header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
     }
 
 } else {
     // foutmeldingen als niet alles is ingevuld
-
 }
 
 ?>
@@ -122,13 +140,14 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/content.css">
+    <script type="text/javascript" src="../js/formError.js"></script>
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
 
     <style media="screen">
 
-      .username-errormessage {
+      .errormessage {
         color: #eb1313;
         font-size: 80%;
         position: absolute;
@@ -141,12 +160,19 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
         border-width: 1px;
       }
 
+      .succes-message {
+        font-size: 200%;
+        color: #638CB5;
+      }
+
     </style>
 
 </head>
+
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
+      <i class="succes-message"><?php echo $succesmessage ?></i>
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
         <h2>Nieuwe gebruiker aanmaken</h2>
     </div>
@@ -159,8 +185,8 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input id="username-error" type="text" name="username" minlength=5 class="input-text-style" required>
-                <i class="username-errormessage">Username bestaat al!</i>
+                <br><input id="<?php echo $errorinputuser ?>" type="text" name="username" minlength=5 class="input-text-style" required>
+                <i class="errormessage"> <?php echo $errorusernamemessage ?></i>
             </div>
 
 
@@ -171,13 +197,12 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
                             <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
                             </span>
                         </span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}"
+                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}"
                                title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
-                    <i class="password-errormessage"></i>
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style" required>
-                    <i class="password-errormessage"></i>
+                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" required>
+                  <i class="errormessage"> <?php echo $errorpasswordmessage ?> </i>
                 </div>
             </div>
 
@@ -240,4 +265,7 @@ echo '<script type="text/javascript">','formErrorUsername();','</script>';
         </form>
     </div>
 </div>
+<i><?php echo $succesmessage ?></i>
+<script type="text/javascript" src="../js/formError.js"></script>
+</body>
 </html>
