@@ -104,13 +104,13 @@ include_once ("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
     }
 
     // customerDao voor selecteren van alle klanten
-    include ('../klantbeheer/CustomerDaoMysql.php');
+    include ('../klantbeheer/CustomerDaoMysql.php'); ?>
 
     <meta charset="utf-8">
     <title>Nieuwe gebruiker Aanmaken</title>
 </head>
 <body>
-<div class="grid-container" <?php echo $adminLoggedin ?> >
+<div class="grid-container" <?php echo $adminLoggedin ?>
 
     <div class="header-left">
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>

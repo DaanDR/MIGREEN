@@ -59,14 +59,15 @@ if (! $userLoggedin->isAdmin()) {
 
     <?php foreach($customers as $client):?>
     <tr>
-						<td><?=$client["customerName"]?></td>
+						<td class="klantnaam"><?=$client["customerName"]?></td>
+                        <div class="icon-cell">
 						<td class='editbutton'><a
 							href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
 								src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></td>
 						<td class='deletebutton'><a
 							onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');"
 							href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>"><img
-								src='../res/delete.svg'><img src='../res/delete-hover.svg'></a></td>
+								src='../res/delete.svg'><img src='../res/delete-hover.svg'></a></td></div>
 					</tr>
 					</tr>
     <?php endforeach;?>
