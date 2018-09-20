@@ -95,6 +95,11 @@ if (! isset($_GET["action"])) {
 } else {
     $action = $_GET["action"];
 }
+   if (! isset($_GET["userName"])) {
+         $userName = null;
+     } else {
+         $userName = $_GET["userName"];
+     }
 
     switch ($action) {
         case "Home":
@@ -118,12 +123,13 @@ if (! isset($_GET["action"])) {
                 echo "Gebruiker kon niet worden verwijderd.";
             }
         }
+     
 
 }
 
 
 ?>
-
+<script src="../js/error.js"></script>
 </body>
-
 </html>
+
