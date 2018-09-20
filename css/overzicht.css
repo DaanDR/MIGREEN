@@ -71,6 +71,18 @@ tr:hover {
   margin: 0 auto;
 } */
 
+
+td.editbutton{
+  text-align: right;
+  padding-left: 678px;
+}
+
+td.deletebutton{
+  padding-right: 30px;
+  text-align: left;
+  padding-left: 3px;
+}
+
 .editbutton img:last-child{
   display: none;
 }

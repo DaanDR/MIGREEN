@@ -58,8 +58,8 @@ if (! $userLoggedin->isAdmin()) {
 					<!--                Dit is de foreach van de oude styling, daarom zien de buttons er niet goed uit.(MAAR WERKT) -->
 
     <?php foreach($customers as $client):?>
-    <tr class="withhover">
-						<td class='klantnaam'><?=$client["customerName"]?></td>
+    <tr>
+						<td><?=$client["customerName"]?></td>
 						<td class='editbutton'><a
 							href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
 								src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></td>
@@ -71,22 +71,6 @@ if (! $userLoggedin->isAdmin()) {
 					</tr>
     <?php endforeach;?>
 
-<!--        Onderstaande foreach is correct met styling maar mist de nodige functionaliteit (verwijderen/editen)-->
-
-<?php foreach($customers as $client):?>
-    <tr>
-						<td><?=$client["customerName"] ?></td>
-						<td class="icon-cell" id="klant-icon-cell"><a
-							href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>">
-								<i class="editbutton"><img src='../res/edit.svg'><img
-									src='../res/edit-hover.svg'></i></a></td>
-						<td class='deletebutton'><a
-							onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');"
-							href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>">
-								<i class="deletebutton"><img src='../res/delete.svg'><img
-									src='../res/delete-hover.svg'></i></a></td>
-					</tr>
-<?php endforeach;?>
 
 
 			</tbody>
