@@ -63,7 +63,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             $errorusernamemessage = "Kies een andere gebruikersnaam";
             $errorinputdusername="username-error";
         } else {
-            $checkNewUserUnique = TRUE; 
+            $checkNewUserUnique = TRUE;
         }
 
         // Controleren op hoofdletters
@@ -90,13 +90,13 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         } else {
             $checkGelijk = TRUE;
         }
-        
-        
+
+
         if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE && $checkNewUserUnique == TRUE){
-            
+
             //Hash het opgegeven password
             $hash = new HashPassword();
-            $hash_password = $hash->hashPwd($_POST['password']);                
+            $hash_password = $hash->hashPwd($_POST['password']);
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
             $userDao = new UserDaoMysql();
@@ -108,13 +108,16 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
             $userCustomerDao = new UserCustomerDaoMysql();
-            
+
             foreach ($_POST['customers'] as $customerName) {
             $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
-                
-            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');   
-            }       
-        
+
+            // echo "GEBRUIKERAANMAKEN IS GELUKT";
+            // sleep(2);
+
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            }
+
     }
 
 } else {
