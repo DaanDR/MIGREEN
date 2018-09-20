@@ -29,7 +29,7 @@
   <title>Omgevingsoverzicht</title>
 </head>
 
-<body>
+<body id="overzicht-container">
 <div class="grid-container" <?php echo $adminLoggedin ?> >
     <div class="header-left">
       <h1>Home</h1>
