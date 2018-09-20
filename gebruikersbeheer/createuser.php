@@ -108,7 +108,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
             echo "<p>Aanmaken gebruiker gelukt</p>";
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
-        }
+
     }
 ?>
 
@@ -119,11 +119,13 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="../css/content.css">
+    <!--    <link rel="stylesheet" href="../css/content.css">-->
+    <link rel="stylesheet" href="../css/overzicht.css">
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
 </head>
+<body id="overzicht-container">
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
@@ -213,8 +215,10 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                     <button class="button-form-primary" type="submit"> Opslaan</button>
                     <!-- buttons -->
                 </div>
+
             </div>
         </form>
     </div>
 </div>
+</body>
 </html>

@@ -57,10 +57,13 @@ form input[type=text]{
 
 #cancelButton {
 	width: 100%;
+    margin-right: 30px;
 }
 
 #createButton {
 	 width: 100%;
+    margin-right: 300px;
+
 }
 
 #cancelButton input[type=button]{
@@ -73,8 +76,10 @@ form input[type=text]{
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-    width: 20%;
-    height: 30px;
+    width: 10%;
+    /*height: 50px;*/
+    margin-right: 30px;
+
 }
 
 #createButton input[type=submit]{
@@ -87,8 +92,10 @@ form input[type=text]{
     text-decoration: none;
     display: inline-block;
     margin-left: 2%;
-    width: 20%;
-    height: 30px;
+    width: 10%;
+    /*height: 30px;*/
+    margin-right: 30px;
+
 }
 
 #cancelButton input[type=button]:hover{
@@ -114,7 +121,7 @@ form input[type=text]{
 #createCustomer th {
 	border-bottom: solid #E2E9F0 1px;
 	font-weight: bolder;
-	padding-top: 10x;
+	/*padding-top: 10x;*/
 	padding-bottom: 5px;
 	vertical-align: bottom;
 	border-bottom: solid var(--myBit-background) 1px;
@@ -142,3 +149,8 @@ form input[type=text]{
     text-align: right;
     display: inline;
 }
+
+#formName{
+	width: 10%;
+}
+

@@ -3,14 +3,16 @@
 <head>
 <!-- Meegeven van de juiste css file -->
 <link rel="stylesheet" type="text/css" href="../css/customerforms.css">
+<!--    <link rel="stylesheet" href="../css/form.css">-->
+    <!--    <link rel="stylesheet" href="../css/content.css">-->
+    <link rel="stylesheet" href="../css/overzicht.css">
 </head>
 
 <?php
 include ('../klantbeheer/CustomerDaoMysql.php');
 
 ?>
-<body>
-	<div id="pageheader"><?php
+<?php
 // Header toevoegen aan de pagina
 include ('../header/header.php');
 
@@ -27,29 +29,25 @@ if (! $userLoggedin->isAdmin()) {
 }
 ?>
 </div>
-	<div id="pagestyling" <?php echo $adminLoggedin ?>>
+
+<body id="overzicht-container">
+
+	<div class="grid-container"<?php echo $adminLoggedin ?>>
 		<!-- Div voor het formulier voor aanmaken klant -->
-		<div id="createCustomer">
+
+            <div class="header-left">
+                <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Klantenoverzicht</p>
+                <h2>Nieuwe klant aanmaken</h2>
+            </div>
 			<table>
-				<thead>
-					<tr class="nohover">
-						<th id="tabletitle">Home <img src='../res/kruimelpad-arrow.svg'>
-							Klantenoverzicht
-							<p>Klant</p>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="nohover">
+
+					<div class="content">
 										<form method="post" action="../klantbeheer/createcustomer.php">
-								<td>
 								<div id="formName">
-									Klantnaam<br> <br> <input type="text" name="customerName"
+									Klantnaam <input type="text" name="customerName"
 										id="customerName" value="">
 								</div>
-								</td>
-								
-								<td>
+
 								<div class="footer-right">
 									<div id="crudbuttons">
 										<div id="cancelButton">
@@ -61,13 +59,12 @@ if (! $userLoggedin->isAdmin()) {
 										</div>
 									</div>
 								</div>
-								</td>
 							</form>
+                    </div>
 						
 				
 				</tbody>
 			</table>
-		</div>
 	</div>
 	
 	<?php

@@ -120,6 +120,8 @@ tr:hover {
 .content {
   grid-area: main;
   padding-left: 0px;
+    border-bottom: none;
+
 
 }
 
@@ -131,6 +133,8 @@ tr:hover {
   grid-area: left;
   margin: 10px;
   padding-left: 0px;
+    width: 200%;
+    border-bottom: none;
 
 }
 
@@ -165,6 +169,10 @@ tr:hover {
   font-size: 15px;
 }
 
+.grid-container form {
+    padding-left: 2%;
+}
+
 
 .new-user-button {
   background-color: #99AFC6;
@@ -181,4 +189,9 @@ tr:hover {
   background-color: #638CB5;
   color: white;
   cursor: pointer;
+}
+
+#customerName{
+  width: 120%;
+margin-top: 15px;
 }
