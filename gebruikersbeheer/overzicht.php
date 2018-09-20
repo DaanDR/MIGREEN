@@ -96,34 +96,27 @@ if (! isset($_GET["action"])) {
     $action = $_GET["action"];
 }
 
-if (! isset($_GET["userName"])) {
-    $userName = null;
-} else {
-    $userName = $_GET["userName"];
-}
-
-switch ($action) {
-    case "Home":
-        break;
-    case "edit":
-        header("Location: edituser.php");
-        break;
-    case "delete":
-        delete($userName, $userDao);
-        break;
-}
-
-
-
-
-function delete($name, $dao) {
-    if ($_SESSION['username'] == $name) {
-        echo '<script type="text/javascript"> notDeleteSelf(); </script>';
-    } else {
-        $succes = $dao->deactivateUser($name);
-        header("Location: overzicht.php");
-        if (!$succes) {
-            echo "Gebruiker kon niet worden verwijderd.";
+    switch ($action) {
+        case "Home":
+            break;
+        case "edit":
+            header("Location: edituser.php?username=" . $userName);
+            break;
+        case "delete":
+            delete($userName, $userDao);
+            break;
+    }
+    
+      
+    function delete($name, $dao) {
+        if ($_SESSION['username'] == $name) {
+            echo "Je kunt niet jezelf verwijderen dummy!";
+        } else {
+            $succes = $dao->deactivateUser($name);
+            header("Location: overzicht.php");
+            if (!$succes) {
+                echo "Gebruiker kon niet worden verwijderd.";
+            }
         }
     }
 }

@@ -27,14 +27,26 @@ on update no action
 on delete no action
 );
 CREATE TABLE `insights_db`.`customer` (
+  `customerID` INT NOT NULL AUTO_INCREMENT,
   `customerName` VARCHAR(45) NOT NULL,
   `status_active` INT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`customerName`),
+  PRIMARY KEY (`customerID`),
+  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC),
   UNIQUE INDEX `customerName_UNIQUE` (`customerName` ASC));
-INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Eerste Klant');
-INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('De Tweede Klant');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MyFirstCustomer');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('MySecondCustomer');
+create table insights_db.environment (
+systemID int not null auto_increment,
+systemName varchar(45) unique not null,
+customerName varchar(45),
+vmURL varchar(255),
+status_active boolean not null default TRUE,
+Constraint pk_systemID primary key (systemID),
+Constraint fk_environment_customer foreign key(customerName)
+references customer(customerName)
+on update no action
+on delete no action
+);
+INSERT INTO `insights_db`.`user` (`userID`, `userName`, `password`, `firstname`, `lastname`, `email`, `role`, `status_active`) VALUES ('1', 'Test1234', '$2y$10$1iYgTdCtHt1R01db6DdlBeYZXYY34g.VnwZG2jrydvzX8QZVWJaGy', 'Tester', 'Tester', 'test@test.nl', 'admin', '1');
 
-
-ALTER TABLE `insights_db`.`customer` 
-ADD COLUMN `status_active` INT NOT NULL DEFAULT 1 AFTER `customerName`;
 
