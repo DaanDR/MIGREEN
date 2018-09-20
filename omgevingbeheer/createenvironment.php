@@ -116,7 +116,7 @@ include ("../header/header.php");
                         <br>
                         <select name="customerName">
                             <optgroup label="Kies een klant">
-                                <option selected hidden>Kies een klant (optioneel)</option>
+                                <option selected hidden value="null">Kies een klant (optioneel)</option>
                                 <?php foreach($customers as $customer):?>
                                     <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?> </option>
                                 <?php endforeach;?>
