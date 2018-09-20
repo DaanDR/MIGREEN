@@ -118,7 +118,7 @@ if( ! $userLoggedin->isAdmin() )
                                 <option selected hidden default value = "<?php echo $currentEnvironmentCustomername ?>"><?php if($currentEnvironmentCustomername==null){echo "Geen gekoppelde klant";}else{echo $currentEnvironmentCustomername;} ?></option>
                                 <option value= "none" >Geen klant koppelen </option>
                                 <?php foreach($customers as $customer):?>
-                                    <option value="{$customer['customerName']}"><?=$customer["customerName"]?> </option>
+                                    <option value="<?php echo $customer['customerName'] ?>"><?=$customer["customerName"]?> </option>
                                     <?php endforeach;?>
                             </optgroup>
                         </select>
