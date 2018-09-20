@@ -1,26 +1,17 @@
+// Variabele om de klant aanmaken knop op de pagina te vinden
 const newCustomerButton = document.getElementById("new-customer-button");
-const editButtons = document.getElementsByClassName("editbutton");
-const deleteButtons = document.getElementsByClassName("deletebutton");
-const createButton = document.getElementById("createButton");
-const names = document.getElementsByClassName("klantnaam");
 
-
+// Functie voor de klant aanmaken knop
 newCustomerButton.onclick = function() {
 	window.open("../klantbeheer/createcustomer.php", "_self");
 }
 
+// Waarschuwing bij het aanmaken van een klant (minimaal 2 karakters)
 function stringTooShort(){
 	alert("Een klantnaam moet minimaal 2 karakters bevatten!");
 }
 
+// Waarschuwing bij het aanmaken van een klant (geen spaties)
 function noSpaces(){
 	alert("Een klantnaam mag geen spaties bevatten!");
-}
-
-function customerDeleted(name){
-	alert("Klant " + name + " is verwijderd");
-}
-
-function existingCustomer(name){
-	alert("Klant " + name + " bestaat al in de database!");
 }

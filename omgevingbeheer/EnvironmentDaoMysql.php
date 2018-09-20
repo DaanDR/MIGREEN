@@ -48,15 +48,15 @@ class EnvironmentDaoMysql implements EnvironmentDao
     
     
     // Functionality: add a customer to an environment, or change the customer allready coupled with an environment
-    public function updateEnvironment($systemNameOld, $systemNameNew, $customerName, $vmURL)
+    public function updateEnvironment($systemID, $systemNameNew, $customerName, $vmURL)
     {
         try {
             $dbConn = new mysqlConnector();
         
-            $sql = "UPDATE environment SET systemName = ?, customerName = ?, vmURL = ? WHERE systemName = ?";
+            $sql = "UPDATE environment SET systemName = ?, customerName = ?, vmURL = ? WHERE systemID = ?";
         
             $stmt = $dbConn->getConnector()->prepare($sql);
-            $stmt->bind_param('ssss', $systemNameNew, $customerName, $vmURL, $systemNameOld);
+            $stmt->bind_param('sssi', $systemNameNew, $customerName, $vmURL, $systemID);
             $stmt->execute();
         
             $dbConn->getConnector()->close();
@@ -109,10 +109,11 @@ class EnvironmentDaoMysql implements EnvironmentDao
         return TRUE;    
     }
 
-    
+    //lookup an environment using the systemName and put in in an object
     public function selectEnvironment($systemName)
     {
         try {
+            $systemIDdb;
             $systemNamedb;
             $customerNamedb;
             $status_activedb;
@@ -120,7 +121,7 @@ class EnvironmentDaoMysql implements EnvironmentDao
             
             $dbConn = new mysqlConnector();
 
-            $sql = "SELECT systemName, customerName, vmURL, status_active FROM environment WHERE systemName = ?"; 
+            $sql = "SELECT systemID, systemName, customerName, vmURL, status_active FROM environment WHERE systemName = ?"; 
             $conn = $dbConn->getConnector();
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('s', $systemName);
@@ -131,11 +132,12 @@ class EnvironmentDaoMysql implements EnvironmentDao
         return FALSE;
         }
         
-        //checken of de sql statement een resultset teruggeeft (hij is leeg als de user niet bestaat)
+        //checken of de sql statement een resultset teruggeeft (hij is leeg als de omgeving niet bestaat)
         if ($stmt->num_rows > 0)
         {    
         
 		$stmt->bind_result(
+        $systemIDdb,
         $systemNamedb,
         $customerNamedb,
         $vmURLdb,
@@ -144,36 +146,41 @@ class EnvironmentDaoMysql implements EnvironmentDao
             // Vul de rij met maar 1 record uit de database
             while ($stmt->fetch()) 
             {
-                $newEnvironment = new Environment($systemNamedb, $customerNamedb, $vmURLdb, $status_activedb);
+                $newEnvironment = new Environment($systemIDdb, $systemNamedb, $customerNamedb, $vmURLdb, $status_activedb);
             }
         }else
         {
             //alles op null zetten bij teruggave lege resultset
-            $newEnvironment = new Environment($systemName = null, $customerName = null, $vmURLdb = null, $status_active = FALSE);
+            $newEnvironment = new Environment($systemIDdb = null, $systemName = null, $customerName = null, $vmURLdb = null, $status_active = FALSE);
         }
         
         
         return $newEnvironment;
     }
     
-    
+    //function used to display an overview of all systems in the database
     public function selectViewCurrentEnvironments()
     {
-        $environments = null;
-        $dbConn = new mysqlConnector();
-
-        $systemName;
-        $customerName;
+        try {    
+            $environments = null;
+            $dbConn = new mysqlConnector();
+            $systemName;
+            $customerName;
         
         
-        $sql = "SELECT systemName, customerName FROM environment WHERE status_active = 1 ORDER BY systemName"; 
-        $stmt = $dbConn->getConnector()->prepare($sql);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result(
+            $sql = "SELECT systemName, customerName FROM environment WHERE status_active = 1 ORDER BY systemName"; 
+            $stmt = $dbConn->getConnector()->prepare($sql);
+            $stmt->execute();
+            $stmt->store_result();
+            
+            $stmt->bind_result(
             $systemName,
             $customerName
-        );
+            );
+        }
+        catch(Exception $e) {
+        
+        }
 
         while ($stmt->fetch()) 
         {
