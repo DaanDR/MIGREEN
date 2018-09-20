@@ -65,9 +65,13 @@
             <td><?=$environment["systemName"] ?></td>
             <td><?=$environment["customerName"] ?></td>
             <td class="icon-cell">
-                <a href="../omgevingbeheer/omgevingsoverzicht.php?action=edit&systemName=<?php echo $systemName; ?>"><i class="fas fa-pencil-alt glyph-icon"></i></a>
-                <a href="../omgevingbeheer/omgevingsoverzicht.php?action=delete&systemName=<?php echo $systemName; ?>"><i class="fas fa-trash-alt glyph-icon" onclick="return confirmDelete('<?php echo $systemName ?>');"></i></a>
-            </td>
+                <a href="../omgevingbeheer/omgevingsoverzicht.php?action=edit&systemName=<?php echo $systemName; ?>">
+                  <i class="editbutton"><img src='../res/edit.svg'><img
+                  src='../res/edit-hover.svg'></i></a>
+                <a href="../omgevingbeheer/omgevingsoverzicht.php?action=delete&systemName=<?php echo $systemName; ?>">
+                  <i class="deletebutton" onclick="return confirmDelete('<?php echo $systemName ?>');"><img src='../res/delete.svg'><img
+                  src='../res/delete-hover.svg'></i></a>
+            </td>              
           </tr>
         <?php endforeach;?>
 
