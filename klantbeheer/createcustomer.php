@@ -41,23 +41,29 @@ if (! $userLoggedin->isAdmin()) {
 				</thead>
 				<tbody>
 					<tr class="nohover">
-						<td>
-							<form method="post" action="../klantbeheer/createcustomer.php">
+										<form method="post" action="../klantbeheer/createcustomer.php">
+								<td>
 								<div id="formName">
 									Klantnaam<br> <br> <input type="text" name="customerName"
 										id="customerName" value="">
 								</div>
-								<div id="crudbuttons">
-									<div id="cancelButton">
-										<input type="button" value="Annuleren"
-											onclick="location.href = 'customers.php'">
-									</div>
-									<div id="createButton">
-										<input type="submit" value="Opslaan" name="createButton">
+								</td>
+								
+								<td>
+								<div class="footer-right">
+									<div id="crudbuttons">
+										<div id="cancelButton">
+											<input type="button" value="Annuleren"
+												onclick="location.href = 'customers.php'">
+										</div>
+										<div id="createButton">
+											<input type="submit" value="Opslaan" name="createButton">
+										</div>
 									</div>
 								</div>
+								</td>
 							</form>
-						</td>
+						
 				
 				</tbody>
 			</table>
@@ -75,11 +81,11 @@ if (isset($_POST['customerName'])) {
     if (strlen($newCustomerName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
         
-    // als de klantnaam spaties bevat: geef foutmelding
+        // als de klantnaam spaties bevat: geef foutmelding
     } else if (preg_match('/\s/', $newCustomerName)) {
         echo "<script type='text/javascript'>noSpaces();</script>";
         
-    // geen foutmelding: ga verder met toevoegen
+        // geen foutmelding: ga verder met toevoegen
     } else {
         
         // Klantnaam variabele om gegevens uit database in op te slaan
@@ -94,7 +100,7 @@ if (isset($_POST['customerName'])) {
         if ($oldCustomerName !== null && $newCustomerName == $oldCustomerName) {
             echo "<script type='text/javascript'>alert('Deze klant bestaat al in de database');</script>";
             
-        // Check doorgekomen: voeg toe aan database    
+            // Check doorgekomen: voeg toe aan database
         } else {
             $createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
             header('Location: ../klantbeheer/customers.php');
