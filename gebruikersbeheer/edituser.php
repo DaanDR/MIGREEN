@@ -254,32 +254,12 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
                 </select>
             </div>
 
-<!--                        <div class="customer-form form-field-padding form-field-style">-->
-<!--                            Gekoppelde klant(en)-->
-<!--                            <br>-->
-<!--                            <select id="user-customer" name="customers[]" required multiple="multiple">-->
-<!--                                <optgroup label="Kies een klant">-->
-<!--                                    <option value="0" selected hidden>Kies een klant</option>-->
-<!--                                    <option value="none">Geen klant koppelen</option>-->
-<!--                                    --><?php //foreach ($customers as $customer): ?>
-<!--                                        <option-->
-<!--            --><?php //if (in_array($customer["customerName"], $customersByUser)) {
-//                echo "selected";} ?><!-- value="--><?// //= $customer["customerName"] ?><!--">-->
-<!--            --><?//= $customer["customerName"] ?><!--</option>-->
-<!--                                    --><?php //endforeach; ?>
-<!--                                </optgroup>-->
-<!--                            </select>-->
-<!--                        </div>-->
-
-            
-
+        
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
-               
-                
                 <br>
                 
-                <select name="customers[]" required>
+                <select name="customers[]">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
                         <?php foreach ($customers as $customer): ?>
