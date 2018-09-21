@@ -54,7 +54,9 @@
       grid-column: 1/5;
 			grid-row: 2;
       background-image: url("background.png");
-      background-size: contain;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
       width: 100%;
       height: 759px;
 		}
@@ -174,11 +176,15 @@
 }
 
 .system-image {
-  width: 20%;
-  margin-left: 40%;
+  width: 25%;
+  margin-left: 38%;
   top: 0px;
   z-index: 6;
   border-radius: 5px;
+}
+
+.systeem-hidden {
+  visibility: hidden;
 }
 
 	</style>
@@ -190,9 +196,15 @@
 	<!-- Save for Web Slices (Untitled-1) -->
   <div class="hidden" onclick="showPopup()">
     <div class="info-container">
+      <!-- <div class="system-image-div">
+
+      </div> -->
       <!-- <div class="info-message"> -->
         <!-- <p>Test</p> -->
-        <img class="system-image" src="../res/systeem2.jpg" alt="">
+        <!-- <img class="system-image system-green systeem-hidden" src="../res/systeem2.jpg" alt="">
+        <img class="system-image system-red systeem-hidden" src="../res/systeem1.jpg" alt="">
+        <img class="system-image system-orange" src="../res/systeem3.jpg" alt=""> -->
+
       <!-- </div> -->
 
       </div>
@@ -210,16 +222,16 @@
 
 		<div class="systeem-overzicht-content">
       <div class="systeem-overzicht-content-grid">
-        <div id="one" class="one" onclick="showPopup()"></div>
-        <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
-        <div class="five"></div>
-        <div class="six"></div>
-        <div class="seven"></div>
-        <div class="eight"></div>
-        <div class="nine"></div>
-        <div class="ten"></div>
+        <div id="one" class="one green" onclick="showPopup(2)"></div>
+        <div class="two green" onclick="showPopup(2)"></div>
+        <div class="three red" onclick="showPopup(1)"></div>
+        <div class="four green" onclick="showPopup(2)"></div>
+        <div class="five green" onclick="showPopup(2)"></div>
+        <div class="six orange" onclick="showPopup(3)"></div>
+        <div class="seven orange" onclick="showPopup(3)"></div>
+        <div class="eight red" onclick="showPopup(1)"></div>
+        <div class="nine red" onclick="showPopup(1)"></div>
+        <div class="ten red" onclick="showPopup(1)"></div>
       </div>
 	</div>
 </div>
