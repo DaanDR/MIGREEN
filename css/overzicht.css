@@ -141,7 +141,7 @@ tr:hover {
 
 .header-right {
   grid-area: right;
-    padding-right: 120px;
+    padding-right: 150px;
     padding-top: 20px;
 }
 
@@ -162,6 +162,7 @@ tr:hover {
 #overzicht-container {
   background-color: #F2F6FA;
   margin: 0px;
+  padding-top: 5%;
 }
 
 .grid-container > div {
