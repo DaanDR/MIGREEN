@@ -66,7 +66,7 @@ if (! $userLoggedin->isAdmin()) {
 				</tbody>
 			</table>
 	</div>
-	
+	<script src="../js/customers.js"></script>
 	<?php
 // check of er een klantnaam is ingevuld
 if (isset($_POST['customerName'])) {
@@ -105,6 +105,5 @@ if (isset($_POST['customerName'])) {
     }
 }
 ?>
-<script src="../js/customers.js"></script>
 </body>
 </html>
