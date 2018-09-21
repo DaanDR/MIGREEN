@@ -141,6 +141,8 @@ tr:hover {
 
 .header-right {
   grid-area: right;
+    padding-right: 120px;
+    padding-top: 20px;
 }
 
 .grid-container {
@@ -182,6 +184,7 @@ tr:hover {
   margin-left: 25%;
   border-radius: 2px;
   padding: 10px;
+    width: 200%;
 
 }
 
