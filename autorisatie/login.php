@@ -62,7 +62,7 @@ include_once ("../error/ErrorMessage.php");
                 } 
                 else if($_SESSION['role'] == 'user')
                 {
-                    header('Location: http://' . APP_PATH . 'dashboards/user_dashboard.php');   
+                    header('Location: http://' . APP_PATH . 'systeemoverzicht/systeemoverzicht.php');
                 }
             }
             else
