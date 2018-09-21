@@ -1,11 +1,22 @@
 <?php
-  include('../header/header.php');
+  ob_start();
+  if (!isset($_SESSION)) session_start();
+
+  // include('../header/headeruser.php');
+  // include('../header/headeruser.php');
+
   // include('../omgevingbeheer/EnvironmentDaoMysql.php');
 
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
   $userLoggedin = new UserIsLoggedin();
   $userLoggedin->backToLoging();
+
+  if($userLoggedin->isAdmin()) {
+    include('../header/header.php');
+  } else {
+    include('../header/headeruser.php');
+  }
 
   // //Check of de admin is ingelogged....
   // $adminLoggedin = "";
@@ -54,7 +65,9 @@
       grid-column: 1/5;
 			grid-row: 2;
       background-image: url("background.png");
-      background-size: contain;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
       width: 100%;
       height: 759px;
 		}
@@ -174,11 +187,31 @@
 }
 
 .system-image {
-  width: 20%;
-  margin-left: 40%;
+  width: 25%;
+  margin-left: 38%;
   top: 0px;
   z-index: 6;
   border-radius: 5px;
+}
+
+.systeem-hidden {
+  visibility: hidden;
+}
+
+.green {
+  border-color: #81d134;
+}
+
+.orange {
+  border-color: #ff7500;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0px 0px 31px -24px rgba(235,19,19,1);
+}
+.red {
+  border-color: #eb1313;
+  border-style: solid;
+  border-width: 1px;
 }
 
 	</style>
@@ -190,9 +223,15 @@
 	<!-- Save for Web Slices (Untitled-1) -->
   <div class="hidden" onclick="showPopup()">
     <div class="info-container">
+      <!-- <div class="system-image-div">
+
+      </div> -->
       <!-- <div class="info-message"> -->
         <!-- <p>Test</p> -->
-        <img class="system-image" src="../res/systeem2.jpg" alt="">
+        <!-- <img class="system-image system-green systeem-hidden" src="../res/systeem2.jpg" alt="">
+        <img class="system-image system-red systeem-hidden" src="../res/systeem1.jpg" alt="">
+        <img class="system-image system-orange" src="../res/systeem3.jpg" alt=""> -->
+
       <!-- </div> -->
 
       </div>
@@ -210,16 +249,16 @@
 
 		<div class="systeem-overzicht-content">
       <div class="systeem-overzicht-content-grid">
-        <div id="one" class="one" onclick="showPopup()"></div>
-        <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
-        <div class="five"></div>
-        <div class="six"></div>
-        <div class="seven"></div>
-        <div class="eight"></div>
-        <div class="nine"></div>
-        <div class="ten"></div>
+        <div id="one" class="one " onclick="showPopup(2)"></div>
+        <div class="two" onclick="showPopup(2)"></div>
+        <div class="three" onclick="showPopup(1)"></div>
+        <div class="four" onclick="showPopup(2)"></div>
+        <div class="five" onclick="showPopup(2)"></div>
+        <div class="six" onclick="showPopup(3)"></div>
+        <div class="seven" onclick="showPopup(3)"></div>
+        <div class="eight" onclick="showPopup(1)"></div>
+        <div class="nine" onclick="showPopup(3)"></div>
+        <div class="ten" onclick="showPopup(1)"></div>
       </div>
 	</div>
 </div>
