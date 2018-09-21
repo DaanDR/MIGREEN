@@ -187,7 +187,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input id="<?php echo $errorinputdusername ?>" type="text" name="username" minlength=5 class="input-text-style" required>
+                <br><input id="<?php echo $errorinputdusername ?>" type="text" name="username" minlength=5 class="input-text-style" required value="<?= isset($_POST['username']) ? $_POST['username'] : ''; ?>">
                 <i class="errormessage"> <?php echo $errorusernamemessage ?></i>
             </div>
 
@@ -199,11 +199,10 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                             <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
                             </span>
                         </span>
-                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}"
-                               title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
+                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" required>
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" required>
+                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>" required>
                   <i class="errormessage"> <?php echo $errorpasswordmessage ?> </i>
                 </div>
             </div>
@@ -211,23 +210,23 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" required>
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?= isset($_POST['firstname']) ? $_POST['firstname'] : ''; ?>" required>
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style" required>
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : ''; ?>" required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email" class="input-text-style" required><br>
+                <br><input type="email" name="email" class="input-text-style" value="<?= isset($_POST['email']) ? $_POST['email'] : ''; ?>" required><br>
             </div>
 
             <div class="role-form form-field-padding form-field-style">
                 Rol
                 <br>
-                <select id="roles" name="role" required>
+                <select id="roles" name="role" value="<?= isset($_POST['role']) ? $_POST['role'] : ''; ?>" required>
                     <optgroup label="Kies een rol">
                         <!--<option selected disabled>Kies een rol</option>-->
                         <option value="user" selected>gebruiker</option>
@@ -239,7 +238,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
-                <select id="user-customer" name="customers[]" required multiple="multiple">
+                <select id="user-customer" name="customers[]" value="<?= isset($_POST['customers[]']) ? $_POST['customers[]'] : ''; ?>"required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
                         <?php foreach ($customers as $customer): ?>
