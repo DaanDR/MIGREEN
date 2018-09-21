@@ -154,9 +154,9 @@ li > input, select  {
 }
 
 /* Mark the steps that are finished and valid: */
-.step.finish {
-    background-color: #EB1313;
-}
+/*.step.finish {*/
+    /*background-color: #EB1313;*/
+/*}*/
 
 .progressbar-icon {
     margin-top: 9px;

@@ -162,7 +162,7 @@ include ("../header/header.php");
 
                     <div class="systeem-input-naam">
                         <p>Systeem naam</p>
-                        <input type="text" name="systeemnaam" required="required">
+                        <input type="text" name="systeemnaam" required="required" value="clientap01-test" disabled style="color:lightgrey">
                     </div>
 
                     <div class="systeem-input-hernoemsysteem">
@@ -173,7 +173,7 @@ include ("../header/header.php");
                     <div class="system-input-type">
                         <p>Type</p>
                         <select id="systeem-select" type="select" name="systeem-type" required="required">
-                            <option value="VM">Production</option>
+                            <option value="VM" selected>Production</option>
                             <option value="testserver">Testing</option>
                             <option value="database">Database</option>
                         </select>
@@ -196,27 +196,38 @@ include ("../header/header.php");
 
                     <div class="relaties-col-one">
                         <p>Machine 1</p>
-                        <input type="text" name="" value="">
+                        <select type="select" name="machine-1" required="required" style="color:grey">
+                            <option value="machine-1" selected>machine-1</option>
+                            <option value="machine-2">machine-2</option>
+                            <option value="machine-3">machine-3</option>
+                        </select>
                         <p>Protocol</p>
-                        <input type="text" name="" value="">
+                        <input type="text" name="" value="Test">
 
                     </div>
 
                     <div class="relaties-col-two">
                         <p>Relatie</p>
-                        <input type="text" name="" value="">
+                        <select type="select" name="relatie-type" required="required">
+                            <option value="mono" selected>enkelzijdig</option>
+                            <option value="dual">tweezijdig</option>
+                        </select>
                         <p>Poort</p>
-                        <input type="text" name="" value="">
+                        <input type="text" name="" value=":80">
                     </div>
 
                     <div class="relaties-col-three">
-                        <p>Machine 1</p>
-                        <input type="text" name="" value="">
+                        <p>Machine 2</p>
+                        <select type="select" name="machine-2" required="required">
+                            <option value="test-1" selected>Test-1</option>
+                            <option value="test-2">Test-2</option>
+                            <option value="test-3">Test-3</option>
+                        </select>
                     </div>
 
                     <div class="relaties-row-two">
                         <p>Beschrijving relatie</p>
-                        <textarea class="relaties-textarea"name="Text1"></textarea>
+                        <textarea class="relaties-textarea" name="Text1">Voorbeeld beschrijving..</textarea>
                     </div>
 
 
