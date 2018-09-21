@@ -137,10 +137,10 @@ include ("../header/header.php");
                 <p>In deze stap kan je het systeem een naam geven en koppelen aan een klant.</p>
 
             <ul>
-                <li>Omgeving naam<br><input type="text" name="systemName" minlength=5 required oninput="this.className = ''"></li>
+                <li>Omgeving naam<br><input type="text" name="systemName" minlength=5 value="<?= isset($_POST['systemName']) ? $_POST['systemName'] : ''; ?>" required oninput="this.className = ''"></li>
 
                 <li>Gekoppelde klant<br>
-                    <select id="omgevingaanmaken-select" type="select" name="customerName" required="required" oninput="this.className = ''">
+                    <select id="omgevingaanmaken-select" type="select" name="customerName" value="<?= isset($_POST['customerName']) ? $_POST['customerName'] : ''; ?>" required="required" oninput="this.className = ''">
                         <optgroup label="Kies een klant">
                             <option selected hidden>Kies een klant (optioneel)</option>
                             <?php foreach($customers as $customer):?>
@@ -150,7 +150,7 @@ include ("../header/header.php");
                     </select>
                 </li>
 
-                <li>VM URL<br><input type="text" name="vmURL" required="required" oninput="this.className = ''"></li>
+                <li>VM URL<br><input type="text" name="vmURL" value="<?= isset($_POST['vmURL']) ? $_POST['vmURL'] : ''; ?>" required="required" oninput="this.className = ''"></li>
 
             </ul>
 

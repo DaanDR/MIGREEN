@@ -45,7 +45,7 @@ if (! $userLoggedin->isAdmin()) {
 							<form method="post" action="../klantbeheer/createcustomer.php">
 								<div id="formName">
 									Klantnaam<br> <br> <input type="text" name="customerName"
-										id="customerName" value="">
+										id="customerName" value="<?= isset($_POST['customerName']) ? $_POST['customerName'] : ''; ?>">
 								</div>
 								<div id="crudbuttons">
 									<div id="cancelButton">
