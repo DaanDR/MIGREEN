@@ -112,20 +112,9 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             foreach ($_POST['customers'] as $customerName) {
             $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
 
-            // echo "GEBRUIKERAANMAKEN IS GELUKT";
-            // sleep(2);
-
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
             }
-
-    }
-
-            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
-            $createUser = new UserDaoMysql();
-            $createUser = $createUser->insertUser( $_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            echo "<p>Aanmaken gebruiker gelukt</p>";
-            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
-
+        }
     }
 ?>
 
