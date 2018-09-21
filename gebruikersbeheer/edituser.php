@@ -242,7 +242,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             <table id="table-current-usercustomers">
                 <?php foreach ($customersByUser as $customer): ?>
                 <tr>
-                    <td><?php echo $customer; ?></td>
+                    <td style="font-size:12px"><?php echo $customer; ?></td>
                     <td class="icon-cell">
                         <a href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=delete&customerName=<?php echo $customer; ?>">
                             <i class="deletebutton" onclick="return confirmDelete('<?php echo $customer ?>');">
@@ -266,13 +266,10 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             <table id="table-current-usercustomers">
                 <?php foreach ($customersNotLinked as $customer): ?>
                 <tr>
-                    <td><?php echo $customer; ?></td>
+                    <td style="font-size:12px"><?php echo $customer; ?></td>
                     <td class="icon-cell">
                         <a href="../gebruikersbeheer/edituser.php?username=<?php echo $userName; ?>&action=add&customerName=<?php echo $customer; ?>">
-                            <i class="deletebutton" onclick="return confirmDelete('<?php echo $customer; ?>');">
-                            <img src='../res/delete.svg'>
-                            <img src='../res/delete-hover.svg'>
-                            </i>
+                            <img src="../res/add.svg" style="background-color:#EB1313;margin-top: 3px;margin-bottom: 3px;" margin-left="10px" width="18" height="18">
                         </a>
                     </td>
                 </tr>
