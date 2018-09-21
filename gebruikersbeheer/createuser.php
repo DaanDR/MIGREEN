@@ -13,7 +13,7 @@ include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 
 //errormessages & succesmessage
 $errorinputid="";
-$errorinputuser="";
+$errorinputusername="";
 $errorpasswordmessage = "";
 $errorusernamemessage = "";
 $succesmessage= "";

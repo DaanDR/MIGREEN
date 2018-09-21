@@ -189,7 +189,7 @@ if (! isset($_GET["username"])) {
             </div>
 
             <div class="role-form form-field-padding form-field-style">
-                Rol (moet nog check op niet jezelf naar user terugzetten)
+                Rol
                 <br>
                 <select name="role" required>
                     <optgroup label="Kies een rol">
