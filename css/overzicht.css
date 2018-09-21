@@ -162,6 +162,7 @@ tr:hover {
 #overzicht-container {
   background-color: #F2F6FA;
   margin: 0px;
+  padding-top: 5%;
 }
 
 .grid-container > div {
