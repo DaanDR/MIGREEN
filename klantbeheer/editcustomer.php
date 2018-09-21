@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../css/customerforms.css">
+    <link rel="stylesheet" href="../css/overzicht.css">
 </head>
 
 <?php
@@ -19,8 +20,7 @@ if (isset($_GET['customer'])) {
 }
 
 ?>
-<body>
-	<div id="pageheader">
+
 	<?php
 // Header toevoegen aan pagina
 include ('../header/header.php');
@@ -38,21 +38,18 @@ if (! $userLoggedin->isAdmin()) {
 }
 ?>
 </div>
-	<div id="pagestyling" <?php echo $adminLoggedin ?>>
+
+<body id="overzicht-container">
+
+	<div class="grid-container" <?php echo $adminLoggedin ?>>
 		<!-- Div voor het formulier voor bewerken klant -->
-		<div id="createCustomer">
+            <div class="header-left">
+                <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Klantenoverzicht</p>
+                <h2>Klant aanpassen</h2>
+            </div>
 			<table>
-				<thead>
-					<tr class="nohover">
-						<th id="tabletitle">Home <img src='../res/kruimelpad-arrow.svg'>
-							Klantenoverzicht
-							<p>Klant</p>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="nohover">
-						<td>
+
+					<div class="content">
 							<form method="post"
 								action="../klantbeheer/editcustomer.php?customer=<?php echo $currentName; ?>"
 								name="editForm">
@@ -60,7 +57,9 @@ if (! $userLoggedin->isAdmin()) {
 									Klantnaam<br> <br> <input type="text" name="customerName"
 										value=<?=$currentName?>>
 								</div>
-								<div id="crudbuttons">
+                                <div class="footer-right">
+
+                                <div id="crudbuttons">
 									<div id="cancelButton">
 										<input type="button" value="Annuleren"
 											onclick="location.href = 'customers.php'">
@@ -69,12 +68,12 @@ if (! $userLoggedin->isAdmin()) {
 										<input type="submit" value="Opslaan" name="createButton">
 									</div>
 								</div>
+                                </div>
 							</form>
-						</td>
-				
-				</tbody>
+
 			</table>
-		</div>
+
+
 	</div>
 	<script src="../js/customers.js"></script>
 	<?php
