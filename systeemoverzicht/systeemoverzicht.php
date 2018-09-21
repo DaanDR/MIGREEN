@@ -75,7 +75,7 @@
     .systeem-overzicht-content-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(auto, auto);
+    grid-auto-rows: minmax(auto , auto);
     border: 2px, solid, black;
     height: 100%;
     /* background-image: url("background.png");
