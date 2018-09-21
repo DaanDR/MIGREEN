@@ -143,18 +143,7 @@ if (! isset($_GET["username"])) {
                 // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
                 $userDao = new UserDaoMysql();
                 $userDao->updateUser( $userName, $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-                
-//                // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-//                $userCustomerDao = new UserCustomerDaoMysql();
-//
-//            // Clear all userCustomers om met schone lei te beginnen
-//            $userCustomerDao->clearUserCustomer($userName);
-//        
-//            // Voer de nieuw geselecteerde customers in in de koppeltabel
-//            foreach ($_POST['customers'] as $customerName) {
-//                $userCustomerDao-> insertUserCustomer($userName, $customerName);
-//            }
-                
+                             
                 header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
             }
                 
@@ -164,17 +153,6 @@ if (! isset($_GET["username"])) {
             $userDao2 = new UserDaoMysql();
             $passwordleeg = "0000";
             $userDao2->updateUser( $userName, $passwordleeg, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role'] );
-            
-//            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-//            $userCustomerDao = new UserCustomerDaoMysql();
-//
-//            // Clear all userCustomers om met schone lei te beginnen
-//            $userCustomerDao->clearUserCustomer($userName);
-//        
-//            // Voer de nieuw geselecteerde customers in in de koppeltabel
-//            foreach ($_POST['customers'] as $customerName) {
-//                $userCustomerDao-> insertUserCustomer($userName, $customerName);
-//            }
 
             header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
         }
@@ -192,8 +170,6 @@ if (! isset($_GET["username"])) {
     <link rel="stylesheet" href="../css/form.css">
 <!--    <link rel="stylesheet" href="../css/content.css">-->
     <link rel="stylesheet" href="../css/overzicht.css">
-
-
 
     <meta charset="utf-8">
     <title>Gebruiker Bewerken</title>
@@ -218,8 +194,6 @@ if (! isset($_GET["username"])) {
         border-width: 1px;
       }
 
-
-
       .succes-message {
         font-size: 200%;
         color: #638CB5;
@@ -227,11 +201,10 @@ if (! isset($_GET["username"])) {
 
     </style>
 </head>
+    
 <body id="overzicht-container">
 
-
 <div class="grid-container" <?php echo $adminLoggedin ?> >
-    
 
     <div class="header-left">
       <i class="succes-message"><?php echo $succesmessage ?></i>
@@ -332,9 +305,6 @@ if (! isset($_GET["username"])) {
                 
             </div>
 
-            
-            
-            
              
     <!-- end form elements>-->
 
