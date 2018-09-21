@@ -8,6 +8,19 @@ include('../header/header.php');
 // Check of user is ingelogged en anders terug naar de login pagina
 include_once("../autorisatie/UserIsLoggedin.php");
 include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
+// include('../js/formError.js');
+
+
+//errormessages & succesmessage
+$errorinputid="";
+$errorinputusername="";
+$errorpasswordmessage = "";
+$errorusernamemessage = "";
+$succesmessage= "";
+
+//end errormessages
+
+
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
 // Check of de admin is ingelogged....
@@ -27,80 +40,84 @@ include('../klantbeheer/CustomerDaoMysql.php');
 // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
 $customerdao = new CustomerDaoMysql();
 $customers = $customerdao->selectAllCustomers();
-// include user_customer class 
+// include user_customer class
 include_once("../gebruiker_klantbeheer/UserCustomerDaoMysql.php");
 include("../autorisatie/HashPassword.php"); // Hash PWD
 
-//    // Title van de pagina...
-//    if(!isset($_SESSION))
-//    {
-//        $_SESSION["title"] = "Log hier in";
-//    }
+
 
 // Kijk eerst of alle velden zijn ingevoerd met isset()
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['role'])) {
 
-    // Controleren of de user al bestaat
-    $newUserName = $_POST['username'];
-    $oldUserName = null;
-    // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
-    $userDao = new UserDaoMysql();
-    $oldUser = $userDao->selectUser($_POST['username']);
-    $oldUserName = $oldUser->getUsername();
-
-    //Geef melding als de user al bestaat
-    if ($oldUserName !== null && $newUserName == $oldUserName) {
-        echo "<br> <h2>Deze username bestaat al in de database.</h2>";
-        // Session leeg maken!!!!
-        $_SESSION = array();
-    }
-
-    // Wachtwoord checks
-    // Controleren op hoofdletters
-    if (!preg_match('/[A-Z]/', $_POST['password'])) {
-        $_SESSION = array();
-        echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
-    }
-
-    // Controleren op cijfers
-    if (!preg_match('([0-9])', $_POST['password'])) {
-        $_SESSION = array();
-        echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
-    }
-
-    // Controleren of wachtwoorden gelijk zijn
-    if ($_POST['password'] != $_POST['password2']) {
-        // Session leeg maken!!!!
-        $_SESSION = array();
-        echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
-    } else {
-        //Hash het opgegeven password
-        $hash = new HashPassword();
-        $hash_password = $hash->hashPwd($_POST['password']);
-
-        // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+        // Controleren of de user al bestaat
+        $newUserName = $_POST['username'];
+        $oldUserName = null;
+        // Roep de class UserDaoMysql aan voor sql functionaliteit om user te checken
         $userDao = new UserDaoMysql();
-        $userDao->insertUser($_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+        $oldUser = $userDao->selectUser($_POST['username']);
+        $oldUserName = $oldUser->getUsername();
 
-        // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
-        $customerdao = new CustomerDaoMysql();
-        $customers = $customerdao->selectAllCustomers();
-
-        // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
-        $userCustomerDao = new UserCustomerDaoMysql();
-
-//        //clear all userCustomers
-//        $userCustomerDao->clearUserCustomer($_POST['username']);
-
-        foreach ($_POST['customers'] as $customerName) {
-            $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
+        //Geef melding als de user al bestaat
+        if ($oldUserName !== null && $newUserName == $oldUserName) {
+            $checkNewUserUnique = FALSE;
+            $errorusernamemessage = "Kies een andere gebruikersnaam";
+            $errorinputdusername="username-error";
+        } else {
+            $checkNewUserUnique = TRUE;
         }
 
-//        var_dump($_POST['customers']);
-//        die;
+        // Controleren op hoofdletters
+        if( !preg_match('/[A-Z]/', $_POST['password']) ){
+            echo "<br> <h2> Je moet minimaal een hoofdletter invoeren! </h2>";
+             $checkHoofdletter = FALSE;
+        } else {
+             $checkHoofdletter = TRUE;
+        }
 
-        echo "<p>Aanmaken gebruiker gelukt</p>";
-        header('Location: ../gebruikersbeheer/overzicht.php');
+        // Controleren op cijfers
+        if ( !preg_match('([0-9])', $_POST['password']) ){
+            echo "<br> <h2> Je moet minimaal een cijfer invoeren! </h2>";
+            $checkGetal = FALSE;
+        } else {
+            $checkGetal = TRUE;
+        }
+
+        // Controleren of wachtwoorden gelijk zijn
+        if( $_POST['password'] != $_POST['password2'] ){
+            $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
+            $errorinputid="password-error";
+            $checkGelijk = FALSE;
+        } else {
+            $checkGelijk = TRUE;
+        }
+
+
+        if ($checkHoofdletter == TRUE && $checkGetal == TRUE && $checkGelijk == TRUE && $checkNewUserUnique == TRUE){
+
+            //Hash het opgegeven password
+            $hash = new HashPassword();
+            $hash_password = $hash->hashPwd($_POST['password']);
+
+            // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
+            $userDao = new UserDaoMysql();
+            $userDao->insertUser($_POST['username'], $hash_password, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['role']);
+
+            // Roep de class CustomerDaoMysql aan voor sql functionaliteiten om klantenlijst op te halen
+            $customerdao = new CustomerDaoMysql();
+            $customers = $customerdao->selectAllCustomers();
+
+            // Roep de class UserCustomerDaoMysql aan voor sql functionaliteit om user_customer in database te stoppen
+            $userCustomerDao = new UserCustomerDaoMysql();
+
+            foreach ($_POST['customers'] as $customerName) {
+            $userCustomerDao->insertUserCustomer($_POST['username'], $customerName);
+
+            // echo "GEBRUIKERAANMAKEN IS GELUKT";
+            // sleep(2);
+
+            header('Location: http://' . APP_PATH . 'gebruikersbeheer/overzicht.php');
+            }
+
     }
 
             // Roep de class UserDaoMysql aan voor sql functionaliteit om user in te voeren in database
@@ -124,11 +141,43 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
     <meta charset="utf-8">
     <title>Gebruiker Aanmaken</title>
+
+    <style media="screen">
+
+      .errormessage {
+        color: #eb1313;
+        font-size: 80%;
+        position: absolute;
+        z-index: 2;
+      }
+
+      #username-error  {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      #password-error  {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+
+
+      .succes-message {
+        font-size: 200%;
+        color: #638CB5;
+      }
+
+    </style>
+
 </head>
 <body id="overzicht-container">
 <div class="grid-container" <?php echo $adminLoggedin ?> >
 
     <div class="header-left">
+      <i class="succes-message"><?php echo $succesmessage ?></i>
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
         <h2>Nieuwe gebruiker aanmaken</h2>
     </div>
@@ -141,7 +190,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input type="text" name="username" minlength=5 class="input-text-style" required>
+                <br><input id="<?php echo $errorinputdusername ?>" type="text" name="username" minlength=5 class="input-text-style" required value="<?= isset($_POST['username']) ? $_POST['username'] : ''; ?>">
+                <i class="errormessage"> <?php echo $errorusernamemessage ?></i>
             </div>
 
 
@@ -152,34 +202,34 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
                             <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
                             </span>
                         </span>
-                    <br><input type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}"
-                               title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" required>
+                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" required>
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style" required>
+                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>" required>
+                  <i class="errormessage"> <?php echo $errorpasswordmessage ?> </i>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-padding form-field-style">
                 <div class="fullname-form-fn">
                     Voornaam
-                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" required>
+                    <br><input type="text" name="firstname" minlength="2" class="input-text-style" value="<?= isset($_POST['firstname']) ? $_POST['firstname'] : ''; ?>" required>
                 </div>
                 <div class="fullname-form-ln">
                     Achternaam
-                    <br><input type="text" name="lastname" minlength="2" class="input-text-style" required>
+                    <br><input type="text" name="lastname" minlength="2" class="input-text-style" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : ''; ?>" required>
                 </div>
             </div>
 
             <div class="form-field-padding form-field-style email-form">
                 E-mailadres
-                <br><input type="email" name="email" class="input-text-style" required><br>
+                <br><input type="email" name="email" class="input-text-style" value="<?= isset($_POST['email']) ? $_POST['email'] : ''; ?>" required><br>
             </div>
 
             <div class="role-form form-field-padding form-field-style">
                 Rol
                 <br>
-                <select id="roles" name="role" required>
+                <select id="roles" name="role" value="<?= isset($_POST['role']) ? $_POST['role'] : ''; ?>" required>
                     <optgroup label="Kies een rol">
                         <!--<option selected disabled>Kies een rol</option>-->
                         <option value="user" selected>gebruiker</option>
@@ -191,7 +241,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
-                <select id="user-customer" name="customers[]" required multiple="multiple">
+                <select id="user-customer" name="customers[]" value="<?= isset($_POST['customers[]']) ? $_POST['customers[]'] : ''; ?>" required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
                         <?php foreach ($customers as $customer): ?>
@@ -220,5 +270,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
         </form>
     </div>
 </div>
+<i><?php echo $succesmessage ?></i>
+<script type="text/javascript" src="../js/formError.js"></script>
 </body>
 </html>

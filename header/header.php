@@ -1,4 +1,4 @@
- <?php
+<?php
  session_start();
  // ini_set('display_errors', 1);
 
@@ -42,7 +42,7 @@
         {
             // Instantiate Error class
             $errMessage = new ErrorMessage();
-            $strUrl = 'http://' . APP_PATH . 'autorisatie/login.php';
+            $strUrl = 'http://' . APP_PATH . 'autorisatie/logout.php'; // 'autorisatie/login.php';
             echo $errMessage->createErrorMessageButton('<h2>Uitloggen</h2>Weet je zeker dat je wilt uitloggen?', $strUrl, 'buttOkLogOut');
 
             if ( isset($_GET["logoutinfo"]) )
@@ -51,18 +51,18 @@
                 {
                     // Session Leeg....
                     $_SESSION = array();
-                    echo '
-                    <script type="text/javascript">
-                        parent.window.location.href = "http://' . APP_PATH . 'autorisatie/login.php";
-                    </script>
-                    ';
                 }
             }
         }
     
         function account()
         {
-            print "accountje";
+            $userName = $_SESSION['username'];
+//            echo "$userName";
+            echo '<script type="text/javascript">
+                        parent.window.location.href = "http://' . APP_PATH . 'gebruikersbeheer/edituser.php?username=' . $userName . '";
+                    </script>
+                    ';
         }
 
 ?>
@@ -102,7 +102,7 @@ function active($currect_page){
     <div id="logo">MyInsights</div>
 		<ul class="mainmenu">
             <div class="hoofdmenu">
-			<li><a id="home-button" href="http://localhost:8080/MIGreen/header/header.php"
+			<li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
 				class="fas fa-home"></a></li>
 
 					<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->

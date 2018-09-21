@@ -45,7 +45,7 @@ include_once ("../error/ErrorMessage.php");
             // Session leeg maken!!!!
             $_SESSION = array();
 
-            echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Helaas... niet ingelogged. Probeer het nog eens.');
+            echo $errMessage->createErrorMessage('<h2>Login mislukt: </h2>Combinatie van gebruikersnaam en wachtwoord onbekend.');
         }
         else
         {
@@ -70,7 +70,7 @@ include_once ("../error/ErrorMessage.php");
                 // Session leeg maken!!!!
                 $_SESSION = array();
                 echo "";
-                echo $errMessage->createErrorMessage('<h2>Oeps... </h2>Uw passwoord is niet juist. Probeer het nog eens.');
+                echo $errMessage->createErrorMessage('<h2>Login mislukt: </h2>Combinatie van gebruikersnaam en wachtwoord onbekend.');
             }
         }
     }

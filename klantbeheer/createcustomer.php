@@ -44,8 +44,8 @@ if (! $userLoggedin->isAdmin()) {
 					<div class="content">
 										<form method="post" action="../klantbeheer/createcustomer.php">
 								<div id="formName">
-									Klantnaam <input type="text" name="customerName"
-										id="customerName" value="">
+									Klantnaam<br> <br> <input type="text" name="customerName"
+										id="customerName" value="<?= isset($_POST['customerName']) ? $_POST['customerName'] : ''; ?>">
 								</div>
 
 								<div class="footer-right">
