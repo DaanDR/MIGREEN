@@ -122,7 +122,8 @@ function active($currect_page){
             <li><i class="fas fa-user"></i>
                 <ul class="dropdown-content">
                     <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
-                    <li id="dropdown-padding"><a  href="?action=logout">Uitloggen</a></li>
+                    </hr>
+                    <li id="logout-dropdown"><a  href="?action=logout">Uitloggen</a></li>
                 </ul>
                 </div>
 		</ul>
