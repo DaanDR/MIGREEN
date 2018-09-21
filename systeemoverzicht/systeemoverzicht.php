@@ -1,11 +1,22 @@
 <?php
-  include('../header/header.php');
+  ob_start();
+  if (!isset($_SESSION)) session_start();
+
+  // include('../header/headeruser.php');
+  // include('../header/headeruser.php');
+
   // include('../omgevingbeheer/EnvironmentDaoMysql.php');
 
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
   $userLoggedin = new UserIsLoggedin();
   $userLoggedin->backToLoging();
+
+  if($userLoggedin->isAdmin()) {
+    include('../header/header.php');
+  } else {
+    include('../header/headeruser.php');
+  }
 
   // //Check of de admin is ingelogged....
   // $adminLoggedin = "";
@@ -187,6 +198,22 @@
   visibility: hidden;
 }
 
+.green {
+  border-color: #81d134;
+}
+
+.orange {
+  border-color: #ff7500;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0px 0px 31px -24px rgba(235,19,19,1);
+}
+.red {
+  border-color: #eb1313;
+  border-style: solid;
+  border-width: 1px;
+}
+
 	</style>
 
 
@@ -222,16 +249,16 @@
 
 		<div class="systeem-overzicht-content">
       <div class="systeem-overzicht-content-grid">
-        <div id="one" class="one green" onclick="showPopup(2)"></div>
-        <div class="two green" onclick="showPopup(2)"></div>
-        <div class="three red" onclick="showPopup(1)"></div>
-        <div class="four green" onclick="showPopup(2)"></div>
-        <div class="five green" onclick="showPopup(2)"></div>
-        <div class="six orange" onclick="showPopup(3)"></div>
-        <div class="seven orange" onclick="showPopup(3)"></div>
-        <div class="eight red" onclick="showPopup(1)"></div>
-        <div class="nine red" onclick="showPopup(1)"></div>
-        <div class="ten red" onclick="showPopup(1)"></div>
+        <div id="one" class="one " onclick="showPopup(2)"></div>
+        <div class="two" onclick="showPopup(2)"></div>
+        <div class="three" onclick="showPopup(1)"></div>
+        <div class="four" onclick="showPopup(2)"></div>
+        <div class="five" onclick="showPopup(2)"></div>
+        <div class="six" onclick="showPopup(3)"></div>
+        <div class="seven" onclick="showPopup(3)"></div>
+        <div class="eight" onclick="showPopup(1)"></div>
+        <div class="nine" onclick="showPopup(3)"></div>
+        <div class="ten" onclick="showPopup(1)"></div>
       </div>
 	</div>
 </div>

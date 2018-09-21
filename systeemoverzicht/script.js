@@ -9,11 +9,11 @@ function showPopup(z){
   var b =  document.getElementsByClassName("info-container");
   x[0].className = x[0].className.replace("hidden","show");
   if(z == 2 ) {
-    b[0].innerHTML = "<img class='system-image' src='../res/systeem2.jpg'>";
+    b[0].innerHTML = "<img class='system-image green' src='../res/systeem2.jpg'>";
   } else if( z == 1) {
-    b[0].innerHTML = "<img class='system-image' src='../res/systeem1.jpg'>";
+    b[0].innerHTML = "<img class='system-image red' src='../res/systeem1.jpg'>";
   } else if( z == 3) {
-    b[0].innerHTML = "<img class='system-image' src='../res/systeem3.jpg'>";
+    b[0].innerHTML = "<img class='system-image orange' src='../res/systeem3.jpg'>";
   }
   n = 1;
 } else if(n == 1) {
