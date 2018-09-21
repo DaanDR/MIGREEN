@@ -66,22 +66,24 @@
 			grid-row: 2;
       background-image: url("background.png");
       background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
+      background-size: contain;
+      background-position: center top;
       width: 100%;
-      height: 759px;
+      height: 800px;
 		}
 
     .systeem-overzicht-content-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(150px, auto);
+    grid-auto-rows: minmax(auto, auto);
     border: 2px, solid, black;
+    height: 100%;
     /* background-image: url("background.png");
     background-size: contain;
     width: 100%;
     height: 759px; */
   }
+
   .systeem-overzicht-content-grid > div {
     /* border-style: solid;
     border-width: 2px; */
@@ -214,6 +216,10 @@
   border-width: 1px;
 }
 
+.s-hover:hover {
+  cursor: pointer;
+}
+
 	</style>
 
 
@@ -249,16 +255,16 @@
 
 		<div class="systeem-overzicht-content">
       <div class="systeem-overzicht-content-grid">
-        <div id="one" class="one " onclick="showPopup(2)"></div>
-        <div class="two" onclick="showPopup(2)"></div>
-        <div class="three" onclick="showPopup(1)"></div>
-        <div class="four" onclick="showPopup(2)"></div>
-        <div class="five" onclick="showPopup(2)"></div>
-        <div class="six" onclick="showPopup(3)"></div>
-        <div class="seven" onclick="showPopup(3)"></div>
-        <div class="eight" onclick="showPopup(1)"></div>
-        <div class="nine" onclick="showPopup(3)"></div>
-        <div class="ten" onclick="showPopup(1)"></div>
+        <div id="one" class="one s-hover" onclick="showPopup(2)"></div>
+        <div class="two s-hover" onclick="showPopup(2)"></div>
+        <div class="three s-hover" onclick="showPopup(1)"></div>
+        <div class="four s-hover" onclick="showPopup(2)"></div>
+        <div class="five s-hover" onclick="showPopup(2)"></div>
+        <div class="six s-hover" onclick="showPopup(3)"></div>
+        <div class="seven s-hover" onclick="showPopup(3)"></div>
+        <div class="eight s-hover" onclick="showPopup(1)"></div>
+        <div class="nine s-hover" onclick="showPopup(3)"></div>
+        <div class="ten s-hover" onclick="showPopup(1)"></div>
       </div>
 	</div>
 </div>
