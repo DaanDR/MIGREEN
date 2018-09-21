@@ -70,6 +70,19 @@ if (!isset($_SESSION)) session_start();
 <!DOCTYPE html>
 <html>
 <head>
+
+  <style media="screen">
+
+    .home-red {
+      color:  #eb1313;
+    }
+
+    #home-button2 {
+      color: #eb1313;
+      padding-top: 5px;
+    }
+
+  </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -102,8 +115,8 @@ function active($currect_page){
     <div id="logo">MyInsights</div>
 		<ul class="mainmenu">
             <div class="hoofdmenu">
-			<li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
-				class="fas fa-home"></a></li>
+			<li><a id="home-button2" href="../systeemoverzicht/systeemoverzicht.php"
+				class="fas fa-home home-red"></a></li>
 
                 <!-- als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
             </div>
@@ -111,7 +124,6 @@ function active($currect_page){
             <div id="dropdown-window">
             <li><i class="fas fa-user" style="margin-left: 30em;"></i>
                 <ul class="dropdown-content" style="margin-left: 43em;">
-                    <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
                     <li id="dropdown-padding"><a  href="?action=logout">Uitloggen</a></li>
                 </ul>
                 </div>
