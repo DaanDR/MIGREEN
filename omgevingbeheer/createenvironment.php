@@ -95,7 +95,6 @@ include ("../header/header.php");
 <div class="container" <?php echo $adminLoggedin ?> >
 
     <div class="grid-wrapper" >
-
         <div class="grid-header-left">
             <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgevingenoverzicht</p>
             <h2>Omgeving aanmaken</h2>
@@ -174,7 +173,7 @@ include ("../header/header.php");
                     <div class="system-input-type">
                         <p>Type</p>
                         <select id="systeem-select" type="select" name="systeem-type" required="required">
-                            <option value="VM">Virtual Machine</option>
+                            <option value="VM">Production</option>
                             <option value="testserver">Testing</option>
                             <option value="database">Database</option>
                         </select>
