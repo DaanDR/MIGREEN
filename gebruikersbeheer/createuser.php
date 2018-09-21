@@ -238,7 +238,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
             <div class="customer-form form-field-padding form-field-style">
                 Gekoppelde klant(en)
                 <br>
-                <select id="user-customer" name="customers[]" value="<?= isset($_POST['customers[]']) ? $_POST['customers[]'] : ''; ?>"required multiple="multiple">
+                <select id="user-customer" name="customers[]" value="<?= isset($_POST['customers[]']) ? $_POST['customers[]'] : ''; ?>" required multiple="multiple">
                     <optgroup label="Kies een klant">
                         <option value="0" selected hidden>Kies een klant</option>
                         <?php foreach ($customers as $customer): ?>

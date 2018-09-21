@@ -165,10 +165,10 @@ if (! isset($_GET["username"])) {
 
                 <div class="password-form-initial">
                     Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
-                    <br><input type="password" name="password" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
+                    <br><input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" class="input-text-style">
+                    Herhaal wachtwoord <br><input type="password" name="password2" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>"class="input-text-style">
                 </div>
             </div>
 
