@@ -6,6 +6,15 @@ include ("../header/header.php");
 include_once ("../autorisatie/UserIsLoggedin.php");
 include ("../autorisatie/HashPassword.php");
 
+//errormessages & succesmessage
+$errorinputid="";
+$errorinputusername="";
+$errorpasswordmessage = "";
+$errorusernamemessage = "";
+$succesmessage= "";
+
+//end errormessages
+
 $userLoggedin = new UserIsLoggedin();
 $userLoggedin->backToLoging();
 
@@ -77,7 +86,8 @@ if (! isset($_GET["username"])) {
 
             // Controleren of wachtwoorden gelijk zijn
             if( $_POST['password'] != $_POST['password2'] ){
-                echo "<br> <h2>Helaas... uw wachtwoord is niet gelijk....</h2>";
+                $errorpasswordmessage = "De wachtwoorden komen niet overeen!";
+                $errorinputid="password-error";
                 $checkGelijk = FALSE;
             } else {
                 $checkGelijk = TRUE;
@@ -139,16 +149,51 @@ if (! isset($_GET["username"])) {
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="../css/content.css">
+<!--    <link rel="stylesheet" href="../css/content.css">-->
+    <link rel="stylesheet" href="../css/overzicht.css">
+
+
 
     <meta charset="utf-8">
     <title>Gebruiker Bewerken</title>
+    <style media="screen">
+
+      .errormessage {
+        color: #eb1313;
+        font-size: 80%;
+        position: absolute;
+        z-index: 2;
+      }
+
+      #username-error  {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      #password-error  {
+        border-color: #eb1313;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+
+
+      .succes-message {
+        font-size: 200%;
+        color: #638CB5;
+      }
+
+    </style>
 </head>
+<body id="overzicht-container">
+
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
     
 
     <div class="header-left">
+      <i class="succes-message"><?php echo $succesmessage ?></i>
         <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Gebruikersoverzicht</p>
         <h2>Gebruiker bewerken: <?php echo $userName ?></h2>
     </div>
@@ -164,11 +209,15 @@ if (! isset($_GET["username"])) {
             <div class="password-form form-field-padding form-field-style">
 
                 <div class="password-form-initial">
-                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i><span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p></span></span>
-                    <br><input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer">
+                    Wachtwoord <span class="info-symbol password-info"><i class="fas fa-info-circle"></i>
+                            <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
+                            </span>
+                        </span>
+                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" required>
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input type="password" name="password2" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>"class="input-text-style">
+                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>" required>
+                  <i class="errormessage"> <?php echo $errorpasswordmessage ?> </i>
                 </div>
             </div>
 
@@ -233,5 +282,6 @@ if (! isset($_GET["username"])) {
         
     </div>
     </div>
+</body>
     
 </html>

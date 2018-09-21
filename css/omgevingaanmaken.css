@@ -4,14 +4,19 @@
     font-family: ubuntu-regular;
     width: 75%;
     margin-left: 12.5%;
-    margin-top: 100px;
+    margin-top: 19px;
     background-color: white;
+
+
 }
 
 .grid-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(10px, auto);
+    border: 1px solid #E2E9F0;
+
+
 }
 
 .grid-wrapper > div {
@@ -20,6 +25,7 @@
     background-color: white;
     padding: 1em;
     color: #444444;
+
 }
 
 .grid-header-left {

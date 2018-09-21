@@ -54,7 +54,11 @@ CREATE TABLE `insights_db`.`customer` (
 );
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('Notubiz');
 INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('3Dimerce');
-
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('Tangram');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('CTA_Consulting');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('VCS_Observation');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('Plinq');
+INSERT INTO `insights_db`.`customer` (`customerName`) VALUES ('Progress');
 
 
 create table insights_db.environment (
