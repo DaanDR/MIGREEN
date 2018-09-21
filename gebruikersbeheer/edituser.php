@@ -227,10 +227,10 @@ if (! isset($_GET["username"])) {
                             <span class="password-infotext">Je wachtwoord moet minimaal bestaan uit:<p> 8 karakter met 1 hoofdletter en 1 nummer</p>
                             </span>
                         </span>
-                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" required>
+                    <br><input id="<?php echo $errorinputid ?>" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="minimaal: 8 karakters, 1 Hoofdletter, 1 Nummer" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>" >
                 </div>
                 <div class="password-form-confirm">
-                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>" required>
+                    Herhaal wachtwoord <br><input id="<?php echo $errorinputid ?>" type="password" name="password2" class="input-text-style" value="<?= isset($_POST['password2']) ? $_POST['password2'] : ''; ?>" >
                   <i class="errormessage"> <?php echo $errorpasswordmessage ?> </i>
                 </div>
             </div>
