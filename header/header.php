@@ -114,6 +114,13 @@ function active($currect_page){
 					<li><a id="hover" class="<?php active('omgevingsoverzicht.php');?>"
 						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
+                <!--als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
+                <li><a id="hover" class="<?php
+                    active('overzicht.php');
+                    active('createuser.php');
+                    ?>"
+                       href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
+
 
                 <li><a id="hover" class="<?php
                     active('customers.php');
