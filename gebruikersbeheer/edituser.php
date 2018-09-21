@@ -139,11 +139,15 @@ if (! isset($_GET["username"])) {
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="../css/content.css">
+<!--    <link rel="stylesheet" href="../css/content.css">-->
+    <link rel="stylesheet" href="../css/overzicht.css">
+
 
     <meta charset="utf-8">
     <title>Gebruiker Bewerken</title>
 </head>
+<body id="overzicht-container">
+
 
 <div class="grid-container" <?php echo $adminLoggedin ?> >
     
@@ -233,5 +237,6 @@ if (! isset($_GET["username"])) {
         
     </div>
     </div>
+</body>
     
 </html>
