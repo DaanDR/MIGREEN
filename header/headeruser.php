@@ -1,10 +1,9 @@
 <?php
 if (!isset($_SESSION)) session_start();
-
  // ini_set('display_errors', 1);
 
-include_once("../config/configure.php");
-include_once("../error/ErrorMessage.php");
+ include_once ("../config/configure.php");
+ include_once ("../error/ErrorMessage.php");
 
 //  Voor de title bar
     $title = "";
@@ -60,27 +59,27 @@ include_once("../error/ErrorMessage.php");
         {
             $userName = $_SESSION['username'];
 //            echo "$userName";
-    echo '<script type="text/javascript">
+            echo '<script type="text/javascript">
                         parent.window.location.href = "http://' . APP_PATH . 'gebruikersbeheer/edituser.php?username=' . $userName . '";
                     </script>
                     ';
-}
+        }
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" href="../css/header.css">
-    <link type="text/css" rel="stylesheet" href="../css/error.css">
-    <link type="text/css" rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-          crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="../css/header.css">
+<link type="text/css" rel="stylesheet" href="../css/error.css">
+<link type="text/css" rel="stylesheet" href="../css/form.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
 
     <?php
 function active($currect_page){
@@ -93,44 +92,27 @@ function active($currect_page){
 ?>
 
 
-    ?>
 
 
-    <title><?php echo $title ?></title>
+<title><?php echo $title ?></title>
 </head>
-<body>
-<div id="headerbody">
+<body >
+    <div id="headerbody">
     <div id="compleet">
-        <div id="logo">MyInsights</div>
-        <ul class="mainmenu">
+    <div id="logo">MyInsights</div>
+		<ul class="mainmenu">
             <div class="hoofdmenu">
-                <li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
-                       class="fas fa-home"></a></li>
+			<li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
+				class="fas fa-home"></a></li>
 
-                <!--als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
-                <li><a id="hover" class="<?php
-                    active('overzicht.php');
-                    active('createuser.php');
-                    ?>"
-                       href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
-
-
-                <li><a id="hover" class="<?php
-                    active('customers.php');
-                    active('createcustomer.php');
-                    ?>"
-                       href="../klantbeheer/customers.php">KLANTEN</a></li>
-
-                                                            </div>
-
-
+                <!-- als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
+            </div>
 
             <div id="dropdown-window">
-            <li><i class="fas fa-user"></i>
-                <ul class="dropdown-content">
+            <li><i class="fas fa-user" style="margin-left: 30em;"></i>
+                <ul class="dropdown-content" style="margin-left: 43em;">
                     <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
-                    </hr>
-                    <li id="logout-dropdown"><a  href="?action=logout">Uitloggen</a></li>
+                    <li id="dropdown-padding"><a  href="?action=logout">Uitloggen</a></li>
                 </ul>
                 </div>
 		</ul>

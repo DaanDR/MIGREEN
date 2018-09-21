@@ -21,8 +21,9 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("prevBtn").innerHTML = "Annuleren";
         document.getElementById("prevBtn").onclick = function (){
-            if(confirm('Weet u het zeker')){
-                window.location.href = 'overzicht.html';
+            if(confirm('Weet u het zeker ? ')){
+                window.location.href = 'omgevingsoverzicht.php', target="_self";
+
             }
         };
     } else {

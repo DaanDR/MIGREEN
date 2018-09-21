@@ -1,10 +1,18 @@
 <?php
+ob_start();
 
 // Header toevoegen aan pagina
 include ('../header/header.php');
 
 // Laden van de php met sql queries
 include ('../klantbeheer/CustomerDaoMysql.php');
+
+// Error Message
+include_once ("../error/ErrorMessage.php");
+include_once ("../config/configure.php");
+
+// Instantiate Error class
+$errMessage = new ErrorMessage();
 
 // Niewe database connectie aanmaken en alle klanten selecteren voor het overzicht
 $customerdaomysql = new CustomerDaoMysql();
@@ -60,7 +68,6 @@ if (! $userLoggedin->isAdmin()) {
 								href="../klantbeheer/editcustomer.php?customer=<?php echo $client["customerName"]; ?>"><img
 									src='../res/edit.svg'><img src='../res/edit-hover.svg'></a></i>
 							<i class='deletebutton'><a
-								onclick="return confirm('Wilt u klant <?php echo $client["customerName"] ?> echt verwijderen?');"
 								href="../klantbeheer/customers.php?action=delete&customer=<?php echo $client["customerName"]; ?>"><img
 									src='../res/delete.svg'><img src='../res/delete-hover.svg'></a></i></td>
 					</tr>
@@ -84,13 +91,24 @@ switch ($action) {
     case "Home":
         break;
     case "delete":
-        if (isset($_GET['customer'])) {
-            // Klant verwijderen uit de database met soft-delete
-            $deleteCustomer = $customerdaomysql->deleteCustomer($_GET['customer']);
-            header("Location: ../klantbeheer/customers.php");
+		if (isset($_GET['customer'])) 
+		{
+			// Klant verwijderen uit de database met soft-delete
+			$strUrl = 'http://' . APP_PATH . 'klantbeheer/customers.php?action=delete&customer=' . $_GET['customer'] . '&dodelete=1';
+            $strUrlCancel = 'http://' . APP_PATH . 'klantbeheer/customers.php';
+            echo $errMessage->createErrorMessageConfirmButton('<h2>Delete Klant</h2>Weet je zeker dat je ' . $_GET['customer']  . ' wilt verwijderen?', $strUrl, $strUrlCancel, 'buttOkDelete');
+            
+            if(isset($_GET['dodelete']))
+            {
+				$deleteCustomer = $customerdaomysql->deleteCustomer($_GET['customer']);
+                header("Location: http://" . APP_PATH . "klantbeheer/customers.php");
+			}
         }
         break;
 }
 ?>
+
+<script src="../js/confirmdelete.js"></script>
+<script src="../js/error.js"></script>
 </body>
 </html>

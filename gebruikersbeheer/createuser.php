@@ -190,7 +190,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firs
 
             <div class="user-form form-field-padding form-field-style">
                 Gebruikersnaam
-                <br><input id="<?php echo $errorinputdusername ?>" type="text" name="username" minlength=5 class="input-text-style" required value="<?= isset($_POST['username']) ? $_POST['username'] : ''; ?>">
+                <br><input id="<?php echo $errorinputusername ?>" type="text" name="username" minlength=5 class="input-text-style" required value="<?= isset($_POST['username']) ? $_POST['username'] : ''; ?>">
                 <i class="errormessage"> <?php echo $errorusernamemessage ?></i>
             </div>
 
