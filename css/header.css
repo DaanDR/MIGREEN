@@ -111,9 +111,6 @@
     padding-top: 2px;
 }
 
-#dropdown-padding {
-    padding-left: 0px;
-}
 
 .dropdown-content{
     display: none;
@@ -123,15 +120,33 @@
     font-size: 70%;
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 0px 5px;
+    padding: 0px 0px;
     z-index: 1;
+    border-radius: 5px;
+
 }
 
 
 .dropdown-content li a{
     color: black;
     text-align: left;
-    padding-top: 1px;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+#dropdown-padding {
+
+    padding-left: 0px;
+    width: 100%;
+
+}
+
+#logout-dropdown {
+    padding-top: 0%;
+    border-top: 1px solid #F2F6FA;
+    padding-left: 0;
+    width: 100%;
+
 }
 
 .dropdown-content li a:hover{
