@@ -92,10 +92,6 @@ function active($currect_page){
 }
 ?>
 
-
-    ?>
-
-
     <title><?php echo $title ?></title>
 </head>
 <body>
@@ -120,6 +116,12 @@ function active($currect_page){
                     active('createcustomer.php');
                     ?>"
                        href="../klantbeheer/customers.php">KLANTEN</a></li>
+
+                <li><a id="hover" class="<?php
+                    active('omgevingsoverzicht.php');
+                    active('createenvironment.php');
+                    ?>"
+                       href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
                                                             </div>
 
