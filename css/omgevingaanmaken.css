@@ -159,7 +159,7 @@ li > input, select  {
 }
 
 .progressbar-icon {
-    margin-top: 12px;
+    margin-top: 9px;
     font-size:200%;
     color: white;
 }
@@ -196,7 +196,7 @@ li > input, select  {
     margin-top: 58px;
     margin-left: 5px;
     font-weight: bolder;
-    font-size: 110%;
+    font-size: 100%;
     color: #cbcbcb;
 }
 
@@ -206,7 +206,7 @@ li > input, select  {
 }
 
 .progressbar-col-titles > div {
-    padding-bottom: 87px;
+    padding-bottom: 80px;
 }
 
 /* Mark input boxes that gets an error on validation: */

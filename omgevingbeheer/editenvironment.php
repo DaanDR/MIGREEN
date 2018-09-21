@@ -168,7 +168,6 @@ if( ! $userLoggedin->isAdmin() )
 
         <div class="grid-footer-right">
             <div class="gebruikeraanmaken-buttons">
-                <a href="omgevingsoverzicht.php" target="_self">
                     <button class="button-form-secondary" type="button" id="prevBtn" onclick="nextPrev(-1)">Annuleren</button></a>
                 <button class="button-form-primary" type="submit" id="nextBtn" onclick="nextPrev(1)"> Opslaan </button>
                 <!-- buttons -->
