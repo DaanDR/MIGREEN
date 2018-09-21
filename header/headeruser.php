@@ -1,6 +1,5 @@
 <?php
 if (!isset($_SESSION)) session_start();
-
  // ini_set('display_errors', 1);
 
  include_once ("../config/configure.php");
@@ -106,22 +105,12 @@ function active($currect_page){
 			<li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
 				class="fas fa-home"></a></li>
 
-					<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
-					<li><a id="hover" class="<?php active('overzicht.php');?>"
-						href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
-					<li><a id="hover" class="<?php active('customers.php');?>"
-						href="../klantbeheer/customers.php">KLANTEN</a></li>
-					<li><a id="hover" class="<?php active('omgevingsoverzicht.php');?>"
-						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
-
-
-                                                            </div>
-
-
+                <!-- als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
+            </div>
 
             <div id="dropdown-window">
-            <li><i class="fas fa-user"></i>
-                <ul class="dropdown-content">
+            <li><i class="fas fa-user" style="margin-left: 30em;"></i>
+                <ul class="dropdown-content" style="margin-left: 43em;">
                     <li id="dropdown-padding"><a  href="../header/header.php?action=account"> Account </a></li>
                     <li id="dropdown-padding"><a  href="?action=logout">Uitloggen</a></li>
                 </ul>
