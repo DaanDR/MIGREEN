@@ -106,14 +106,6 @@ function active($currect_page){
 			<li><a id="home-button" href="../systeemoverzicht/systeemoverzicht.php"
 				class="fas fa-home"></a></li>
 
-					<!--                 als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
-					<li><a id="hover" class="<?php active('overzicht.php');?>"
-						href="../gebruikersbeheer/overzicht.php">GEBRUIKERS</a></li>
-					<li><a id="hover" class="<?php active('customers.php');?>"
-						href="../klantbeheer/customers.php">KLANTEN</a></li>
-					<li><a id="hover" class="<?php active('omgevingsoverzicht.php');?>"
-						href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
-
                 <!--als je hier een link wilt toevoegen die active is zodra hij bezocht wordt voeg je in de class de filename toe en in de href de file path, php herkent zelf de pagina waar hij op zit en zet deze op active -->
                 <li><a id="hover" class="<?php
                     active('overzicht.php');
@@ -135,8 +127,6 @@ function active($currect_page){
                        href="../omgevingbeheer/omgevingsoverzicht.php" class="btn">OMGEVINGEN</a></li>
 
                                                             </div>
-
-
 
             <div id="dropdown-window">
             <li><i class="fas fa-user"></i>
