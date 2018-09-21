@@ -28,7 +28,6 @@ if (! $userLoggedin->isAdmin()) {
 <link rel="stylesheet" type="text/css" href="../css/overzicht.css">
 <title>Klantenoverzicht</title>
 </head>
-<body>
 
 
 <body id="overzicht-container">

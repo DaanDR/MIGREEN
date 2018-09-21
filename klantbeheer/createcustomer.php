@@ -3,14 +3,16 @@
 <head>
 <!-- Meegeven van de juiste css file -->
 <link rel="stylesheet" type="text/css" href="../css/customerforms.css">
+<!--    <link rel="stylesheet" href="../css/form.css">-->
+    <!--    <link rel="stylesheet" href="../css/content.css">-->
+    <link rel="stylesheet" href="../css/overzicht.css">
 </head>
 
 <?php
 include ('../klantbeheer/CustomerDaoMysql.php');
 
 ?>
-<body>
-	<div id="pageheader"><?php
+<?php
 // Header toevoegen aan de pagina
 include ('../header/header.php');
 
@@ -27,41 +29,42 @@ if (! $userLoggedin->isAdmin()) {
 }
 ?>
 </div>
-	<div id="pagestyling" <?php echo $adminLoggedin ?>>
+
+<body id="overzicht-container">
+
+	<div class="grid-container"<?php echo $adminLoggedin ?>>
 		<!-- Div voor het formulier voor aanmaken klant -->
-		<div id="createCustomer">
+
+            <div class="header-left">
+                <p class="breadcrumb">Home <i id="triangle-breadcrumb" class="fas fa-caret-right"></i> Klantenoverzicht</p>
+                <h2>Nieuwe klant aanmaken</h2>
+            </div>
 			<table>
-				<thead>
-					<tr class="nohover">
-						<th id="tabletitle">Home <img src='../res/kruimelpad-arrow.svg'>
-							Klantenoverzicht
-							<p>Klant</p>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="nohover">
-						<td>
-							<form method="post" action="../klantbeheer/createcustomer.php">
+
+					<div class="content">
+										<form method="post" action="../klantbeheer/createcustomer.php">
 								<div id="formName">
 									Klantnaam<br> <br> <input type="text" name="customerName"
 										id="customerName" value="<?= isset($_POST['customerName']) ? $_POST['customerName'] : ''; ?>">
 								</div>
-								<div id="crudbuttons">
-									<div id="cancelButton">
-										<input type="button" value="Annuleren"
-											onclick="location.href = 'customers.php'">
-									</div>
-									<div id="createButton">
-										<input type="submit" value="Opslaan" name="createButton">
+
+								<div class="footer-right">
+									<div id="crudbuttons">
+										<div id="cancelButton">
+											<input type="button" value="Annuleren"
+												onclick="location.href = 'customers.php'">
+										</div>
+										<div id="createButton">
+											<input type="submit" value="Opslaan" name="createButton">
+										</div>
 									</div>
 								</div>
 							</form>
-						</td>
+                    </div>
+						
 				
 				</tbody>
 			</table>
-		</div>
 	</div>
 	<script src="../js/customers.js"></script>
 	<?php
@@ -75,11 +78,11 @@ if (isset($_POST['customerName'])) {
     if (strlen($newCustomerName) < 2) {
         echo "<script type='text/javascript'>stringTooShort();</script>";
         
-    // als de klantnaam spaties bevat: geef foutmelding
+        // als de klantnaam spaties bevat: geef foutmelding
     } else if (preg_match('/\s/', $newCustomerName)) {
         echo "<script type='text/javascript'>noSpaces();</script>";
         
-    // geen foutmelding: ga verder met toevoegen
+        // geen foutmelding: ga verder met toevoegen
     } else {
         
         // Klantnaam variabele om gegevens uit database in op te slaan
@@ -94,7 +97,7 @@ if (isset($_POST['customerName'])) {
         if ($oldCustomerName !== null && $newCustomerName == $oldCustomerName) {
             echo "<script type='text/javascript'>alert('Deze klant bestaat al in de database');</script>";
             
-        // Check doorgekomen: voeg toe aan database    
+            // Check doorgekomen: voeg toe aan database
         } else {
             $createCustomer = $customerdaomysql->insertCustomer($_POST['customerName']);
             header('Location: ../klantbeheer/customers.php');

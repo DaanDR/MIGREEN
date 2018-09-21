@@ -91,10 +91,11 @@ include ("../header/header.php");
     <meta charset="utf-8">
     <title>Omgeving Aanmaken</title>
 </head>
-<body>
+<body id="overzicht-container">
 <div class="container" <?php echo $adminLoggedin ?> >
 
     <div class="grid-wrapper" >
+
         <div class="grid-header-left">
             <p class="breadcrumb">Home &nbsp;<i id="triangle-breadcrumb" class="fas fa-caret-right"></i> &nbsp;Omgevingenoverzicht</p>
             <h2>Omgeving aanmaken</h2>
