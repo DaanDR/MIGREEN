@@ -1,6 +1,15 @@
 <?php
+ob_start();
+
   include('../header/header.php'); 
   include('../omgevingbeheer/EnvironmentDaoMysql.php');
+
+  // Error Message
+  include_once ("../error/ErrorMessage.php");
+  include_once ("../config/configure.php");
+
+  // Instantiate Error class
+  $errMessage = new ErrorMessage();
   
   // Check of user is ingelogged en anders terug naar de login pagina
   include_once ("../autorisatie/UserIsLoggedin.php");
@@ -69,7 +78,7 @@
                   <i class="editbutton"><img src='../res/edit.svg'><img
                   src='../res/edit-hover.svg'></i></a>
                 <a href="../omgevingbeheer/omgevingsoverzicht.php?action=delete&systemName=<?php echo $systemName; ?>">
-                  <i class="deletebutton" onclick="return confirmDelete('<?php echo $systemName ?>');"><img src='../res/delete.svg'><img
+                  <i class="deletebutton"><img src='../res/delete.svg'><img
                   src='../res/delete-hover.svg'></i></a>
             </td>              
           </tr>
@@ -105,19 +114,31 @@
     }
 
       
-    function delete($systemName, $dao) {
-            $succes = $dao->deactivateEnvironment($systemName);
-            header("Location: http://" . APP_PATH . "omgevingbeheer/omgevingsoverzicht.php");
-            if (!$succes) {
-                echo "Omgeving kon niet worden verwijderd.";
+    function delete($systemName, $dao) 
+    {
+          // Instantiate Error class en set de Error message
+          $errMessage = new ErrorMessage();
+
+            $strUrl = 'http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php?action=delete&systemName=' . $systemName . '&dodelete=1';
+            $strUrlCancel = 'http://' . APP_PATH . 'omgevingbeheer/omgevingsoverzicht.php';
+            echo $errMessage->createErrorMessageConfirmButton('<h2>Delete Omgeving</h2>Weet je zeker dat je ' . $systemName  . ' wilt verwijderen?', $strUrl, $strUrlCancel, 'buttOkDelete');
+            
+            if(isset($_GET['dodelete']))
+            {
+                $succes = $dao->deactivateEnvironment($systemName);
+                header("Location: http://" . APP_PATH . "omgevingbeheer/omgevingsoverzicht.php");
+                if (!$succes) 
+                {
+                    echo "Omgeving kon niet worden verwijderd.";
+                }
             }
-        
     }
 
 
 ?>
 
+<script src="../js/confirmdelete.js"></script>
+<script src="../js/error.js"></script>
 </body>
-
 </html>
 
